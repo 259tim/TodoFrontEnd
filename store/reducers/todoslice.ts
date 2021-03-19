@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { rootState } from '../../store'
 
 interface todoState {
     text: string
@@ -18,8 +19,8 @@ export const todoSlice = createSlice({
     }
 })
 
-export const {store} = todoSlice.actions
+export const { store } = todoSlice.actions;
 
-export const selectText = (state: todoState) => state.text
+export const selectText = (state: rootState) => state.todo.text;
 
-export default todoSlice.reducer
+export default todoSlice.reducer;

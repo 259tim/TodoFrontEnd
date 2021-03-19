@@ -24,7 +24,7 @@ type Props = {
 //this is the page, the style items come from the stylesheet in styles.ts
 const MainPage: React.FC<Props> = ({navigation}) => {
 
-        // these are the relevant hooks, this manages the values in a todo, the full array of todo items, and errors
+    // these are the relevant hooks, this manages the values in a todo, the full array of todo items, and errors
 
     const [text, setText] = useState<string>("");
     const [toDoList, setToDos] = useState<IToDo[]>([]);

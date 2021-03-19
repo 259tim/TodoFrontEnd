@@ -17,8 +17,8 @@ export interface Props {
 const DetailScreen: React.FC<Props> = (props) => {
 
     const [isHungry, setIsHungry] = useState(true);
-    const stateText = useSelector(selectText)  
-
+    const stateText = useSelector(selectText);  
+    console.log("selector:", stateText);
     return (
       <View>
   
