@@ -1,26 +1,31 @@
 import React, { useState } from 'react';
 import { Text, View, Button } from 'react-native';
 import { useSelector } from 'react-redux';
+// redux imports
 import {
   selectTodoList 
 } from '../store/reducers/todoslice'
+// type imports
+import { DetailNavigation, DetailRoute } from '../types/types';
 
-// This defines the types for all the props that this page will use!
-export interface Props {
-    text: string;
-  }
 
-// Cat has some different things: it has props containing "name" and it has a button that
-// triggers a state defined above
-const DetailScreen: React.FC<Props> = (props) => {
+type Props = {
+  route: DetailRoute;
+  navigation: DetailNavigation;
+};
 
+// The detail page can now take information routed to it
+// the index that is used to request the correct entry in the store's array is sent through react-navigation
+const DetailScreen: React.FC<Props> = ({route, navigation}) => {
+
+    const index = route.params.index;
     const [isHungry, setIsHungry] = useState(true);
     const todoList = useSelector(selectTodoList);  
     console.log(todoList)
     return (
       <View>
   
-        <Text>Hello, I am {todoList[0]} and I am {isHungry ? "hungry!" : "full of food..."} </Text>
+        <Text>Hello, I am {todoList[index]} and I am {isHungry ? "hungry!" : "full of food..."} </Text>
         
         <Button
           onPress={() => {

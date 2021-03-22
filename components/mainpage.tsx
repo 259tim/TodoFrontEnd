@@ -2,7 +2,14 @@ import { styles } from './styles';
 import * as React from 'react';
 import { useState } from 'react';
 import { Text, View, TextInput, Button, ScrollView, SafeAreaView } from 'react-native';
-import { StackNavigationProp } from '@react-navigation/stack';
+// type imports
+import { DetailNavigation, DetailRoute } from '../types/types';
+
+type Props = {
+  route: DetailRoute;
+  navigation: DetailNavigation;
+};
+
 //redux imports
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -10,16 +17,6 @@ import {
     remove,
     selectTodoList 
 } from '../store/reducers/todoslice'
-
-
-export type StackParamList = {
-    Details: { name: string };
-    Profile: { name: string};
-};
-
-type Props = {
-    navigation: StackNavigationProp<StackParamList,'Details'>;
-};
 
 //this is the page, the style items come from the stylesheet in styles.ts
 const MainPage: React.FC<Props> = ({navigation}) => {
@@ -89,7 +86,8 @@ const MainPage: React.FC<Props> = ({navigation}) => {
                 />
                 <Button 
                     title = "INFO" onPress={() =>
-                    navigation.navigate('Details', {name: 'Details'})}
+                    navigation.navigate('Details', 
+                    {index})}
                 />
             </View>
             ))}

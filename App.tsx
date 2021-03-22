@@ -18,10 +18,11 @@ import { Provider } from 'react-redux';
 import MainPage from './components/mainpage';
 import DetailPage from './components/detailpage';
 
-
+//type imports
+import { RootStackParameters } from './types/types'
 
 // integrating the navigation library for multiple windows
-const Stack = createStackNavigator();
+const Stack = createStackNavigator<RootStackParameters>();
 
 // type definitions for navigation 
 
