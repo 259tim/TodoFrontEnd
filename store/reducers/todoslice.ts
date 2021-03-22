@@ -2,25 +2,30 @@ import { createSlice } from '@reduxjs/toolkit'
 import { rootState } from '../../store'
 
 interface todoState {
-    text: string
+    todoList: string[]
 }
 
 const initialState: todoState = {
-    text: "initialtext"
+    todoList : []
 }
 
 export const todoSlice = createSlice({
     name: 'todo',
     initialState,
     reducers: { 
-        store: (state, action) => {
-            state.text = action.payload
+        save: (state, action) => {
+            state.todoList.push(action.payload)
+            console.log(state.todoList)
+        },
+        remove: (state, action) => {
+            state.todoList.splice(action)
+            console.log(state.todoList)
         }
     }
 })
 
-export const { store } = todoSlice.actions;
+export const { save } = todoSlice.actions;
 
-export const selectText = (state: rootState) => state.todo.text;
+export const selectTodoList = (state: rootState) => state.todo.todoList;
 
 export default todoSlice.reducer;
