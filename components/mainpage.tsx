@@ -3,7 +3,7 @@ import * as React from 'react';
 import { useState } from 'react';
 import { Text, View, TextInput, Button, ScrollView, SafeAreaView } from 'react-native';
 // type imports
-import { DetailNavigation, DetailRoute } from '../types/types';
+import { DetailNavigation, DetailRoute } from '../types/navtypes';
 
 type Props = {
   route: DetailRoute;

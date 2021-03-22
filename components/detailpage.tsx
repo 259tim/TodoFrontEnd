@@ -6,7 +6,7 @@ import {
   selectTodoList 
 } from '../store/reducers/todoslice'
 // type imports
-import { DetailNavigation, DetailRoute } from '../types/types';
+import { DetailNavigation, DetailRoute } from '../types/navtypes';
 
 
 type Props = {

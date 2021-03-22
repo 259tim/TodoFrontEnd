@@ -1,36 +1,52 @@
-// started out with https://medium.com/@amanshharma/react-native-todo-app-using-typescript-and-hooks-bacc5db05100
-// currently working on: https://redux.js.org/tutorials/essentials/part-1-overview-concepts ->
-// Redux will allow me to store data locally
+// custom font was set as such: https://stackoverflow.com/questions/35255645/how-to-set-default-font-family-in-react-native 
 import * as React from 'react';
 import 'react-native-gesture-handler';
+import { useFonts, Ubuntu_500Medium, Ubuntu_700Bold } from '@expo-google-fonts/ubuntu';
+import { setCustomText, setCustomTextInput } from 'react-native-global-props';
+import AppLoading from 'expo-app-loading';
 
 //react-navigation imports
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { RouteProp } from '@react-navigation/native';
-
 // redux imports
 import store from './store'
 import { Provider } from 'react-redux';
-
 // my own component imports
 import MainPage from './components/mainpage';
 import DetailPage from './components/detailpage';
-
 //type imports
-import { RootStackParameters } from './types/types'
+import { RootStackParameters } from './types/navtypes'
 
 // integrating the navigation library for multiple windows
 const Stack = createStackNavigator<RootStackParameters>();
 
 // type definitions for navigation 
-
 export type StackParamList = {
   Profile: { name: string };
 };
 
+//add ubuntu as custom default font
+const customTextProps = {
+  style: {
+    fontFamily: 'Ubuntu_500Medium'
+  }
+}
+
+setCustomText(customTextProps);
+setCustomTextInput(customTextProps);
+
 export default function App() {
+  let [fontsloaded] = useFonts({
+    Ubuntu_500Medium,
+    Ubuntu_700Bold,
+  });
+
+  
+
+  if (!fontsloaded) {
+    return <AppLoading />;
+  }
+
   return (
     <Provider store={store}>
     <NavigationContainer>
@@ -44,9 +60,9 @@ export default function App() {
              headerStyle: {
                backgroundColor: '#007DB7'
              },
-            //  headerTitleStyle: {
-            //   fontFamily: U
-            //  },
+             headerTitleStyle: {
+              fontFamily: "Ubuntu_500Medium"
+             },
              headerTintColor: '#FFFFFF' 
             }}
         />
@@ -59,9 +75,9 @@ export default function App() {
           headerStyle: {
             backgroundColor: '#007DB7'
           },
-         //  headerTitleStyle: {
-         //   fontFamily: U
-         //  },
+          headerTitleStyle: {
+           fontFamily: 'Ubuntu_500Medium'
+          },
           headerTintColor: '#FFFFFF' 
          }} 
          />

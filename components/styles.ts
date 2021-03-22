@@ -1,7 +1,11 @@
 import { StyleSheet } from "react-native";
+import { useFonts, Ubuntu_500Medium, Ubuntu_700Bold } from '@expo-google-fonts/ubuntu';
+// I have to figure out how to use these fonts in here
+
 
 //stylesheet with all the relevant items
-const styles = StyleSheet.create({
+const styles = StyleSheet.create(
+  {
     ScrollContainer: {
       width: "100%"
     },
@@ -11,7 +15,7 @@ const styles = StyleSheet.create({
     },
     inputWrapper: {
       width: "100%",
-      flexDirection: "row",
+      flexDirection: "row", 
       justifyContent: "space-between",
       marginBottom: 20
     },
@@ -25,7 +29,7 @@ const styles = StyleSheet.create({
     title: {
       fontSize: 40,
       marginBottom: 40,
-      fontWeight: "bold",
+      // fontFamily: 'Ubuntu_700Bold',
       color: "#2B0A3D"
     },
     subtitle: {
