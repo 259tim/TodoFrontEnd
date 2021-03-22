@@ -1,12 +1,21 @@
-import { configureStore } from "@reduxjs/toolkit"
-import todoReducer from './store/reducers/todoslice'
+import { configureStore, createStore, Store } from '@reduxjs/toolkit'
+import { persistStore, persistReducer } from 'redux-persist'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import rootReducer from './store/reducers/rootreducer'
 
-const store = configureStore({
-    reducer: {
-        todo: todoReducer
-    }
-})
+// https://levelup.gitconnected.com/persisting-your-react-application-state-with-redux-and-typescript-51e4e66c4e53 < for persist
+const persistConfig = {
+    key: 'root',
+    storage: AsyncStorage
+}
 
-export type rootState = ReturnType<typeof store.getState>
-export type AppDispatch = typeof store.dispatch
-export default store;
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+
+
+const mystore = createStore(
+    persistedReducer
+);
+
+export type rootState = ReturnType<typeof mystore.getState>
+export type AppDispatch = typeof mystore.dispatch
+export default mystore;

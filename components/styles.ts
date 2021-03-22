@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet } from 'react-native';
 import { useFonts, Ubuntu_500Medium, Ubuntu_700Bold } from '@expo-google-fonts/ubuntu';
 // I have to figure out how to use these fonts in here
 
@@ -7,23 +7,27 @@ import { useFonts, Ubuntu_500Medium, Ubuntu_700Bold } from '@expo-google-fonts/u
 const styles = StyleSheet.create(
   {
     ScrollContainer: {
-      width: "100%"
+      width: "100%",
+      paddingBottom: 160
     },
     container: {
       padding: 35,
       alignItems: "center"
     },
     inputWrapper: {
-      width: "100%",
+      justifyContent: "center",
+      alignItems: "center",
+      width: "110%",
+      height: 50,
       flexDirection: "row", 
-      justifyContent: "space-between",
-      marginBottom: 20
+      marginBottom: 10,
+
     },
     inputBox: {
-      width: 200,
+      width: '100%',
+      height: 40,
       borderColor: "#2B0A3D",
-      borderRadius: 8,
-      borderWidth: 2,
+      borderBottomWidth: 2,
       paddingLeft: 8
     },
     title: {
@@ -46,8 +50,17 @@ const styles = StyleSheet.create(
       paddingLeft: 10,
       paddingRight: 10
     },
-    addButton: {
-      alignItems: "flex-end"
+    DefaultButtonStyle: {
+      width: 120,
+      height: 50,
+      paddingTop:15,
+      paddingBottom:15,
+      backgroundColor:'#007DB7',
+      borderRadius:10,
+    },
+    DefaultButtonText: {
+      textAlign: 'center',
+      color: '#FFFFFF'
     },
     task: {
       width: 200

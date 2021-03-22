@@ -9,13 +9,18 @@ import AppLoading from 'expo-app-loading';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 // redux imports
-import store from './store'
+import mystore from './store'
 import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react'
+import { persistStore } from "redux-persist"
 // my own component imports
 import MainPage from './components/mainpage';
 import DetailPage from './components/detailpage';
 //type imports
 import { RootStackParameters } from './types/navtypes'
+
+// persist the store
+const persistor = persistStore(mystore);
 
 // integrating the navigation library for multiple windows
 const Stack = createStackNavigator<RootStackParameters>();
@@ -48,42 +53,44 @@ export default function App() {
   }
 
   return (
-    <Provider store={store}>
-    <NavigationContainer>
-      <Stack.Navigator>
-        
-        <Stack.Screen
-          name="Home"
-          component={MainPage}
-          options={{
-             title: 'Home',
-             headerStyle: {
-               backgroundColor: '#007DB7'
-             },
-             headerTitleStyle: {
-              fontFamily: "Ubuntu_500Medium"
-             },
-             headerTintColor: '#FFFFFF' 
-            }}
-        />
-        
-        <Stack.Screen
-         name="Details" 
-         component={DetailPage} 
-         options={{
-          title: 'Details',
-          headerStyle: {
-            backgroundColor: '#007DB7'
-          },
-          headerTitleStyle: {
-           fontFamily: 'Ubuntu_500Medium'
-          },
-          headerTintColor: '#FFFFFF' 
-         }} 
-         />
+    <Provider store={mystore}>
+      <PersistGate loading={null} persistor={persistor}>
+        <NavigationContainer>
+          <Stack.Navigator>
+            
+            <Stack.Screen
+              name="Home"
+              component={MainPage}
+              options={{
+                title: 'Home',
+                headerStyle: {
+                  backgroundColor: '#007DB7'
+                },
+                headerTitleStyle: {
+                  fontFamily: "Ubuntu_500Medium"
+                },
+                headerTintColor: '#FFFFFF' 
+                }}
+            />
+            
+            <Stack.Screen
+            name="Details" 
+            component={DetailPage} 
+            options={{
+              title: 'Details',
+              headerStyle: {
+                backgroundColor: '#007DB7'
+              },
+              headerTitleStyle: {
+              fontFamily: 'Ubuntu_500Medium'
+              },
+              headerTintColor: '#FFFFFF' 
+            }} 
+            />
 
-      </Stack.Navigator>
-    </NavigationContainer>
+          </Stack.Navigator>
+        </NavigationContainer>
+      </PersistGate>
     </Provider>
   );
 }

@@ -17,6 +17,7 @@ import {
     remove,
     selectTodoList 
 } from '../store/reducers/todoslice'
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 //this is the page, the style items come from the stylesheet in styles.ts
 const MainPage: React.FC<Props> = ({navigation}) => {
@@ -53,7 +54,15 @@ const MainPage: React.FC<Props> = ({navigation}) => {
             onChangeText={text => setText(text)}
             defaultValue={text}
         style={styles.inputBox}/>
-        <Button title="Add Task" onPress={handleSubmit} />
+        
+        </View>
+        <View style={styles.inputWrapper}>
+            <TouchableOpacity
+                        onPress={handleSubmit}
+                        style={styles.DefaultButtonStyle}
+                    >
+                    <Text style={styles.DefaultButtonText}>Add new task</Text>
+            </TouchableOpacity>
         </View>
 
         {/*This is a simplified way to write an if/else, instead of writing it out you simply do
@@ -71,27 +80,32 @@ const MainPage: React.FC<Props> = ({navigation}) => {
         This is a scrollview that allows the app to scroll when more todos are added
         it's wrapped in a view to give it proper sizing, otherwise it goes all over the place*/}
         <View style={{height:580, width: 390}}>
-        <ScrollView contentContainerStyle={styles.ScrollContainer}>  
-            {todoList.map((todo: string, index: number) => (
-            <View style={styles.listItem} key={`${index}_${todo}`}>
+        <View style={styles.ScrollContainer}>
+            <ScrollView>  
+                {todoList.map((todo: string, index: number) => (
+                <View style={styles.listItem} key={`${index}_${todo}`}>
 
-                <Text style={styles.task}>
-                {todo}
-                </Text>
+                    <Text style={styles.task}>
+                    {todo}
+                    </Text>
 
-                <Button 
-                    title = "X" 
-                    onPress={() => removeItem(index)} 
-                    color="crimson" 
-                />
-                <Button 
-                    title = "INFO" onPress={() =>
-                    navigation.navigate('Details', 
-                    {index})}
-                />
-            </View>
-            ))}
-        </ScrollView>
+                    <Button 
+                        title = "X" 
+                        onPress={() => removeItem(index)} 
+                        color="#2B0A3D" 
+                    />
+                    <TouchableOpacity
+                        onPress={() =>
+                        navigation.navigate('Details', 
+                        {index})}
+                        style={styles.DefaultButtonStyle}
+                    >
+                    <Text style={styles.DefaultButtonText}>More info</Text>
+                    </TouchableOpacity>
+                </View>
+                ))}
+            </ScrollView>
+        </View>
         </View>
     </SafeAreaView>
     )

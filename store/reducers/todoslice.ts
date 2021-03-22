@@ -26,6 +26,6 @@ export const todoSlice = createSlice({
 
 export const { save, remove } = todoSlice.actions;
 
-export const selectTodoList = (state: rootState) => state.todo.todoList;
+export const selectTodoList = (state: rootState) => state.todos.todoList;
 
 export default todoSlice.reducer;
