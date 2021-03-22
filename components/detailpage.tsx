@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
 import { Text, View, Button } from 'react-native';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import {
-  store,
-  selectText 
+  selectTodoList 
 } from '../store/reducers/todoslice'
-// ^ this might be wrong
 
 // This defines the types for all the props that this page will use!
 export interface Props {
@@ -17,12 +15,12 @@ export interface Props {
 const DetailScreen: React.FC<Props> = (props) => {
 
     const [isHungry, setIsHungry] = useState(true);
-    const stateText = useSelector(selectText);  
-    console.log("selector:", stateText);
+    const todoList = useSelector(selectTodoList);  
+    console.log(todoList)
     return (
       <View>
   
-        <Text>Hello, I am {stateText} and I am {isHungry ? "hungry!" : "full of food..."} </Text>
+        <Text>Hello, I am {todoList[0]} and I am {isHungry ? "hungry!" : "full of food..."} </Text>
         
         <Button
           onPress={() => {

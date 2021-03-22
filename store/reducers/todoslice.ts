@@ -18,13 +18,13 @@ export const todoSlice = createSlice({
             console.log(state.todoList)
         },
         remove: (state, action) => {
-            state.todoList.splice(action)
+            state.todoList.splice(action.payload)
             console.log(state.todoList)
         }
     }
 })
 
-export const { save } = todoSlice.actions;
+export const { save, remove } = todoSlice.actions;
 
 export const selectTodoList = (state: rootState) => state.todo.todoList;
 

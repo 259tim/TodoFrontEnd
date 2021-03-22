@@ -3,14 +3,14 @@ import * as React from 'react';
 import { useState } from 'react';
 import { Text, View, TextInput, Button, ScrollView, SafeAreaView } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+//redux imports
+import { useDispatch, useSelector } from 'react-redux';
+import {
+    save,
+    remove,
+    selectTodoList 
+} from '../store/reducers/todoslice'
 
-//type definition for a todo
-interface IToDo {
-    text: string;
-    completed: boolean;
-  }
 
 export type StackParamList = {
     Details: { name: string };
@@ -24,32 +24,27 @@ type Props = {
 //this is the page, the style items come from the stylesheet in styles.ts
 const MainPage: React.FC<Props> = ({navigation}) => {
 
-    // these are the relevant hooks, this manages the values in a todo, the full array of todo items, and errors
+    // for redux
+    const dispatch = useDispatch();
+    const todoList = useSelector(selectTodoList); 
+
+    // these are the relevant hooks, this manages setting text and errors
 
     const [text, setText] = useState<string>("");
-    const [toDoList, setToDos] = useState<IToDo[]>([]);
     const [error, showError] = useState<Boolean>(false);
-
+    
     //here are all the functions that perform stuff in the page
 
     const handleSubmit = (): void => {
     if (text.trim())
-        setToDos([...toDoList, {text: text, completed: false}])
+        dispatch(save(text))
     else showError(true);
     setText("");
     }
 
     const removeItem = (index: number): void => {
-    const newToDoList = [...toDoList];
-    newToDoList.splice(index, 1);
-    setToDos(newToDoList);
-    }
-
-    const toggleComplete = (index: number): void =>{
-    const newToDoList = [...toDoList];
-    newToDoList[index].completed = !newToDoList[index].completed;
-    setToDos(newToDoList);
-    }
+        dispatch(remove(index))
+    }   
 
     return (
     <SafeAreaView style={styles.container}>
@@ -71,7 +66,7 @@ const MainPage: React.FC<Props> = ({navigation}) => {
         <Text style={styles.subtitle}> Your Tasks:</Text>
         
         {/* same as above!! */}
-        {toDoList.length === 0 && <Text>No tasks available</Text>}
+        {todoList.length === 0 && <Text>No tasks available</Text>}
         
         {/*here I map the items in the ToDo array into a list,
         with a style change that does a strike-through if attribute "completed" is true
@@ -80,17 +75,13 @@ const MainPage: React.FC<Props> = ({navigation}) => {
         it's wrapped in a view to give it proper sizing, otherwise it goes all over the place*/}
         <View style={{height:580, width: 390}}>
         <ScrollView contentContainerStyle={styles.ScrollContainer}>  
-            {toDoList.map((toDo: IToDo, index: number) => (
-            <View style={styles.listItem} key={`${index}_${toDo.text}`}>
+            {todoList.map((todo: string, index: number) => (
+            <View style={styles.listItem} key={`${index}_${todo}`}>
 
-                <Text style={[styles.task,{ textDecorationLine: toDo.completed ? "line-through" : "none" }]}>
-                {toDo.text}
+                <Text style={styles.task}>
+                {todo}
                 </Text>
 
-                <Button 
-                    title={toDo.completed ? "Completed" : "To complete"} 
-                    onPress={() => toggleComplete(index)}
-                />
                 <Button 
                     title = "X" 
                     onPress={() => removeItem(index)} 

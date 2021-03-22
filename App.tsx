@@ -38,13 +38,31 @@ export default function App() {
         <Stack.Screen
           name="Home"
           component={MainPage}
-          options={{ title: 'Home' }}
+          options={{
+             title: 'Home',
+             headerStyle: {
+               backgroundColor: '#007DB7'
+             },
+            //  headerTitleStyle: {
+            //   fontFamily: U
+            //  },
+             headerTintColor: '#FFFFFF' 
+            }}
         />
         
         <Stack.Screen
          name="Details" 
          component={DetailPage} 
-         options={{ title: 'To-do details'}} 
+         options={{
+          title: 'Details',
+          headerStyle: {
+            backgroundColor: '#007DB7'
+          },
+         //  headerTitleStyle: {
+         //   fontFamily: U
+         //  },
+          headerTintColor: '#FFFFFF' 
+         }} 
          />
 
       </Stack.Navigator>

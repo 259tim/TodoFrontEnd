@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
     },
     inputBox: {
       width: 200,
-      borderColor: "purple",
+      borderColor: "#2B0A3D",
       borderRadius: 8,
       borderWidth: 2,
       paddingLeft: 8
@@ -26,12 +26,12 @@ const styles = StyleSheet.create({
       fontSize: 40,
       marginBottom: 40,
       fontWeight: "bold",
-      textDecorationLine: "underline"
+      color: "#2B0A3D"
     },
     subtitle: {
       fontSize: 20,
       marginBottom: 20,
-      color: "purple"
+      color: "#2B0A3D"
     },
     listItem: {
       flexDirection: "row",
