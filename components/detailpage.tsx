@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Text, View, Button } from 'react-native';
 import { useSelector } from 'react-redux';
+import { styles } from './styles';
 // redux imports
 import {
   selectTodoList 
@@ -25,8 +26,7 @@ const DetailScreen: React.FC<Props> = ({route, navigation}) => {
     return (
       <View>
   
-        <Text>Hello, I am {todoList[index]} and I am {isHungry ? "hungry!" : "full of food..."} </Text>
-        
+        <Text style={styles.inputWrapper}>Hello, I am {todoList[index]} and I am {isHungry ? "hungry!" : "full of food..."} </Text>
         <Button
           onPress={() => {
             setIsHungry(false);
