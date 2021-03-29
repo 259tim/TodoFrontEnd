@@ -16,6 +16,8 @@ import { persistStore } from "redux-persist"
 // my own component imports
 import MainPage from './components/mainpage';
 import DetailPage from './components/detailpage';
+import Login from './components/login';
+import Signup from './components/signup';
 //type imports
 import { RootStackParameters } from './types/navtypes'
 
@@ -57,12 +59,12 @@ export default function App() {
       <PersistGate loading={null} persistor={persistor}>
         <NavigationContainer>
           <Stack.Navigator>
-            
-            <Stack.Screen
-              name="Home"
-              component={MainPage}
+                        
+          <Stack.Screen
+              name="Login"
+              component={Login}
               options={{
-                title: 'Home',
+                title: 'Login',
                 headerStyle: {
                   backgroundColor: '#007DB7'
                 },
@@ -72,7 +74,38 @@ export default function App() {
                 headerTintColor: '#FFFFFF' 
                 }}
             />
-            
+
+            <Stack.Screen
+              name="Signup"
+              component={Signup}
+              options={{
+                title: 'Signup',
+                headerStyle: {
+                  backgroundColor: '#007DB7'
+                },
+                headerTitleStyle: {
+                  fontFamily: "Ubuntu_500Medium"
+                },
+                headerTintColor: '#FFFFFF' 
+                }}
+            />
+
+            <Stack.Screen
+              name="Home"
+              component={MainPage}
+              options={{
+                title: 'Home',
+                headerLeft: () => null,
+                headerStyle: {
+                  backgroundColor: '#007DB7'
+                },
+                headerTitleStyle: {
+                  fontFamily: "Ubuntu_500Medium"
+                },
+                headerTintColor: '#FFFFFF' 
+                }}
+            />
+
             <Stack.Screen
             name="Details" 
             component={DetailPage} 

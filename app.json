@@ -24,7 +24,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "todoappTims.apk"
+      "package": "com.capgemini.quickscan"
     },
     "web": {
       "favicon": "./assets/favicon.png"

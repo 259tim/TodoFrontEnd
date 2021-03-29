@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Text, View, Button } from 'react-native';
 import { useSelector } from 'react-redux';
-import { styles } from './styles';
+import styles from './styles';
+import { StatusBar } from 'expo-status-bar';
 // redux imports
 import {
   selectTodoList 
@@ -17,15 +18,15 @@ type Props = {
 
 // The detail page can now take information routed to it
 // the index that is used to request the correct entry in the store's array is sent through react-navigation
-const DetailScreen: React.FC<Props> = ({route, navigation}) => {
+const DetailScreen: React.FC<Props> = (props) => {
 
-    const index = route.params.index;
+    const index = props.route.params.index;
     const [isHungry, setIsHungry] = useState(true);
     const todoList = useSelector(selectTodoList);  
     console.log(todoList)
     return (
       <View>
-  
+        <StatusBar style="light" />
         <Text style={styles.inputWrapper}>Hello, I am {todoList[index]} and I am {isHungry ? "hungry!" : "full of food..."} </Text>
         <Button
           onPress={() => {

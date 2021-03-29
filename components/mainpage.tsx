@@ -1,6 +1,7 @@
-import { styles } from './styles';
+import styles from './styles';
 import * as React from 'react';
 import { useState } from 'react';
+import { StatusBar } from 'expo-status-bar';
 import { Text, View, TextInput, Button, ScrollView, SafeAreaView } from 'react-native';
 // type imports
 import { DetailNavigation, DetailRoute } from '../types/navtypes';
@@ -46,6 +47,7 @@ const MainPage: React.FC<Props> = ({navigation}) => {
 
     return (
     <SafeAreaView style={styles.container}>
+        <StatusBar style="light" />
         <Text style={styles.title}>Todo List</Text>
 
         <View style={styles.inputWrapper}>
