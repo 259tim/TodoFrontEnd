@@ -79,7 +79,7 @@ export default function App() {
               name="Signup"
               component={Signup}
               options={{
-                title: 'Signup',
+                title: 'Sign up',
                 headerStyle: {
                   backgroundColor: '#007DB7'
                 },

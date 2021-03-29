@@ -1,9 +1,10 @@
 import React from 'react'
-import { View, Text, TextInput, TouchableOpacity  } from 'react-native'
+import { SafeAreaView, View, Text, TextInput, TouchableOpacity, Image, ImageBackground  } from 'react-native'
 import { LoginRoute, LoginNavigation } from '../types/navtypes';
 import styles from './styles'
 import { useState } from 'react';
-import Firebase from '../config/firebaseconf'
+import Firebase from '../config/firebaseconf';
+import { StatusBar } from 'expo-status-bar';
 
 // the login screen has email, pw, and the react navigation entities
 type Props = {
@@ -24,31 +25,51 @@ const login: React.FC<Props> = (props) => {
         .catch(error => console.log(error))
     }
 
+    const logo = require('../assets/cap_logo.png');
+    const shape = require('../assets/fixed_shape_1_blue.png');
+
     return (
-        <View style={styles.container}>
-                <TextInput
-                    style={styles.inputBox}
-                    value= {email}
-                    onChangeText={email => setEmail(email)}
-                    placeholder='Email'
-                    autoCapitalize='none'
-                />
-                <TextInput
-                    style={styles.inputBox}
-                    value={password}
-                    onChangeText={password => setPassword(password)}
-                    placeholder='Password'
-                    secureTextEntry={true}
-                />
-                <TouchableOpacity onPress={() => HandleLogin(email, password)} style={styles.DefaultButtonStyle}>
-                    <Text style={styles.DefaultButtonText}>Login</Text>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() =>
-                        props.navigation.navigate('Signup')} 
-                        style={styles.DefaultButtonStyle}>
-                    <Text style={styles.DefaultButtonText}>Don't have an account yet? Sign up.</Text>
-                </TouchableOpacity>
+        <View>
+            <SafeAreaView style={styles.container}>
+                    <StatusBar style="light" />
+                    <View style={[styles.container, {paddingBottom:10, paddingTop:0}]}>
+                        <Image source={logo} style={{ width: 300, height: 100, resizeMode:'contain' }} />
+                        <Text style={styles.title}>Quick Scan</Text>
+                    </View>
+                    <View style={[styles.container, {paddingBottom:15}]}>
+                        <TextInput
+                            style={styles.inputBox}
+                            value= {email}
+                            onChangeText={email => setEmail(email)}
+                            placeholder='Email'
+                            autoCapitalize='none'
+                        />
+                    </View>
+                    <View style={[styles.container, {paddingBottom:0, paddingTop:10,}]}>
+                        <TextInput
+                            style={styles.inputBox}
+                            value={password}
+                            onChangeText={password => setPassword(password)}
+                            placeholder='Password'
+                            secureTextEntry={true}
+                        />
+                    </View>
+                    <View style={styles.container}>
+                        <TouchableOpacity onPress={() => HandleLogin(email, password)} style={[styles.DefaultButtonStyle, {width: '90%'}]}>
+                            <Text style={[styles.DefaultButtonText, { width: 200}]}>Login</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() =>
+                                props.navigation.navigate('Signup')} 
+                                style={[styles.SecondaryButtonStyle, {paddingBottom:0}]}>
+                            <Text style={styles.SecondaryButtonText}>Don't have an account yet? Sign up.</Text>
+                        </TouchableOpacity>
+                    </View>
+                
+                    
+                </SafeAreaView>
+                <ImageBackground source={shape} style={{width:'100%', height:'100%', top:420, position:'absolute'}} resizeMode='cover'/>
             </View>
+            
 
     )
 }

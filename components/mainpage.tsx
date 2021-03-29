@@ -50,7 +50,7 @@ const MainPage: React.FC<Props> = ({navigation}) => {
         <StatusBar style="light" />
         <Text style={styles.title}>Todo List</Text>
 
-        <View style={styles.inputWrapper}>
+        <View style={styles.container}>
         <TextInput
             placeholder="Enter your todo task..."
             onChangeText={text => setText(text)}
@@ -58,7 +58,7 @@ const MainPage: React.FC<Props> = ({navigation}) => {
         style={styles.inputBox}/>
         
         </View>
-        <View style={styles.inputWrapper}>
+        <View style={styles.container}>
             <TouchableOpacity
                         onPress={handleSubmit}
                         style={styles.DefaultButtonStyle}

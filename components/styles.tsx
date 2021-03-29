@@ -7,32 +7,27 @@ import { useFonts, Ubuntu_500Medium, Ubuntu_700Bold } from '@expo-google-fonts/u
 const styles = StyleSheet.create(
   {
     ScrollContainer: {
+      height:'85%',
       width: "100%",
-      paddingBottom: 154
+      alignSelf: 'center'
     },
     container: {
-      padding: 35,
+      width:'100%',
+      padding: 15,
       alignItems: "center"
     },
-    inputWrapper: {
-      justifyContent: "center",
-      alignItems: "center",
-      width: "110%",
-      height: 50,
-      flexDirection: "row", 
-      marginBottom: 10,
-
-    },
     inputBox: {
+      textDecorationColor:"#2B0A3D",
       width: '100%',
+      alignSelf:'center',
       height: 40,
       borderColor: "#2B0A3D",
       borderBottomWidth: 2,
       paddingLeft: 8
     },
     title: {
-      fontSize: 40,
-      marginBottom: 40,
+      fontSize: 30,
+      marginBottom: 0,
       // fontFamily: 'Ubuntu_700Bold',
       color: "#2B0A3D"
     },
@@ -43,24 +38,39 @@ const styles = StyleSheet.create(
     },
     listItem: {
       flexDirection: "row",
-      justifyContent: "space-between",
+      justifyContent: "space-around",
       alignItems: "center",
       width: "100%",
       marginBottom: 10,
-      paddingLeft: 10,
-      paddingRight: 10
+      paddingLeft: 20,
+      paddingRight: 20
     },
     DefaultButtonStyle: {
-      width: 120,
-      height: 50,
-      paddingTop:15,
-      paddingBottom:15,
+      alignSelf: 'center',
+      minWidth: 140,
+      paddingTop:10,
+      paddingLeft:10,
+      paddingRight:10,
+      paddingBottom:10,
       backgroundColor:'#007DB7',
-      borderRadius:10,
+      borderRadius:20,
     },
     DefaultButtonText: {
+      alignSelf: 'center',
+      fontSize: 20,
       textAlign: 'center',
       color: '#FFFFFF'
+    },
+    SecondaryButtonStyle: {
+      alignSelf: 'center',
+      minWidth: 120,
+      padding: 20
+    },
+    SecondaryButtonText: {
+      alignSelf: 'center',
+      fontSize: 16,
+      textAlign: 'center',
+      color: '#007DB7'
     },
     task: {
       width: 200
