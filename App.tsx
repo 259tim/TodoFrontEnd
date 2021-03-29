@@ -18,6 +18,7 @@ import MainPage from './components/mainpage';
 import DetailPage from './components/detailpage';
 import Login from './components/login';
 import Signup from './components/signup';
+import Pwreset from './components/resetpw';
 //type imports
 import { RootStackParameters } from './types/navtypes'
 
@@ -80,6 +81,21 @@ export default function App() {
               component={Signup}
               options={{
                 title: 'Sign up',
+                headerStyle: {
+                  backgroundColor: '#0070AD'
+                },
+                headerTitleStyle: {
+                  fontFamily: "Ubuntu_500Medium"
+                },
+                headerTintColor: '#FFFFFF' 
+                }}
+            />
+
+            <Stack.Screen
+              name="Pwreset"
+              component={Pwreset}
+              options={{
+                title: 'Password Reset',
                 headerStyle: {
                   backgroundColor: '#0070AD'
                 },

@@ -1,5 +1,5 @@
 import React from 'react'
-import { SafeAreaView, View, Text, TextInput, TouchableOpacity, Image, ImageBackground  } from 'react-native'
+import { SafeAreaView, View, Text, TextInput, TouchableOpacity, Image, ImageBackground, Alert  } from 'react-native'
 import { LoginRoute, LoginNavigation } from '../types/navtypes';
 import styles from './styles'
 import { useState } from 'react';
@@ -17,13 +17,15 @@ const login: React.FC<Props> = (props) => {
 
     const [email, set_email] = useState<string>("");
     const [password, set_password] = useState<string>("");
+    const [error, showError] = useState<Boolean>(false);
 
     const handleLogin = (email: string, password: string): void => {
         Firebase.auth()
         .signInWithEmailAndPassword(email, password)
         .then(() => props.navigation.navigate('Home'))
-        .catch(error => console.log(error))
+        .catch(error => error && console.log(error) && showError(true))
     }
+
 
     const logo = require('../assets/cap_logo.png');
     const shape = require('../assets/fixed_shape_1_blue.png');
@@ -58,6 +60,13 @@ const login: React.FC<Props> = (props) => {
                         <TouchableOpacity onPress={() => handleLogin(email, password)} style={[styles.DefaultButtonStyle, {width: '90%'}]}>
                             <Text style={[styles.DefaultButtonText, { width: 200}]}>Login</Text>
                         </TouchableOpacity>
+                        
+                        {error && (<TouchableOpacity onPress={() =>
+                                props.navigation.navigate('Pwreset')} 
+                                style={[styles.SecondaryButtonStyle, {paddingBottom:0}]}>
+                            <Text style={[styles.SecondaryButtonText, {color: 'red'}]}>Error: Reset password?</Text>
+                        </TouchableOpacity>)}
+                        
                         <TouchableOpacity onPress={() =>
                                 props.navigation.navigate('Signup')} 
                                 style={[styles.SecondaryButtonStyle, {paddingBottom:0}]}>

@@ -1,31 +1,28 @@
 import React from 'react'
 import { View, Text, TextInput, SafeAreaView, Image, ImageBackground  } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { SignupNavigation, SignupRoute } from '../types/navtypes';
+import { PwresetNavigation, PwresetRoute } from '../types/navtypes';
 import styles from './styles'
 import { useState } from 'react';
 import Firebase from '../config/firebaseconf'
 import { StatusBar } from 'expo-status-bar';
 
-
 type Props = {
-  route: SignupRoute;
-  navigation: SignupNavigation;
+  route: PwresetRoute;
+  navigation: PwresetNavigation;
 };
 
+const pwreset: React.FC<Props> = (props) => {
 
-const signup: React.FC<Props> = (props) => {
-
+    const [error, showError] = useState<Boolean>(false);
+    const [message, showMessage] = useState<Boolean>(false);
     const [email, set_email] = useState<string>("");
-    const [password, set_password] = useState<string>("");
-    // const [first_name, set_first_name] = useState<string>("");
-    // const [last_name, set_last_name] = useState<string>("");
 
-    const handleSignup = (email: string, password: string): void => {
-        Firebase.auth()
-        .createUserWithEmailAndPassword(email, password)
-        .then(() => props.navigation.navigate('Home'))
-        .catch(error => console.log(error))
+    const PasswordReset = (email: string): void => {
+        console.log("here")
+        Firebase.auth().sendPasswordResetEmail(email)
+        .then(() => showMessage(true))
+        .catch(error => error && console.log(error + "here") && showError(true) && showMessage(false) )
     }
 
     const logo = require('../assets/cap_logo.png');
@@ -37,7 +34,7 @@ const signup: React.FC<Props> = (props) => {
                     <StatusBar style="light" />
                     <View style={[styles.container, {paddingBottom:10, paddingTop:0}]}>
                         <Image source={logo} style={{ width: 300, height: 100, resizeMode:'contain' }} />
-                        <Text style={styles.defaultText}>Enter your email below. You will receive an email to reset your password.</Text>
+                        <Text style={styles.defaultText}>Enter your email in the box below. You will receive an email in your inbox that will allow you to reset your password.</Text>
                     </View>
                     <View style={[styles.container, {paddingBottom:15}]}>
                         <TextInput
@@ -48,17 +45,9 @@ const signup: React.FC<Props> = (props) => {
                             autoCapitalize='none'
                         />
                     </View>
-                    <View style={[styles.container, {paddingBottom:0, paddingTop:10,}]}>
-                        <TextInput
-                            style={styles.inputBox}
-                            value={password}
-                            onChangeText={password => set_password(password)}
-                            placeholder='Password'
-                            secureTextEntry={true}
-                        />
-                    </View>
+                   
                     <View style={styles.container}>
-                        <TouchableOpacity onPress={() => handleSignup(email, password)} style={[styles.DefaultButtonStyle, {width: '90%'}]}>
+                        <TouchableOpacity onPress={() => PasswordReset(email)} style={[styles.DefaultButtonStyle, {width: '90%'}]}>
                             <Text style={[styles.DefaultButtonText, { width: 200}]}>Submit</Text>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() =>
@@ -66,6 +55,9 @@ const signup: React.FC<Props> = (props) => {
                                 style={[styles.SecondaryButtonStyle, {paddingBottom:0}]}>
                             <Text style={styles.SecondaryButtonText}>Cancel</Text>
                         </TouchableOpacity>
+                        {error && (<Text style={[styles.SecondaryButtonText, {color: 'red'}]}>Error: Wrong email</Text>)}
+                        {message && (<Text style={[styles.title]}>Email has been sent</Text>)}
+
                     </View>
                 
                     
@@ -76,4 +68,4 @@ const signup: React.FC<Props> = (props) => {
     )
 }
  
-export default signup;
+export default pwreset;

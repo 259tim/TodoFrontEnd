@@ -7,6 +7,7 @@ export type RootStackParamList = {
     Details: { index: number };
     Login: undefined;
     Signup: undefined;
+    Pwreset: undefined;
 };
 
 
@@ -27,7 +28,7 @@ RootStackParamList,
 >;
 
 // types for login screen route and navigation
-type LoginScreenRouteProp = RouteProp<RootStackParamList, 'Details'>;
+type LoginScreenRouteProp = RouteProp<RootStackParamList, 'Login'>;
 
 type LoginScreenNavigationProp = StackNavigationProp<
 RootStackParamList,
@@ -35,7 +36,7 @@ RootStackParamList,
 >;
 
 // types for sign up screen route and navigation
-type SignupScreenRouteProp = RouteProp<RootStackParamList, 'Details'>;
+type SignupScreenRouteProp = RouteProp<RootStackParamList, 'Signup'>;
 
 type SignupScreenNavigationProp = StackNavigationProp<
 RootStackParamList,
@@ -43,12 +44,14 @@ RootStackParamList,
 >;
 
 // types for password reset screen route and navigation
-type PwresetScreenRouteProp = RouteProp<RootStackParamList, 'Details'>;
+type PwresetScreenRouteProp = RouteProp<RootStackParamList, 'Pwreset'>;
 
 type PwresetScreenNavigationProp = StackNavigationProp<
 RootStackParamList,
-'Signup'
+'Pwreset'
 >;
+
+
 
 
 export type HomeRoute = HomeScreenRouteProp;
