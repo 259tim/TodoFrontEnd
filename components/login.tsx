@@ -15,10 +15,10 @@ type Props = {
 
 const login: React.FC<Props> = (props) => {
 
-    const [email, setEmail] = useState<string>("");
-    const [password, setPassword] = useState<string>("");
+    const [email, set_email] = useState<string>("");
+    const [password, set_password] = useState<string>("");
 
-    const HandleLogin = (email: string, password: string): void => {
+    const handleLogin = (email: string, password: string): void => {
         Firebase.auth()
         .signInWithEmailAndPassword(email, password)
         .then(() => props.navigation.navigate('Home'))
@@ -40,7 +40,7 @@ const login: React.FC<Props> = (props) => {
                         <TextInput
                             style={styles.inputBox}
                             value= {email}
-                            onChangeText={email => setEmail(email)}
+                            onChangeText={email => set_email(email)}
                             placeholder='Email'
                             autoCapitalize='none'
                         />
@@ -49,13 +49,13 @@ const login: React.FC<Props> = (props) => {
                         <TextInput
                             style={styles.inputBox}
                             value={password}
-                            onChangeText={password => setPassword(password)}
+                            onChangeText={password => set_password(password)}
                             placeholder='Password'
                             secureTextEntry={true}
                         />
                     </View>
                     <View style={styles.container}>
-                        <TouchableOpacity onPress={() => HandleLogin(email, password)} style={[styles.DefaultButtonStyle, {width: '90%'}]}>
+                        <TouchableOpacity onPress={() => handleLogin(email, password)} style={[styles.DefaultButtonStyle, {width: '90%'}]}>
                             <Text style={[styles.DefaultButtonText, { width: 200}]}>Login</Text>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() =>

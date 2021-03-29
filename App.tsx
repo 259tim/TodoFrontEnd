@@ -66,7 +66,7 @@ export default function App() {
               options={{
                 title: 'Login',
                 headerStyle: {
-                  backgroundColor: '#007DB7'
+                  backgroundColor: '#0070AD'
                 },
                 headerTitleStyle: {
                   fontFamily: "Ubuntu_500Medium"
@@ -81,7 +81,7 @@ export default function App() {
               options={{
                 title: 'Sign up',
                 headerStyle: {
-                  backgroundColor: '#007DB7'
+                  backgroundColor: '#0070AD'
                 },
                 headerTitleStyle: {
                   fontFamily: "Ubuntu_500Medium"
@@ -97,7 +97,7 @@ export default function App() {
                 title: 'Home',
                 headerLeft: () => null,
                 headerStyle: {
-                  backgroundColor: '#007DB7'
+                  backgroundColor: '#0070AD'
                 },
                 headerTitleStyle: {
                   fontFamily: "Ubuntu_500Medium"
@@ -112,7 +112,7 @@ export default function App() {
             options={{
               title: 'Details',
               headerStyle: {
-                backgroundColor: '#007DB7'
+                backgroundColor: '##0070AD'
               },
               headerTitleStyle: {
               fontFamily: 'Ubuntu_500Medium'

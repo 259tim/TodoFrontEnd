@@ -36,6 +36,12 @@ const styles = StyleSheet.create(
       marginBottom: 20,
       color: "#2B0A3D"
     },
+    defaultText: {
+      paddingBottom:10,
+      paddingTop:10,
+      fontSize: 16,
+      color:"#2B0A3D"
+    },
     listItem: {
       flexDirection: "row",
       justifyContent: "space-around",
@@ -52,7 +58,7 @@ const styles = StyleSheet.create(
       paddingLeft:10,
       paddingRight:10,
       paddingBottom:10,
-      backgroundColor:'#007DB7',
+      backgroundColor:'#0070AD',
       borderRadius:20,
     },
     DefaultButtonText: {
@@ -70,7 +76,7 @@ const styles = StyleSheet.create(
       alignSelf: 'center',
       fontSize: 16,
       textAlign: 'center',
-      color: '#007DB7'
+      color: '#0070AD'
     },
     task: {
       width: 200
