@@ -19,10 +19,16 @@ const pwreset: React.FC<Props> = (props) => {
     const [email, set_email] = useState<string>("");
 
     const PasswordReset = (email: string): void => {
-        console.log("here")
         Firebase.auth().sendPasswordResetEmail(email)
-        .then(() => showMessage(true))
-        .catch(error => error && console.log(error + "here") && showError(true) && showMessage(false) )
+        .then(() => {
+            showMessage(true)
+            showError(false)
+        })
+        .catch((error) => {
+            console.log(error);
+            showError(true);
+            showMessage(false);
+        })
     }
 
     const logo = require('../assets/cap_logo.png');
@@ -55,9 +61,10 @@ const pwreset: React.FC<Props> = (props) => {
                                 style={[styles.SecondaryButtonStyle, {paddingBottom:0}]}>
                             <Text style={styles.SecondaryButtonText}>Cancel</Text>
                         </TouchableOpacity>
-                        {error && (<Text style={[styles.SecondaryButtonText, {color: 'red'}]}>Error: Wrong email</Text>)}
-                        {message && (<Text style={[styles.title]}>Email has been sent</Text>)}
-
+                        <View style={{height:40, paddingTop:20}}>
+                            {error && (<Text style={[styles.defaultText, {color: 'red', fontSize:20}]}>Error: Wrong email</Text>)}
+                            {message && (<Text style={[styles.defaultText, {fontSize:20}]}>Email has been sent</Text>)}
+                        </View>
                     </View>
                 
                     

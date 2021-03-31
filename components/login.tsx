@@ -23,7 +23,10 @@ const login: React.FC<Props> = (props) => {
         Firebase.auth()
         .signInWithEmailAndPassword(email, password)
         .then(() => props.navigation.navigate('Home'))
-        .catch(error => error && console.log(error) && showError(true))
+        .catch((error) => {
+            console.log(error);
+            showError(true);  
+        })
     }
 
 
@@ -61,12 +64,15 @@ const login: React.FC<Props> = (props) => {
                             <Text style={[styles.DefaultButtonText, { width: 200}]}>Login</Text>
                         </TouchableOpacity>
                         
-                        {error && (<TouchableOpacity onPress={() =>
-                                props.navigation.navigate('Pwreset')} 
-                                style={[styles.SecondaryButtonStyle, {paddingBottom:0}]}>
-                            <Text style={[styles.SecondaryButtonText, {color: 'red'}]}>Error: Reset password?</Text>
-                        </TouchableOpacity>)}
-                        
+                        <View style={{height:40}}>
+                            {error && (<TouchableOpacity onPress={() =>{
+                                    showError(false);
+                                    props.navigation.navigate('Pwreset');
+                                    }} 
+                                    style={[styles.SecondaryButtonStyle, {paddingBottom:0}]}>
+                                <Text style={[styles.SecondaryButtonText, {color: 'red'}]}>Error: Reset password?</Text>
+                            </TouchableOpacity>)}
+                        </View>
                         <TouchableOpacity onPress={() =>
                                 props.navigation.navigate('Signup')} 
                                 style={[styles.SecondaryButtonStyle, {paddingBottom:0}]}>
