@@ -4,7 +4,6 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { SignupNavigation, SignupRoute } from '../types/navtypes';
 import styles from './styles'
 import { useState } from 'react';
-import Firebase from '../config/firebaseconf'
 import { StatusBar } from 'expo-status-bar';
 
 

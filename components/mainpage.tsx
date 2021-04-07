@@ -1,10 +1,12 @@
 import styles from './styles';
 import * as React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { Text, View, TextInput, Button, ScrollView, SafeAreaView } from 'react-native';
 // type imports
 import { DetailNavigation, DetailRoute } from '../types/navtypes';
+// api import
+import api from "../config/apiconfig";
 
 type Props = {
   route: DetailRoute;
@@ -20,8 +22,11 @@ import {
 } from '../store/reducers/todoslice'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
+
 //this is the page, the style items come from the stylesheet in styles.ts
 const MainPage: React.FC<Props> = ({navigation}) => {
+
+    const [currentTime, setCurrentTime] = useState(0);
 
     // for redux
     const dispatch = useDispatch();
@@ -33,6 +38,19 @@ const MainPage: React.FC<Props> = ({navigation}) => {
     const [error, showError] = useState<Boolean>(false);
     
     //here are all the functions that perform stuff in the page
+
+    const fetchTime = (): any => {
+        return fetch(api + "/time")
+        .then(response => response.json())
+        .then(responseJson => {
+             console.log(responseJson.time)
+        })
+        .catch(error => {
+            console.error(error);
+        });
+    }
+
+    fetchTime()
 
     const handleSubmit = (): void => {
     if (text.trim())
@@ -71,7 +89,7 @@ const MainPage: React.FC<Props> = ({navigation}) => {
         CONDITION && RESULT, if the condition is met the thing after && triggers*/}
         {error && (<Text style={styles.error} >Error: Input field is empty...</Text>)}
 
-        <Text style={styles.subtitle}> Your Tasks:</Text>
+        <Text style={styles.subtitle}> {currentTime}</Text>
         
         {/* same as above!! */}
         {todoList.length === 0 && <Text>No tasks available</Text>}

@@ -3,7 +3,6 @@ import { SafeAreaView, View, Text, TextInput, TouchableOpacity, Image, ImageBack
 import { LoginRoute, LoginNavigation } from '../types/navtypes';
 import styles from './styles'
 import { useState } from 'react';
-import Firebase from '../config/firebaseconf';
 import { StatusBar } from 'expo-status-bar';
 
 // the login screen has email, pw, and the react navigation entities

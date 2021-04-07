@@ -61,7 +61,7 @@ export default function App() {
         <NavigationContainer>
           <Stack.Navigator>
                         
-          <Stack.Screen
+          {/* <Stack.Screen
               name="Login"
               component={Login}
               options={{
@@ -104,7 +104,7 @@ export default function App() {
                 },
                 headerTintColor: '#FFFFFF' 
                 }}
-            />
+            /> */}
 
             <Stack.Screen
               name="Home"
