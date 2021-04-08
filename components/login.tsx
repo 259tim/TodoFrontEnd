@@ -4,6 +4,7 @@ import { LoginRoute, LoginNavigation } from '../types/navtypes';
 import styles from './styles'
 import { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
+import api from "../config/apiconfig";
 
 // the login screen has email, pw, and the react navigation entities
 type Props = {
@@ -18,15 +19,28 @@ const login: React.FC<Props> = (props) => {
     const [password, set_password] = useState<string>("");
     const [error, showError] = useState<Boolean>(false);
 
-    const handleLogin = (email: string, password: string): void => {
-        Firebase.auth()
-        .signInWithEmailAndPassword(email, password)
-        .then(() => props.navigation.navigate('Home'))
-        .catch((error) => {
-            console.log(error);
-            showError(true);  
+    const handleLogin = (email: string, password: string): any => {
+        fetch(api + "/api/token")
+        .then((response) => response.json())
+        .then((responseJson) => {
+             console.log(responseJson);
+             console.log(responseJson.status);
+             props.navigation.navigate('Home');
         })
+        .catch(error => {
+            console.error(error);
+        });
     }
+
+    // const handleLogin = (email: string, password: string): void => {
+    //     Firebase.auth()
+    //     .signInWithEmailAndPassword(email, password)
+    //     .then(() => props.navigation.navigate('Home'))
+    //     .catch((error) => {
+    //         console.log(error);
+    //         showError(true);  
+    //     })
+    // }
 
 
     const logo = require('../assets/cap_logo.png');

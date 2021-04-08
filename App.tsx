@@ -61,7 +61,7 @@ export default function App() {
         <NavigationContainer>
           <Stack.Navigator>
                         
-          {/* <Stack.Screen
+          <Stack.Screen
               name="Login"
               component={Login}
               options={{
@@ -91,7 +91,7 @@ export default function App() {
                 }}
             />
 
-            <Stack.Screen
+            {/* <Stack.Screen
               name="Pwreset"
               component={Pwreset}
               options={{
