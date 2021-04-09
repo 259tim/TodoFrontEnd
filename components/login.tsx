@@ -5,6 +5,7 @@ import styles from './styles'
 import { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import api from "../config/apiconfig";
+import Base64 from 'js-base64';
 
 // the login screen has email, pw, and the react navigation entities
 type Props = {
@@ -18,31 +19,42 @@ const login: React.FC<Props> = (props) => {
     const [email, set_email] = useState<string>("");
     const [password, set_password] = useState<string>("");
     const [error, showError] = useState<Boolean>(false);
+    
+    // this function handles logging in
+   
 
     const handleLogin = (email: string, password: string): any => {
-        fetch(api + "/api/token")
+        
+        let headers = new Headers();
+        headers.append('Authorization', 'Basic ' + Base64.btoa(email + ":" + password))
+
+        fetch(api + "/api/token", {
+            headers: headers,
+        })
         .then((response) => response.json())
         .then((responseJson) => {
-             console.log(responseJson);
-             console.log(responseJson.status);
-             props.navigation.navigate('Home');
+            console.log(responseJson);
+
+            if (responseJson.token)
+            {   
+                showError(false)
+                console.log(responseJson.token);
+                props.navigation.navigate('Home');
+            } 
+            else 
+            {
+                console.log("cannot log in")
+                showError(true)
+            }
+
+             //props.navigation.navigate('Home');
         })
         .catch(error => {
             console.error(error);
         });
     }
 
-    // const handleLogin = (email: string, password: string): void => {
-    //     Firebase.auth()
-    //     .signInWithEmailAndPassword(email, password)
-    //     .then(() => props.navigation.navigate('Home'))
-    //     .catch((error) => {
-    //         console.log(error);
-    //         showError(true);  
-    //     })
-    // }
-
-
+    
     const logo = require('../assets/cap_logo.png');
     const shape = require('../assets/fixed_shape_1_blue.png');
 

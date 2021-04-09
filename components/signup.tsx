@@ -18,8 +18,8 @@ const signup: React.FC<Props> = (props) => {
     const [email, set_email] = useState<string>("");
     const [name, set_name] = useState<string>("");
     const [password, set_password] = useState<string>("");
-    // const [first_name, set_first_name] = useState<string>("");
-    // const [last_name, set_last_name] = useState<string>("");
+    const [error, showError] = useState<Boolean>(false);
+    const [error_text, set_error_text] = useState<string>("");
 
     const handleSignup = (email: string, name: string, password: string): any => {
         fetch(api + "/api/usercreate", {
@@ -30,22 +30,31 @@ const signup: React.FC<Props> = (props) => {
                 "password": password
             })
         })
-        .then((response) => response.text())
+        .then((response) => response.json())
         .then((responseJson) => {
              console.log(responseJson);
-             props.navigation.navigate('Login');
-        })
+             if (responseJson.name) 
+             {
+                props.navigation.navigate('Login');
+             }
+             else if (responseJson.message == "Missing arguments")
+             {
+                 showError(true)
+                 set_error_text("Please check that you filled in all fields.")
+             }
+             else if (responseJson.message == "User exists")
+             {
+                 showError(true)
+                 set_error_text("This email is already linked to an account.")
+             }
+
+             
+            })
         .catch(error => {
             console.error(error);
         });
     }
 
-    // const handleSignup = (email: string, password: string): void => {
-    //     Firebase.auth()
-    //     .createUserWithEmailAndPassword(email, password)
-    //     .then(() => props.navigation.navigate('Home'))
-    //     .catch(error => console.log(error))
-    // }
 
     const logo = require('../assets/cap_logo.png');
     const shape = require('../assets/fixed_shape_1_blue.png');
@@ -56,7 +65,7 @@ const signup: React.FC<Props> = (props) => {
                     <StatusBar style="light" />
                     <View style={[styles.container, {paddingBottom:10, paddingTop:0}]}>
                         <Image source={logo} style={{ width: 300, height: 100, resizeMode:'contain' }} />
-                        <Text style={styles.defaultText}>Enter an email and password here to sign up.</Text>
+                        <Text style={styles.defaultText}>Enter your credentials here to sign up.</Text>
                     </View>
                     <View style={[styles.container, {paddingBottom:15}]}>
                         <TextInput
@@ -89,6 +98,12 @@ const signup: React.FC<Props> = (props) => {
                         <TouchableOpacity onPress={() => handleSignup(email, name, password)} style={[styles.DefaultButtonStyle, {width: '90%'}]}>
                             <Text style={[styles.DefaultButtonText, { width: 200}]}>Sign up</Text>
                         </TouchableOpacity>
+                        <View style={{height:40}}>
+                            {error && (<Text 
+                                    style={[styles.SecondaryButtonStyle, {paddingBottom:0}]}>
+                                <Text style={[styles.SecondaryButtonText, {color: 'red'}]}>{error_text}</Text>
+                            </Text>)}
+                        </View>
                         <TouchableOpacity onPress={() =>
                                 props.navigation.navigate('Login')} 
                                 style={[styles.SecondaryButtonStyle, {paddingBottom:0}]}>
@@ -98,7 +113,7 @@ const signup: React.FC<Props> = (props) => {
                 
                     
                 </SafeAreaView>
-                <ImageBackground source={shape} style={{width:'100%', height:'100%', top:420, position:'absolute'}} resizeMode='cover'/>
+                <ImageBackground source={shape} style={{width:'100%', height:'100%', top:480, position:'absolute'}} resizeMode='cover'/>
             </View>
 
     )
