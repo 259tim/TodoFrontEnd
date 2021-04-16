@@ -53,9 +53,10 @@ const styles = StyleSheet.create(
     },
     bottomContainer: {
       flexDirection: "row",
-      flex: 1,
-      justifyContent: 'space-between',
-      alignSelf:"stretch"
+      width:"100%",
+      backgroundColor:'#0070AD',
+      alignSelf:"stretch",
+      flex:1
     },
     BottomButtonViewStyle: {
       width:"25%"
@@ -69,7 +70,7 @@ const styles = StyleSheet.create(
     },
     bottomIconStyle: {
       alignItems: "center",
-      paddingBottom:2
+      paddingBottom:5
     },
     BottomButtonText: {
       alignSelf: 'center',
