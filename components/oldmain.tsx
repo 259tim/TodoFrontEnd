@@ -3,9 +3,6 @@ import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { Text, View, TextInput, Button, ScrollView, SafeAreaView } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import DetailPage from './detailpage';
-import BottomBar from './bottombar';
 // type imports
 import { DetailNavigation, DetailRoute } from '../types/navtypes';
 // api import
@@ -23,10 +20,11 @@ import {
     remove,
     selectTodoList 
 } from '../store/reducers/todoslice'
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 
 //this is the page, the style items come from the stylesheet in styles.ts
-const MainPage: React.FC<Props> = ({navigation}) => {
+const QuickScanMainPage: React.FC<Props> = ({navigation}) => {
 
     // var [currentTime, setCurrentTime] = useState(0);
 
@@ -67,9 +65,9 @@ const MainPage: React.FC<Props> = ({navigation}) => {
     }   
 
     return (
-    
     <SafeAreaView style={styles.container}>
         <StatusBar style="light" />
+        <Text style={styles.title}>Todo List</Text>
 
         <View style={styles.container}>
         <TextInput
@@ -90,7 +88,9 @@ const MainPage: React.FC<Props> = ({navigation}) => {
 
         {/*This is a simplified way to write an if/else, instead of writing it out you simply do
         CONDITION && RESULT, if the condition is met the thing after && triggers*/}
-        {/* {error && (<Text style={styles.error} >Error: Input field is empty...</Text>)} */}
+        {error && (<Text style={styles.error} >Error: Input field is empty...</Text>)}
+
+        <Text style={styles.subtitle}> Your notes</Text>
         
         {/* same as above!! */}
         {todoList.length === 0 && <Text>No tasks available</Text>}
@@ -126,10 +126,7 @@ const MainPage: React.FC<Props> = ({navigation}) => {
                 </View>
                 ))}
             </ScrollView>
-            
         </View>
-            <BottomBar/>
-
         </View>
     </SafeAreaView>
     )

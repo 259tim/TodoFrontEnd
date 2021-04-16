@@ -110,7 +110,7 @@ export default function App() {
               name="Home"
               component={MainPage}
               options={{
-                title: 'Home',
+                title: 'Quick Scan',
                 headerLeft: () => null,
                 headerStyle: {
                   backgroundColor: '#0070AD'

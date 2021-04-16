@@ -51,6 +51,32 @@ const styles = StyleSheet.create(
       paddingLeft: 20,
       paddingRight: 20
     },
+    bottomContainer: {
+      flexDirection: "row",
+      flex: 1,
+      justifyContent: 'space-between',
+      alignSelf:"stretch"
+    },
+    BottomButtonViewStyle: {
+      width:"25%"
+    },
+    BottomButtonStyle: {
+      width:"100%",
+      height:"100%",
+      backgroundColor:'#0070AD',
+      borderRadius:0,
+      padding:10
+    },
+    bottomIconStyle: {
+      alignItems: "center",
+      paddingBottom:2
+    },
+    BottomButtonText: {
+      alignSelf: 'center',
+      fontSize: 14,
+      textAlign: 'center',
+      color: '#FFFFFF'
+    },
     DefaultButtonStyle: {
       alignSelf: 'center',
       minWidth: 140,

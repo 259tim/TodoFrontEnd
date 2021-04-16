@@ -17,18 +17,18 @@ const pwreset: React.FC<Props> = (props) => {
     const [message, showMessage] = useState<Boolean>(false);
     const [email, set_email] = useState<string>("");
 
-    const PasswordReset = (email: string): void => {
-        Firebase.auth().sendPasswordResetEmail(email)
-        .then(() => {
-            showMessage(true)
-            showError(false)
-        })
-        .catch((error) => {
-            console.log(error);
-            showError(true);
-            showMessage(false);
-        })
-    }
+    // const PasswordReset = (email: string): void => {
+    //     Firebase.auth().sendPasswordResetEmail(email)
+    //     .then(() => {
+    //         showMessage(true)
+    //         showError(false)
+    //     })
+    //     .catch((error) => {
+    //         console.log(error);
+    //         showError(true);
+    //         showMessage(false);
+    //     })
+    // }
 
     const logo = require('../assets/cap_logo.png');
     const shape = require('../assets/fixed_shape_1_blue.png');
@@ -52,9 +52,9 @@ const pwreset: React.FC<Props> = (props) => {
                     </View>
                    
                     <View style={styles.container}>
-                        <TouchableOpacity onPress={() => PasswordReset(email)} style={[styles.DefaultButtonStyle, {width: '90%'}]}>
+                        {/* <TouchableOpacity onPress={() => PasswordReset(email)} style={[styles.DefaultButtonStyle, {width: '90%'}]}>
                             <Text style={[styles.DefaultButtonText, { width: 200}]}>Submit</Text>
-                        </TouchableOpacity>
+                        </TouchableOpacity> */}
                         <TouchableOpacity onPress={() =>
                                 props.navigation.navigate('Login')} 
                                 style={[styles.SecondaryButtonStyle, {paddingBottom:0}]}>
