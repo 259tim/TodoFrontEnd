@@ -6,6 +6,7 @@ import { Text, View, TextInput, Button, ScrollView, SafeAreaView } from 'react-n
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import DetailPage from './detailpage';
 import BottomBar from './bottombar';
+import { Ionicons } from '@expo/vector-icons';
 import { Dimensions } from "react-native";
 // type imports
 import { DetailNavigation, DetailRoute } from '../types/navtypes';
@@ -97,7 +98,7 @@ const MainPage: React.FC<Props> = ({navigation}) => {
         {/* {error && (<Text style={styles.error} >Error: Input field is empty...</Text>)} */}
         
         {/* same as above!! */}
-        {/* {todoList.length === 0 && <Text>No tasks available</Text>} */}
+        {todoList.length === 0 && <Text>No tasks available</Text>}
         
         {/*here I map the items in the ToDo array into a list,
         with a style change that does a strike-through if attribute "completed" is true
@@ -114,11 +115,11 @@ const MainPage: React.FC<Props> = ({navigation}) => {
                         {todo}
                         </Text>
 
-                        <Button 
+                        {/* <Button 
                             title = "X" 
                             onPress={() => removeItem(index)} 
                             color="#2B0A3D" 
-                        />
+                        /> */}
                         <TouchableOpacity
                             onPress={() =>
                             navigation.navigate('Details', 
@@ -131,7 +132,13 @@ const MainPage: React.FC<Props> = ({navigation}) => {
                     ))}
                 </ScrollView>
             </View>
+
             <BottomBar/> 
+            <View style={styles.FloatingButtonStyle}>
+            <TouchableOpacity>
+                <Text style={styles.DefaultButtonText}>+ Survey</Text>
+            </TouchableOpacity>
+            </View>
     </SafeAreaView>
     )
 }

@@ -53,17 +53,18 @@ const styles = StyleSheet.create(
     },
     bottomContainer: {
       flexDirection: "row",
-      width:"100%",
       backgroundColor:'#0070AD',
-      flex:1, 
-      justifyContent:'flex-end'
+      justifyContent:'space-between',
+      height:"10%",
+      width:"100%",
+      bottom:0,
+      position:"absolute"
     },
     BottomButtonViewStyle: {
       width:"25%"
     },
     BottomButtonStyle: {
       width:"100%",
-      height:"100%",
       backgroundColor:'#0070AD',
       borderRadius:0,
       padding:10
@@ -78,6 +79,15 @@ const styles = StyleSheet.create(
       textAlign: 'center',
       color: '#FFFFFF'
     },
+    FloatingButtonStyle: {
+      width: 140,
+      padding:15,
+      backgroundColor:'#2B0A3D',
+      borderRadius:30,
+      bottom:90,
+      right:20,
+      position:"absolute",
+   },
     DefaultButtonStyle: {
       alignSelf: 'center',
       minWidth: 140,
@@ -86,7 +96,7 @@ const styles = StyleSheet.create(
       paddingRight:10,
       paddingBottom:10,
       backgroundColor:'#0070AD',
-      borderRadius:20,
+      borderRadius:20
     },
     DefaultButtonText: {
       alignSelf: 'center',
