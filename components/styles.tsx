@@ -7,9 +7,9 @@ import { useFonts, Ubuntu_500Medium, Ubuntu_700Bold } from '@expo-google-fonts/u
 const styles = StyleSheet.create(
   {
     ScrollContainer: {
-      height:'85%',
+      height:'90%',
       width: "100%",
-      alignSelf: 'center'
+      justifyContent:'flex-start'
     },
     container: {
       width:'100%',
@@ -47,7 +47,7 @@ const styles = StyleSheet.create(
       justifyContent: "space-around",
       alignItems: "center",
       width: "100%",
-      marginBottom: 10,
+      margin:10,
       paddingLeft: 20,
       paddingRight: 20
     },
@@ -55,8 +55,8 @@ const styles = StyleSheet.create(
       flexDirection: "row",
       width:"100%",
       backgroundColor:'#0070AD',
-      alignSelf:"stretch",
-      flex:1
+      flex:1, 
+      justifyContent:'flex-end'
     },
     BottomButtonViewStyle: {
       width:"25%"

@@ -71,10 +71,10 @@ const MainPage: React.FC<Props> = ({navigation}) => {
 
     return (
     
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={{flex:1, flexDirection:"column"}}>
         <StatusBar style="light" />
 
-        <View style={styles.container}>
+        {/* <View style={styles.container}>
         <TextInput
             placeholder="Enter your todo task..."
             onChangeText={text => setText(text)}
@@ -90,14 +90,14 @@ const MainPage: React.FC<Props> = ({navigation}) => {
                     <Text style={styles.DefaultButtonText}>Add new task</Text>
             </TouchableOpacity>
         </View>
-         
+          */}
 
         {/*This is a simplified way to write an if/else, instead of writing it out you simply do
         CONDITION && RESULT, if the condition is met the thing after && triggers*/}
         {/* {error && (<Text style={styles.error} >Error: Input field is empty...</Text>)} */}
         
         {/* same as above!! */}
-        {todoList.length === 0 && <Text>No tasks available</Text>}
+        {/* {todoList.length === 0 && <Text>No tasks available</Text>} */}
         
         {/*here I map the items in the ToDo array into a list,
         with a style change that does a strike-through if attribute "completed" is true
@@ -105,7 +105,6 @@ const MainPage: React.FC<Props> = ({navigation}) => {
         This is a scrollview that allows the app to scroll when more todos are added
         it's wrapped in a view to give it proper sizing, otherwise it goes all over the place*/}
                     
-        <View style={{height:580, width: D}}>
             <View style={styles.ScrollContainer}>
                 <ScrollView>  
                     {todoList.map((todo: string, index: number) => (
@@ -131,11 +130,8 @@ const MainPage: React.FC<Props> = ({navigation}) => {
                     </View>
                     ))}
                 </ScrollView>
-                
             </View>
             <BottomBar/> 
-        </View>
-
     </SafeAreaView>
     )
 }
