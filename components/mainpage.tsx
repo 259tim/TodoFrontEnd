@@ -12,6 +12,7 @@ import { Dimensions } from "react-native";
 import { DetailNavigation, DetailRoute } from '../types/navtypes';
 // api import
 import api from "../config/apiconfig";
+import Base64 from 'js-base64';
 
 type Props = {
   route: DetailRoute;
@@ -40,58 +41,54 @@ const MainPage: React.FC<Props> = ({navigation}) => {
 
     const [text, setText] = useState<string>("");
     const [error, showError] = useState<Boolean>(false);
-    
+    const [survey_list, setSurveyList] = useState<Array<Object>>([{"hi":"hi"}]);
+
     //here are all the functions that perform stuff in the page
 
-    // const fetchTime = (): any => {
-    //     return fetch(api + "/time")
-    //     .then(response => response.json())
-    //     .then(responseJson => {
-    //          console.log(responseJson.time)
-    //          setCurrentTime(responseJson.time)
-    //     })
-    //     .catch(error => {
-    //         console.error(error);
-    //     });
-    // }
+    const createSurvey = (): any => {
+        let headers = new Headers();
 
-    // fetchTime()
-    const D = Dimensions.get('window').width;
-    const H = Dimensions.get('window').height;
-
-    const handleSubmit = (): void => {
-    if (text.trim())
-        dispatch(save(text))
-    else showError(true);
-    setText("");
+        headers.append('Authorization', 'Basic ' + Base64.btoa("tim.seip@capgemini.com" + ":" + "adminpw"))
+        fetch(api + "/api/survey", {
+            headers: headers,
+            method: 'POST',
+            body: JSON.stringify({
+                "survey_name": "test" 
+            })
+        })
+        .then((response) => response.json())
+        .then((responseJson) => {
+             console.log(responseJson);        
+            })
+        .catch(error => {
+            console.error(error);
+        });
     }
 
-    const removeItem = (index: number): void => {
-        dispatch(remove(index))
-    }   
+    const GetSurveys = (): any => {
+        let headers = new Headers();
+        headers.append('Authorization', 'Basic ' + Base64.btoa("tim.seip@capgemini.com" + ":" + "adminpw"))
+
+        fetch(api + "/api/surveys", {
+            headers: headers,
+            method: 'GET'
+        })
+        .then((response) => response.json())
+        .then((responseJson) => {
+             console.log('hi')
+             setSurveyList(responseJson)
+             console.log(survey_list)     
+            })
+        .catch(error => {
+            console.error(error);
+        });
+    }
+
 
     return (
     
     <SafeAreaView style={{flex:1, flexDirection:"column"}}>
         <StatusBar style="light" />
-
-        {/* <View style={styles.container}>
-        <TextInput
-            placeholder="Enter your todo task..."
-            onChangeText={text => setText(text)}
-            defaultValue={text}
-        style={styles.inputBox}/>
-        
-        </View>
-        <View style={styles.container}>
-            <TouchableOpacity
-                        onPress={handleSubmit}
-                        style={styles.DefaultButtonStyle}
-                    >
-                    <Text style={styles.DefaultButtonText}>Add new task</Text>
-            </TouchableOpacity>
-        </View>
-          */}
 
         {/*This is a simplified way to write an if/else, instead of writing it out you simply do
         CONDITION && RESULT, if the condition is met the thing after && triggers*/}
@@ -108,11 +105,11 @@ const MainPage: React.FC<Props> = ({navigation}) => {
                     
             <View style={styles.ScrollContainer}>
                 <ScrollView>  
-                    {todoList.map((todo: string, index: number) => (
+                    {survey_list.map((todo: any, index: number) => (
                     <View style={styles.listItem} key={`${index}_${todo}`}>
 
                         <Text style={styles.task}>
-                        {todo}
+                        {todo.survey_name}
                         </Text>
 
                         {/* <Button 
@@ -135,7 +132,7 @@ const MainPage: React.FC<Props> = ({navigation}) => {
 
             <BottomBar/> 
             <View style={styles.FloatingButtonStyle}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress = {() => GetSurveys()}>
                 <Text style={styles.DefaultButtonText}>+ Survey</Text>
             </TouchableOpacity>
             </View>
