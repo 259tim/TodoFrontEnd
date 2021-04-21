@@ -19,6 +19,8 @@ import DetailPage from './components/detailpage';
 import Login from './components/login';
 import Signup from './components/signup';
 import Pwreset from './components/resetpw';
+import SurveyCreate from './components/createsurvey';
+import OpenQuestion from './components/openquestion';
 //type imports
 import { RootStackParameters } from './types/navtypes'
 
@@ -128,7 +130,37 @@ export default function App() {
             options={{
               title: 'Details',
               headerStyle: {
-                backgroundColor: '##0070AD'
+                backgroundColor: '#0070AD'
+              },
+              headerTitleStyle: {
+              fontFamily: 'Ubuntu_500Medium'
+              },
+              headerTintColor: '#FFFFFF' 
+            }} 
+            />
+
+          <Stack.Screen
+            name="Surveycreate" 
+            component={SurveyCreate} 
+            options={{
+              title: 'New survey',
+              headerStyle: {
+                backgroundColor: '#0070AD'
+              },
+              headerTitleStyle: {
+              fontFamily: 'Ubuntu_500Medium'
+              },
+              headerTintColor: '#FFFFFF' 
+            }} 
+            />
+
+          <Stack.Screen
+            name="Openquestion" 
+            component={OpenQuestion} 
+            options={{
+              title: 'Open question',
+              headerStyle: {
+                backgroundColor: '#0070AD'
               },
               headerTitleStyle: {
               fontFamily: 'Ubuntu_500Medium'

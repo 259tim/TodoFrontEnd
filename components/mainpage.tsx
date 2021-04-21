@@ -7,83 +7,42 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import DetailPage from './detailpage';
 import BottomBar from './bottombar';
 import { Ionicons } from '@expo/vector-icons';
-import { Dimensions } from "react-native";
 // type imports
 import { DetailNavigation, DetailRoute } from '../types/navtypes';
-// api import
-import api from "../config/apiconfig";
-import Base64 from 'js-base64';
+// function imports
+import GetParticipations from './functions/getparticipations'
+import { useHeaderHeight } from '@react-navigation/stack';
 
 type Props = {
   route: DetailRoute;
   navigation: DetailNavigation;
 };
 
-//redux imports
-import { useDispatch, useSelector } from 'react-redux';
-import {
-    save,
-    remove,
-    selectTodoList 
-} from '../store/reducers/todoslice'
-
 
 //this is the page, the style items come from the stylesheet in styles.ts
-const MainPage: React.FC<Props> = ({navigation}) => {
-
-    // var [currentTime, setCurrentTime] = useState(0);
-
-    // for redux
-    const dispatch = useDispatch();
-    const todoList = useSelector(selectTodoList); 
+const MainPage: React.FC<Props> = (props) => {
 
     // these are the relevant hooks, this manages setting text and errors
 
-    const [text, setText] = useState<string>("");
-    const [error, showError] = useState<Boolean>(false);
-    const [survey_list, setSurveyList] = useState<Array<Object>>([{"hi":"hi"}]);
+    const [survey_list, setSurveyList] = useState<Array<Object>>([{"survey_name":"no surveys available"}]);
 
     //here are all the functions that perform stuff in the page
 
-    const createSurvey = (): any => {
-        let headers = new Headers();
+    useEffect(() => {
+        const fetchData = async () => {
+            const data = await GetParticipations();
+            console.log("hi1")
+            setSurveyList(data);
+            console.log(data);
+        };
+        fetchData();
+        console.log('hi2');
 
-        headers.append('Authorization', 'Basic ' + Base64.btoa("tim.seip@capgemini.com" + ":" + "adminpw"))
-        fetch(api + "/api/survey", {
-            headers: headers,
-            method: 'POST',
-            body: JSON.stringify({
-                "survey_name": "test" 
-            })
-        })
-        .then((response) => response.json())
-        .then((responseJson) => {
-             console.log(responseJson);        
-            })
-        .catch(error => {
-            console.error(error);
-        });
     }
+    )
 
-    const GetSurveys = (): any => {
-        let headers = new Headers();
-        headers.append('Authorization', 'Basic ' + Base64.btoa("tim.seip@capgemini.com" + ":" + "adminpw"))
 
-        fetch(api + "/api/surveys", {
-            headers: headers,
-            method: 'GET'
-        })
-        .then((response) => response.json())
-        .then((responseJson) => {
-             console.log('hi')
-             setSurveyList(responseJson)
-             console.log(survey_list)     
-            })
-        .catch(error => {
-            console.error(error);
-        });
-    }
-
+    //onPress = {() => console.log(GetParticipations())}
 
     return (
     
@@ -94,8 +53,6 @@ const MainPage: React.FC<Props> = ({navigation}) => {
         CONDITION && RESULT, if the condition is met the thing after && triggers*/}
         {/* {error && (<Text style={styles.error} >Error: Input field is empty...</Text>)} */}
         
-        {/* same as above!! */}
-        {todoList.length === 0 && <Text>No tasks available</Text>}
         
         {/*here I map the items in the ToDo array into a list,
         with a style change that does a strike-through if attribute "completed" is true
@@ -105,26 +62,23 @@ const MainPage: React.FC<Props> = ({navigation}) => {
                     
             <View style={styles.ScrollContainer}>
                 <ScrollView>  
-                    {survey_list.map((todo: any, index: number) => (
-                    <View style={styles.listItem} key={`${index}_${todo}`}>
+                    {survey_list.map((survey: any, index: number) => (
+                    <View key={`${index}_${survey}`}>
 
-                        <Text style={styles.task}>
-                        {todo.survey_name}
-                        </Text>
 
-                        {/* <Button 
-                            title = "X" 
-                            onPress={() => removeItem(index)} 
-                            color="#2B0A3D" 
-                        /> */}
                         <TouchableOpacity
                             onPress={() =>
-                            navigation.navigate('Details', 
+                            props.navigation.navigate('Details', 
                             {index})}
-                            style={styles.DefaultButtonStyle}
+                            style={styles.InvisibleButtonStyle}
                         >
-                        <Text style={styles.DefaultButtonText}>More info</Text>
+                            <Text>
+                                {survey.reference_key}
+                            </Text>
+                        {/* <Text style={styles.DefaultButtonText}>More info</Text> */}
+                        <Ionicons name="file-tray-stacked-sharp" size={24} color="black" />
                         </TouchableOpacity>
+
                     </View>
                     ))}
                 </ScrollView>
@@ -132,7 +86,7 @@ const MainPage: React.FC<Props> = ({navigation}) => {
 
             <BottomBar/> 
             <View style={styles.FloatingButtonStyle}>
-            <TouchableOpacity onPress = {() => GetSurveys()}>
+            <TouchableOpacity onPress={() =>{props.navigation.navigate('Surveycreate');}} >
                 <Text style={styles.DefaultButtonText}>+ Survey</Text>
             </TouchableOpacity>
             </View>

@@ -44,12 +44,7 @@ const styles = StyleSheet.create(
     },
     listItem: {
       flexDirection: "row",
-      justifyContent: "space-around",
-      alignItems: "center",
-      width: "100%",
-      margin:10,
-      paddingLeft: 20,
-      paddingRight: 20
+      alignItems: "center"
     },
     bottomContainer: {
       flexDirection: "row",
@@ -80,13 +75,15 @@ const styles = StyleSheet.create(
       color: '#FFFFFF'
     },
     FloatingButtonStyle: {
+      alignSelf:'center',
       width: 140,
       padding:15,
+      height:60,
       backgroundColor:'#2B0A3D',
       borderRadius:30,
       bottom:90,
       right:20,
-      position:"absolute",
+      position:"absolute"
    },
     DefaultButtonStyle: {
       alignSelf: 'center',
@@ -115,11 +112,17 @@ const styles = StyleSheet.create(
       textAlign: 'center',
       color: '#0070AD'
     },
-    task: {
-      width: 200
-    },
     error: {
       color: "red"
+    },
+    InvisibleButtonStyle: {
+      width: "100%",
+      height: 80,
+      paddingTop:10,
+      paddingBottom:10,
+      paddingRight:20,
+      paddingLeft:20,
+      flexDirection: "row"
     }
   });
 

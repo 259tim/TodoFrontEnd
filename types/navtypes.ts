@@ -8,6 +8,8 @@ export type RootStackParamList = {
     Login: undefined;
     Signup: undefined;
     Pwreset: undefined;
+    Surveycreate: undefined;
+    Openquestion: undefined;
 };
 
 
@@ -51,8 +53,21 @@ RootStackParamList,
 'Pwreset'
 >;
 
+// types for survey create screen route and navigation
+type SurveyCreateScreenRouteProp = RouteProp<RootStackParamList, 'Surveycreate'>;
 
+type SurveyCreateScreenNavigationProp = StackNavigationProp<
+RootStackParamList,
+'Surveycreate'
+>;
 
+// types for survey create screen route and navigation
+type OpenQuestionRouteProp = RouteProp<RootStackParamList, 'Openquestion'>;
+
+type OpenQuestionNavigationProp = StackNavigationProp<
+RootStackParamList,
+'Openquestion'
+>;
 
 export type HomeRoute = HomeScreenRouteProp;
 export type HomeNavigation = HomeScreenNavigationProp;
@@ -68,5 +83,11 @@ export type SignupNavigation = SignupScreenNavigationProp;
 
 export type DetailRoute = DetailScreenRouteProp;
 export type DetailNavigation = DetailScreenNavigationProp;
+
+export type SurveyCreateRoute = DetailScreenRouteProp;
+export type SurveyCreateNavigation = DetailScreenNavigationProp;
+
+export type OpenQuestionRoute = OpenQuestionRouteProp;
+export type OpenQuestionNavigation = OpenQuestionNavigationProp;
 
 export type RootStackParameters = RootStackParamList;
