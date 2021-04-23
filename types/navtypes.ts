@@ -61,7 +61,7 @@ RootStackParamList,
 'Surveycreate'
 >;
 
-// types for survey create screen route and navigation
+// types for open question screen route and navigation
 type OpenQuestionRouteProp = RouteProp<RootStackParamList, 'Openquestion'>;
 
 type OpenQuestionNavigationProp = StackNavigationProp<
@@ -84,8 +84,8 @@ export type SignupNavigation = SignupScreenNavigationProp;
 export type DetailRoute = DetailScreenRouteProp;
 export type DetailNavigation = DetailScreenNavigationProp;
 
-export type SurveyCreateRoute = DetailScreenRouteProp;
-export type SurveyCreateNavigation = DetailScreenNavigationProp;
+export type SurveyCreateRoute = SurveyCreateScreenRouteProp;
+export type SurveyCreateNavigation = SurveyCreateScreenNavigationProp;
 
 export type OpenQuestionRoute = OpenQuestionRouteProp;
 export type OpenQuestionNavigation = OpenQuestionNavigationProp;

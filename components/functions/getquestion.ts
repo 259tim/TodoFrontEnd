@@ -3,11 +3,11 @@ import Base64 from 'js-base64';
 
 // has to be edited
 
-const GetParticipations = async (): Promise<any> => {
+const GetQuestions = async (): Promise<any> => {
     let headers = new Headers();
     headers.append('Authorization', 'Basic ' + Base64.btoa("tim.seip@capgemini.com" + ":" + "adminpw"))
     
-    const response = await fetch(api + "/api/participations", {
+    const response = await fetch(api + "/api/questions", {
             headers: headers,
             method: 'GET'
         })
@@ -15,4 +15,4 @@ const GetParticipations = async (): Promise<any> => {
     return stuff;
 }
 
-export default GetParticipations;
+export default GetQuestions;

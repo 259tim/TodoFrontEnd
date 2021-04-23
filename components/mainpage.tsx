@@ -1,17 +1,16 @@
 import styles from './styles';
 import * as React from 'react';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { Text, View, TextInput, Button, ScrollView, SafeAreaView } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import DetailPage from './detailpage';
+import { useFocusEffect } from '@react-navigation/native';
 import BottomBar from './bottombar';
 import { Ionicons } from '@expo/vector-icons';
 // type imports
 import { DetailNavigation, DetailRoute } from '../types/navtypes';
 // function imports
 import GetParticipations from './functions/getparticipations'
-import { useHeaderHeight } from '@react-navigation/stack';
 
 type Props = {
   route: DetailRoute;
@@ -28,18 +27,14 @@ const MainPage: React.FC<Props> = (props) => {
 
     //here are all the functions that perform stuff in the page
 
-    useEffect(() => {
+    useFocusEffect(() => {
         const fetchData = async () => {
             const data = await GetParticipations();
-            console.log("hi1")
             setSurveyList(data);
-            console.log(data);
         };
         fetchData();
-        console.log('hi2');
 
-    }
-    )
+    });
 
 
     //onPress = {() => console.log(GetParticipations())}
@@ -84,7 +79,7 @@ const MainPage: React.FC<Props> = (props) => {
                 </ScrollView>
             </View>
 
-            <BottomBar/> 
+            <BottomBar {...props}/> 
             <View style={styles.FloatingButtonStyle}>
             <TouchableOpacity onPress={() =>{props.navigation.navigate('Surveycreate');}} >
                 <Text style={styles.DefaultButtonText}>+ Survey</Text>

@@ -13,14 +13,14 @@ type Props = {
 
 // The detail page can now take information routed to it
 // the index that is used to request the correct entry in the store's array is sent through react-navigation
-const BottomBar: React.FC<Props> = ({navigation}) => {
+const BottomBar: React.FC<Props> = (props) => {
 
     return (
         <View style={styles.bottomContainer}>
           <View style={styles.BottomButtonViewStyle}>
             <TouchableOpacity
                         onPress={() =>
-                        navigation.navigate('Details', {index: 1} 
+                        props.navigation.navigate('Home' 
                         )}
                         style={styles.BottomButtonStyle}
                     >    
@@ -34,7 +34,7 @@ const BottomBar: React.FC<Props> = ({navigation}) => {
           <View style={styles.BottomButtonViewStyle}>
             <TouchableOpacity
                         onPress={() =>
-                        navigation.navigate('Details', {index: 1} 
+                        props.navigation.navigate('Details', {index: 1} 
                         )}
                         style={styles.BottomButtonStyle}
                     >    
@@ -48,7 +48,7 @@ const BottomBar: React.FC<Props> = ({navigation}) => {
           <View style={styles.BottomButtonViewStyle}>
             <TouchableOpacity
                         onPress={() =>
-                        navigation.navigate('Details', {index: 1} 
+                        props.navigation.navigate('Details', {index: 1} 
                         )}
                         style={styles.BottomButtonStyle}
                     >    
@@ -62,7 +62,7 @@ const BottomBar: React.FC<Props> = ({navigation}) => {
           <View style={styles.BottomButtonViewStyle}>
             <TouchableOpacity
                         onPress={() =>
-                        navigation.navigate('Details', {index: 1} 
+                        props.navigation.navigate('Details', {index: 1} 
                         )}
                         style={styles.BottomButtonStyle}
                     >

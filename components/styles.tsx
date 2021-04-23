@@ -25,6 +25,16 @@ const styles = StyleSheet.create(
       borderBottomWidth: 2,
       paddingLeft: 8
     },
+    inputBoxLarge: {
+      textDecorationColor:"#2B0A3D",
+      width: '80%',
+      textAlignVertical:'top',
+      height: 120,
+      borderColor: "#2B0A3D",
+      borderWidth: 2,
+      paddingLeft: 8,
+      paddingTop:8
+    },
     title: {
       fontSize: 30,
       marginBottom: 0,
@@ -103,12 +113,12 @@ const styles = StyleSheet.create(
     },
     SecondaryButtonStyle: {
       alignSelf: 'center',
-      minWidth: 120,
+      width: 230,
       padding: 20
     },
     SecondaryButtonText: {
       alignSelf: 'center',
-      fontSize: 16,
+      fontSize: 18,
       textAlign: 'center',
       color: '#0070AD'
     },

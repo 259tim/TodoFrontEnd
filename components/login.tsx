@@ -101,7 +101,7 @@ const login: React.FC<Props> = (props) => {
                         <TouchableOpacity onPress={() =>
                                 props.navigation.navigate('Signup')} 
                                 style={[styles.SecondaryButtonStyle, {paddingBottom:0}]}>
-                            <Text style={styles.SecondaryButtonText}>Don't have an account yet? Sign up.</Text>
+                            <Text style={[styles.SecondaryButtonText,{fontSize:16}]}>Don't have an account yet? Sign up.</Text>
                         </TouchableOpacity>
                     </View>
                 

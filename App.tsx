@@ -20,7 +20,7 @@ import Login from './components/login';
 import Signup from './components/signup';
 import Pwreset from './components/resetpw';
 import SurveyCreate from './components/createsurvey';
-import OpenQuestion from './components/openquestion';
+import OpenQuestion from './components/questionpages/openquestion';
 //type imports
 import { RootStackParameters } from './types/navtypes'
 
@@ -144,6 +144,7 @@ export default function App() {
             component={SurveyCreate} 
             options={{
               title: 'New survey',
+              headerLeft: ()=> null,
               headerStyle: {
                 backgroundColor: '#0070AD'
               },
@@ -159,6 +160,8 @@ export default function App() {
             component={OpenQuestion} 
             options={{
               title: 'Open question',
+              gestureEnabled: false,
+              headerLeft: ()=> null,
               headerStyle: {
                 backgroundColor: '#0070AD'
               },

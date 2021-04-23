@@ -52,11 +52,17 @@ Your progress will be saved.
                         />
                     </View>
                     <View style={styles.container}>
-                        <TouchableOpacity onPress={() => CreateParticipations(reference_key, 1, 1)} style={[styles.DefaultButtonStyle, {width: '90%'}]}>
+                        <TouchableOpacity onPress={() => {
+                            CreateParticipations(reference_key, 1, 1);
+                            
+                                }
+                            }   
+                             
+                            style={[styles.DefaultButtonStyle, {width: '90%'}]}>
                             <Text style={[styles.DefaultButtonText, { width: 240}]}>Start survey</Text>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() =>
-                                props.navigation.navigate('Login')} 
+                                props.navigation.navigate('Openquestion')} 
                                 style={[styles.SecondaryButtonStyle, {paddingBottom:0}]}>
                             <Text style={styles.SecondaryButtonText}>Cancel</Text>
                         </TouchableOpacity>
