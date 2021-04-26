@@ -96,7 +96,7 @@ Your progress will be saved.`
                 />
             </View> */}
             <KeyboardAvoidingView style={{ flex: 2}} behavior='height'>
-                <QuestionNavBar/>
+                <QuestionNavBar {...props}/>
             </KeyboardAvoidingView>
             <KeyboardAvoidingView style={{ flex: 1 }} behavior='height'>
                 <HideWithKeyboard>
