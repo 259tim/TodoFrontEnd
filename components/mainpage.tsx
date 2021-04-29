@@ -12,6 +12,7 @@ import { DetailNavigation, DetailRoute } from '../types/navtypes';
 // function imports
 import GetParticipations from './functions/getparticipations'
 
+
 type Props = {
   route: DetailRoute;
   navigation: DetailNavigation;
@@ -21,6 +22,8 @@ type Props = {
 //this is the page, the style items come from the stylesheet in styles.ts
 const MainPage: React.FC<Props> = (props) => {
 
+    
+        
     // these are the relevant hooks, this manages setting text and errors
 
     const [survey_list, setSurveyList] = useState<Array<Object>>([{"survey_name":"no surveys available"}]);
@@ -33,7 +36,7 @@ const MainPage: React.FC<Props> = (props) => {
             setSurveyList(data);
         };
         fetchData();
-
+        
     });
 
 
@@ -81,7 +84,7 @@ const MainPage: React.FC<Props> = (props) => {
 
             <BottomBar {...props}/> 
             <View style={styles.FloatingButtonStyle}>
-            <TouchableOpacity onPress={() =>{props.navigation.navigate('Surveycreate');}} >
+            <TouchableOpacity onPress={() =>{props.navigation.navigate('Participationcreate');}} >
                 <Text style={styles.DefaultButtonText}>+ Survey</Text>
             </TouchableOpacity>
             </View>

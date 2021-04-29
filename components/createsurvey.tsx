@@ -1,24 +1,24 @@
 import React from 'react'
-import { View, Text, TextInput, SafeAreaView, Image, ImageBackground  } from 'react-native'
+import { View, Text, TextInput, SafeAreaView, ImageBackground  } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { SurveyCreateNavigation, SurveyCreateRoute } from '../types/navtypes';
+import { ParticipationCreateNavigation, ParticipationCreateRoute } from '../types/navtypes';
 import styles from './styles'
 import { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import CreateParticipations from './functions/createparticipation'
 
+
 type Props = {
-  route: SurveyCreateRoute;
-  navigation: SurveyCreateNavigation;
+  route: ParticipationCreateRoute;
+  navigation: ParticipationCreateNavigation;
 };
 
 
-const SurveyCreate: React.FC<Props> = (props) => {
+const ParticipationCreate: React.FC<Props> = (props) => {
 
     const [reference_key, set_reference_key] = useState<string>("");
 
     const introtext = `
-
 
 This is a survey about cookies.
 Please enter the survey reference key you were given.
@@ -54,7 +54,7 @@ Your progress will be saved.
                     <View style={styles.container}>
                         <TouchableOpacity onPress={() => {
                             CreateParticipations(reference_key, 1, 1);
-                            
+                            props.navigation.navigate('Question');
                                 }
                             }   
                              
@@ -62,7 +62,7 @@ Your progress will be saved.
                             <Text style={[styles.DefaultButtonText, { width: 240}]}>Start survey</Text>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() =>
-                                props.navigation.navigate('Openquestion')} 
+                                props.navigation.navigate('Question')} 
                                 style={[styles.SecondaryButtonStyle, {paddingBottom:0}]}>
                             <Text style={styles.SecondaryButtonText}>Cancel</Text>
                         </TouchableOpacity>
@@ -76,4 +76,4 @@ Your progress will be saved.
     )
 }
  
-export default SurveyCreate;
+export default ParticipationCreate;

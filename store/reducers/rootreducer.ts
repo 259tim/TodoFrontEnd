@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
-import todoReducer from './todoslice'
+import questionReducer from './todoslice'
 
-const rootReducer = combineReducers({todos: todoReducer})
+const rootReducer = combineReducers({questions: questionReducer})
 
 export default rootReducer

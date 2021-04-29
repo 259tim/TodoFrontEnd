@@ -1,4 +1,5 @@
-import { configureStore, createStore, Store } from '@reduxjs/toolkit'
+import { applyMiddleware, configureStore, createStore, Store } from '@reduxjs/toolkit'
+import thunk from 'redux-thunk';
 import { persistStore, persistReducer } from 'redux-persist'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import rootReducer from './store/reducers/rootreducer'
@@ -13,7 +14,8 @@ const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 
 const mystore = createStore(
-    persistedReducer
+    persistedReducer,
+    applyMiddleware(thunk)
 );
 
 export type rootState = ReturnType<typeof mystore.getState>

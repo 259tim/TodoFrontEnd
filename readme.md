@@ -74,6 +74,7 @@ Redux is integrated into the project but currently not used anymore. It is situa
 Redux is a local storage that allows you to send variables to a stack and get them from this stack.  It works using things called Slices. These Slices add actions to the aforementioned stack of things that then do things like remove/add variables to storage, make changes to these stored variables, etc.. The only current Reducer is this:
 
 ```ts
+todoslice.ts
 
 import { createSlice } from '@reduxjs/toolkit'
 import { rootState } from '../../store'
@@ -118,3 +119,75 @@ export const selectTodoList = (state: rootState) => state.todos.todoList;
 export default todoSlice.reducer;
 ```
 
+Redux is not persistent by default, `redux-persist` allows it to be, saving entries until the app is removed from the device. 
+Important detail with this: `store.ts` contains the configuration for building the store, and uses the persistent method. It took me a while to figure out but you **must** use `AsyncStorage` as variable for storage, anything else is not supported/broke for me.  If you use this it should work fine. As is usual with react-native you have to call the store and the persisting library in `app.tsx`. Practically every library used globally has to be called from there.
+
+## React Navigation
+
+This library allows for navigating between screens in the application. `App.tsx` contains the so called navigation stack. This navigation stack contains all the relevant screens and links them to components. It also lets you configure things like the header color, title, possible icons, whether the back button appears or not, etc.
+
+The name used in this navigation stack is the name you have to use when navigating to a screen. Here's an example of navigating to a screen:
+In the `login` component I want to navigate to the `home screen` after verifying someone's credentials. To do this we have to have a few different things:
+- Because this is TypeScript the navigation system has types. These are contained in `/types/navtypes.ts`:
+
+```ts
+navtypes.ts
+
+import { RouteProp } from "@react-navigation/native";
+import { StackNavigationProp } from '@react-navigation/stack';
+
+// type for navigation props
+// This is the navigation stack, the first items is the name of the screen. 
+// The second item is any variables you might want to send alogn when you navigate to a page.
+export type RootStackParamList = {
+    Home: undefined;
+    Details: { index: number };
+    Login: undefined;
+};
+
+// types for login screen route and navigation
+// These are the route/navigation type
+type LoginScreenRouteProp = RouteProp<RootStackParamList, 'Login'>;
+
+type LoginScreenNavigationProp = StackNavigationProp<
+RootStackParamList,
+'Login'
+>;
+// here we export them.
+export type LoginRoute = LoginScreenRouteProp;
+export type LoginNavigation = LoginScreenNavigationProp;
+```
+
+This is how you use the library to navigate. Keep in mind this example removes almost all other code. This exact code might not run, it just demonstrates the logic of navigating somewhere:
+
+```ts
+login.tsx
+
+import { LoginRoute, LoginNavigation } from '../types/navtypes';
+// other imports and stuff
+
+type Props = {
+  route: LoginRoute;
+  navigation: LoginNavigation;
+};
+
+const login: React.FC<Props> = (props) => {
+
+// hooks, functions, other things performed in this page
+
+return (
+                        <View style={{height:40}}>
+                            {error && (<TouchableOpacity onPress={() =>{
+                                    showError(false);
+                                    props.navigation.navigate('Home'); // <here is where the magic happens
+                                    }} 
+                                    style={[styles.SecondaryButtonStyle, {paddingBottom:0}]}>
+                                <Text style={[styles.SecondaryButtonText, {color: 'red'}]}>Error: Reset password?</Text>
+                            </TouchableOpacity>)}
+                        </View>
+						// props: the props above.
+						// navigation: the react navigation library given a type. 
+						// .navigate('Home'): the action that navigates somewhere, in this case the home screen
+	)
+};
+```

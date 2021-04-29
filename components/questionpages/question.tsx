@@ -1,22 +1,44 @@
 import React, { useEffect} from 'react'
 import { View, Text, TextInput, SafeAreaView, KeyboardAvoidingView  } from 'react-native'
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
-import { OpenQuestionNavigation, OpenQuestionRoute } from '../../types/navtypes';
+import { QuestionNavigation, QuestionRoute } from '../../types/navtypes';
 import styles from '../styles'
 import { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import QuestionNavBar from './questionnavbar';
 import HideWithKeyboard from 'react-native-hide-with-keyboard';
 import GetQuestions from '../functions/getquestion';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+    save,
+    remove,
+    selectTodoList,
+    selectStatus,
+    fetchQuestions 
+} from '../../store/reducers/todoslice'
 
 
 type Props = {
-  route: OpenQuestionRoute;
-  navigation: OpenQuestionNavigation;
+  route: QuestionRoute;
+  navigation: QuestionNavigation;
 };
 
 
 const OpenQuestion: React.FC<Props> = (props) => {
+
+    // test redux
+
+    // dispatch: Allows you to send actions to redux 
+    // these depend on what you define in the slice
+
+    // selector: This is how you select the data from redux
+    const dispatch = useDispatch();
+    const questions = useSelector(selectTodoList);
+    const questionStatus = useSelector(selectStatus);
+
+    console.log("current list")
+    console.log(questions)
+
 
     const [reference_key, set_reference_key] = useState<string>("");
     const [question_list, setQuestionList] = useState<Array<Object>>([{"survey_name":"no surveys available"}]);
@@ -24,14 +46,19 @@ const OpenQuestion: React.FC<Props> = (props) => {
     //here are all the functions that perform stuff in the page
 
     useEffect(() => {
-        const fetchData = async () => {
-            const data = await GetQuestions();
-            console.log(data)
-            setQuestionList(data);
-        };
-        fetchData();
+        // const fetchData = async () => {
+        //     const data = await GetQuestions();
+        //     console.log(data);
+        //     setQuestionList(data);
+        // };
+        // fetchData();
+        if (questionStatus === 'idle') {
+            dispatch(fetchQuestions())
+        }
+        console.log(questions)
+    }, [questionStatus, dispatch]);
 
-    }, []);
+
 
     const questiontext = 
 `This is a survey about cookies.

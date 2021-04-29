@@ -15,12 +15,11 @@ import { PersistGate } from 'redux-persist/integration/react'
 import { persistStore } from "redux-persist"
 // my own component imports
 import MainPage from './components/mainpage';
-import DetailPage from './components/detailpage';
 import Login from './components/login';
 import Signup from './components/signup';
 import Pwreset from './components/resetpw';
-import SurveyCreate from './components/createsurvey';
-import OpenQuestion from './components/questionpages/openquestion';
+import ParticipationCreate from './components/createsurvey';
+import OpenQuestion from './components/questionpages/question';
 //type imports
 import { RootStackParameters } from './types/navtypes'
 
@@ -124,24 +123,9 @@ export default function App() {
                 }}
             />
 
-            <Stack.Screen
-            name="Details" 
-            component={DetailPage} 
-            options={{
-              title: 'Details',
-              headerStyle: {
-                backgroundColor: '#0070AD'
-              },
-              headerTitleStyle: {
-              fontFamily: 'Ubuntu_500Medium'
-              },
-              headerTintColor: '#FFFFFF' 
-            }} 
-            />
-
           <Stack.Screen
-            name="Surveycreate" 
-            component={SurveyCreate} 
+            name="Participationcreate" 
+            component={ParticipationCreate} 
             options={{
               title: 'New survey',
               headerLeft: ()=> null,
@@ -156,10 +140,10 @@ export default function App() {
             />
 
           <Stack.Screen
-            name="Openquestion" 
+            name="Question" 
             component={OpenQuestion} 
             options={{
-              title: 'Open question',
+              title: 'question',
               gestureEnabled: false,
               headerLeft: ()=> null,
               headerStyle: {
