@@ -12,10 +12,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
     save,
     remove,
-    selectTodoList,
     selectStatus,
-    fetchQuestions 
-} from '../../store/reducers/todoslice'
+    fetchQuestions, 
+    selectQuestions
+} from '../../store/reducers/questionslice'
 
 
 type Props = {
@@ -33,12 +33,13 @@ const OpenQuestion: React.FC<Props> = (props) => {
 
     // selector: This is how you select the data from redux
     const dispatch = useDispatch();
-    const questions = useSelector(selectTodoList);
+    const questions = useSelector(selectQuestions);
     const questionStatus = useSelector(selectStatus);
 
     console.log("current list")
     console.log(questions)
-
+    const question = questions[0]
+    console.log(question.question_text)
 
     const [reference_key, set_reference_key] = useState<string>("");
     const [question_list, setQuestionList] = useState<Array<Object>>([{"survey_name":"no surveys available"}]);
@@ -100,7 +101,7 @@ Your progress will be saved.`
                 <ScrollView 
                 contentContainerStyle={{justifyContent:'center', alignItems:'center' }}
                 >
-                    <Text style={[styles.defaultText,{fontSize:15, padding:20}]}>{questiontext}</Text>
+                    <Text style={[styles.defaultText,{fontSize:15, padding:20}]}>{question.question_text}</Text>
 
                 </ScrollView>
                 <TextInput

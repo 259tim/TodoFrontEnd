@@ -3,12 +3,12 @@ import { Text, View, Button } from 'react-native';
 import { StyleSheet } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 // type imports
-import { OpenQuestionRoute, OpenQuestionNavigation } from '../../types/navtypes';
+import { QuestionRoute, QuestionNavigation } from '../../types/navtypes';
 import { Ionicons } from '@expo/vector-icons';
 
 type Props = {
-  route: OpenQuestionRoute;
-  navigation: OpenQuestionNavigation;
+  route: QuestionRoute;
+  navigation: QuestionNavigation;
 };
 
 // The detail page can now take information routed to it

@@ -3,13 +3,13 @@ import { rootState } from '../../store'
 import api from "../../config/apiconfig";
 import Base64 from 'js-base64';
 
-interface todoState {
+interface questionState {
     questions: object[],
     status: 'idle' | 'loading' | 'succeeded' | 'failed',
     error: string | undefined
 }
 
-const initialState: todoState = {
+const initialState: questionState = {
     questions : [],
     status: 'idle',
     error: undefined
@@ -61,7 +61,7 @@ export const questionSlice = createSlice({
 
 export const { save, remove } = questionSlice.actions;
 
-export const selectTodoList = (state: rootState) => state.questions.questions;
+export const selectQuestions = (state: rootState) => state.questions.questions;
 export const selectStatus = (state: rootState) => state.questions.status;
 
 export default questionSlice.reducer;

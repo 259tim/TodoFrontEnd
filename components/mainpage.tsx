@@ -55,7 +55,7 @@ const MainPage: React.FC<Props> = (props) => {
         {/*here I map the items in the ToDo array into a list,
         with a style change that does a strike-through if attribute "completed" is true
         note that I use the IToDo interface from above to define the type of the list 
-        This is a scrollview that allows the app to scroll when more todos are added
+        This is a scrollview that allows the app to scroll when more items are added
         it's wrapped in a view to give it proper sizing, otherwise it goes all over the place*/}
                     
             <View style={styles.ScrollContainer}>

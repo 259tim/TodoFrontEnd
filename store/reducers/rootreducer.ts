@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import questionReducer from './todoslice'
+import questionReducer from './questionslice'
 
 const rootReducer = combineReducers({questions: questionReducer})
 
