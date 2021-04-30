@@ -71,53 +71,8 @@ This is the basic structure:
 ## Redux
 Redux is integrated into the project but currently not used anymore. It is situated in the `/store/reducers/` folders. I highly recommend reading into Redux yourself because me repeating their huge documentation is a futile effort, but these are the basics:
 
-Redux is a local storage that allows you to send variables to a stack and get them from this stack.  It works using things called Slices. These Slices add actions to the aforementioned stack of things that then do things like remove/add variables to storage, make changes to these stored variables, etc.. The only current Reducer is this:
+Redux is a local storage that allows you to send variables to a stack and get them from this stack.  It works using things called Slices. These Slices add actions to the aforementioned stack of things that then do things like remove/add variables to storage, make changes to these stored variables, etc.. The only current Reducer is the `questionslice`. Please check that file for explanation.
 
-```ts
-todoslice.ts
-
-import { createSlice } from '@reduxjs/toolkit'
-import { rootState } from '../../store'
-
-// Type for this slice: It has one variable: todoList, a list of strings.
-interface todoState {
-    todoList: string[]
-}
-
-// initial state for this slice: An empty list
-const initialState: todoState = {
-    todoList : []
-}
-
-export const todoSlice = createSlice({
-    name: 'todo',
-    initialState,
-    reducers: { 
-		// This slice has two actions: Save and remove, doing exactly what they say.
-		// They take a current state and then do something with it, pushing  to and logging the new state.
-		// In this case they take a list of strings, the todoList, and then push this to the stack in the Redux store.
-        save: (state, action) => {
-            state.todoList.push(action.payload)
-            console.log(state.todoList)
-        },
-		// Same but remove from the store instead.
-        remove: (state, action) => {
-            state.todoList.splice(action.payload)
-            console.log(state.todoList)
-        }
-    }
-})
-
-// these actions are then exported. If we want to save something to the Redux storage we can then:
-// call the todoSlice.save(mycoolarrayofstrings) action with a certain object fitting the earlier types. 
-export const { save, remove } = todoSlice.actions;
-
-// This exports a select, allowing us to read from the state the item that this  slice has stored.
-export const selectTodoList = (state: rootState) => state.todos.todoList;
-
-//Finally we export the whole thing to call it in the root reducer.
-export default todoSlice.reducer;
-```
 
 Redux is not persistent by default, `redux-persist` allows it to be, saving entries until the app is removed from the device. 
 Important detail with this: `store.ts` contains the configuration for building the store, and uses the persistent method. It took me a while to figure out but you **must** use `AsyncStorage` as variable for storage, anything else is not supported/broke for me.  If you use this it should work fine. As is usual with react-native you have to call the store and the persisting library in `app.tsx`. Practically every library used globally has to be called from there.
@@ -177,13 +132,12 @@ const login: React.FC<Props> = (props) => {
 
 return (
                         <View style={{height:40}}>
-                            {error && (<TouchableOpacity onPress={() =>{
-                                    showError(false);
+                           <TouchableOpacity onPress={() =>{
                                     props.navigation.navigate('Home'); // <here is where the magic happens
                                     }} 
                                     style={[styles.SecondaryButtonStyle, {paddingBottom:0}]}>
                                 <Text style={[styles.SecondaryButtonText, {color: 'red'}]}>Error: Reset password?</Text>
-                            </TouchableOpacity>)}
+                            </TouchableOpacity>
                         </View>
 						// props: the props above.
 						// navigation: the react navigation library given a type. 
