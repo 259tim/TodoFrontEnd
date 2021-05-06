@@ -5,9 +5,10 @@ import { QuestionNavigation, QuestionRoute } from '../../types/navtypes';
 import styles from '../styles'
 import { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import QuestionNavBar from './questionnavbar';
+import qstyles from './questionnavbar';
 import HideWithKeyboard from 'react-native-hide-with-keyboard';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { Ionicons } from '@expo/vector-icons';
 import {
     save,
     remove,
@@ -94,7 +95,42 @@ Your progress will be saved.`
                         />
             </View>
             <KeyboardAvoidingView style={{ flex: 2}} behavior='height'>
-                <QuestionNavBar {...props}/>
+            <View style={qstyles.QuestionNavContainer}>
+            <TouchableOpacity
+                        onPress={() =>
+                        props.navigation.navigate('Home' 
+                        )}
+                        style={qstyles.QuestionNavButton}
+                    >    
+                    <View style={qstyles.QuestionNavIconStyle}>
+                    <Ionicons name="arrow-back" size={96} color="#2B0A3D" />
+                    </View>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+                        onPress={() =>
+                        props.navigation.navigate('Details', {index: 1} 
+                        )}
+                        style={qstyles.QuestionNavButton}
+                    >    
+                    <View style={qstyles.QuestionNavIconStyle}>
+                    <Ionicons name="md-list-circle" size={96} color="#0070AD" />
+                    </View>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+                        onPress={() =>
+                        props.navigation.navigate('Details', {index: 1} 
+                        )}
+                        style={qstyles.QuestionNavButton}
+                    >    
+                    <View style={qstyles.QuestionNavIconStyle}>
+                    <Ionicons name="arrow-forward" size={96} color="#2B0A3D" />
+                    </View>
+            </TouchableOpacity>
+
+
+        </View>
             </KeyboardAvoidingView>
             <KeyboardAvoidingView style={{ flex: 1 }} behavior='height'>
                 <HideWithKeyboard>

@@ -55,7 +55,7 @@ const QuestionNavBar: React.FC<Props> = (props) => {
     )
   }
 
-const styles = StyleSheet.create(
+const qstyles = StyleSheet.create(
   {
     QuestionNavContainer: {
     alignItems:'center',
@@ -76,4 +76,4 @@ const styles = StyleSheet.create(
 }
 )
 
-export default QuestionNavBar;
+export default qstyles;
