@@ -31,7 +31,9 @@ export const fetchQuestions = createAsyncThunk('questions/fetchquestions', async
             method: 'GET'
         })
     const stuff = await response.json();
+    // console.log(stuff)
     return stuff;
+
 })
 
 export const questionSlice = createSlice({
@@ -56,16 +58,30 @@ export const questionSlice = createSlice({
     // https://redux.js.org/recipes/usage-with-typescript/ 
     extraReducers: (builder) => {
         builder.addCase(fetchQuestions.pending, (state, action) => {
-          state.status = 'loading'
+            console.log('pending')
+            return state = {
+                ...state,
+                status: 'loading'
+            }
         }),
         builder.addCase(fetchQuestions.fulfilled, (state, action) => {
-          state.status = 'succeeded'
-          // Add any fetched posts to the array
-          state.questions = state.questions.concat(action.payload)
-        }),
+
+            // Add any fetched posts to the array
+            console.log('fulfilled')
+            
+            return state = {
+                ...state,
+                status: 'succeeded',
+                questions: action.payload
+            }
+        })
         builder.addCase(fetchQuestions.rejected, (state, action) => {
-          state.status = 'failed'
-          state.error = action.error.message
+            console.log('rejected')
+            return state = {
+                ...state,
+                status: 'loading',
+                error: action.error.message
+            }
         })
       } 
     }

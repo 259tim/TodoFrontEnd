@@ -7,7 +7,6 @@ import { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import QuestionNavBar from './questionnavbar';
 import HideWithKeyboard from 'react-native-hide-with-keyboard';
-import GetQuestions from '../functions/getquestion';
 import { useDispatch, useSelector } from 'react-redux';
 import {
     save,
@@ -26,39 +25,20 @@ type Props = {
 
 const OpenQuestion: React.FC<Props> = (props) => {
 
-    // test redux
 
-    // dispatch: Allows you to send actions to redux 
-    // these depend on what you define in the slice
 
-    // selector: This is how you select the data from redux
-    const dispatch = useDispatch();
-    const questions = useSelector(selectQuestions);
-    const questionStatus = useSelector(selectStatus);
-
-    console.log("current list")
-    console.log(questions)
-    const question = questions[0]
-    console.log(question.question_text)
+    // const question = questions[0]
+    // console.log(question.question_text)
 
     const [reference_key, set_reference_key] = useState<string>("");
     const [question_list, setQuestionList] = useState<Array<Object>>([{"survey_name":"no surveys available"}]);
 
     //here are all the functions that perform stuff in the page
 
-    useEffect(() => {
-        // const fetchData = async () => {
-        //     const data = await GetQuestions();
-        //     console.log(data);
-        //     setQuestionList(data);
-        // };
-        // fetchData();
-        if (questionStatus === 'idle') {
-            dispatch(fetchQuestions())
-        }
-        console.log(questions)
-    }, [questionStatus, dispatch]);
-
+    const questions = useSelector(selectQuestions);
+    const questionStatus = useSelector(selectStatus);
+    console.log("current list")
+    console.log(questions)
 
 
     const questiontext = 
@@ -101,7 +81,7 @@ Your progress will be saved.`
                 <ScrollView 
                 contentContainerStyle={{justifyContent:'center', alignItems:'center' }}
                 >
-                    <Text style={[styles.defaultText,{fontSize:15, padding:20}]}>{question.question_text}</Text>
+                <Text style={[styles.defaultText,{fontSize:15, padding:20}]}>{questions[1].question_text}</Text>
 
                 </ScrollView>
                 <TextInput
@@ -113,16 +93,6 @@ Your progress will be saved.`
                             autoCapitalize='none'
                         />
             </View>
-            {/* <View style={{ flex: 2, backgroundColor: "darkorange",justifyContent:'center', alignItems:'center' }}>
-            <TextInput
-                    multiline={true}
-                    style={styles.inputBoxLarge}
-                    value= {reference_key}
-                    onChangeText={reference_key => set_reference_key(reference_key)}
-                    placeholder='Answer here'
-                    autoCapitalize='none'
-                />
-            </View> */}
             <KeyboardAvoidingView style={{ flex: 2}} behavior='height'>
                 <QuestionNavBar {...props}/>
             </KeyboardAvoidingView>

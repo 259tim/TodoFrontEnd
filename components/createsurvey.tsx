@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { View, Text, TextInput, SafeAreaView, ImageBackground  } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { ParticipationCreateNavigation, ParticipationCreateRoute } from '../types/navtypes';
@@ -6,7 +6,14 @@ import styles from './styles'
 import { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import CreateParticipations from './functions/createparticipation'
-
+import { useDispatch } from 'react-redux';
+import {
+    save,
+    remove,
+    selectStatus,
+    fetchQuestions, 
+    selectQuestions
+} from '../store/reducers/questionslice'
 
 type Props = {
   route: ParticipationCreateRoute;
@@ -17,6 +24,18 @@ type Props = {
 const ParticipationCreate: React.FC<Props> = (props) => {
 
     const [reference_key, set_reference_key] = useState<string>("");
+
+    // dispatch: Allows you to send actions to redux 
+    // these depend on what you define in the slice
+
+    // selector: This is how you select the data from redux
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        console.log('dispatching fetch')
+        dispatch(fetchQuestions())
+
+    }, []);
 
     const introtext = `
 
