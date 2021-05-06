@@ -33,7 +33,8 @@ const styles = StyleSheet.create(
       borderColor: "#2B0A3D",
       borderWidth: 2,
       paddingLeft: 8,
-      paddingTop:8
+      paddingTop:8,
+      bottom:0
     },
     title: {
       fontSize: 30,

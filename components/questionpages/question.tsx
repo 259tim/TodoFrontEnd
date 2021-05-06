@@ -9,7 +9,7 @@ import qstyles from './questionnavbar';
 import HideWithKeyboard from 'react-native-hide-with-keyboard';
 import { useSelector } from 'react-redux';
 import { Ionicons } from '@expo/vector-icons';
-import Button from 'react-native-paper';
+import { RadioButton, Checkbox } from 'react-native-paper';
 import {
     selectStatus,
     selectQuestions
@@ -32,7 +32,10 @@ const OpenQuestion: React.FC<Props> = (props) => {
     const [question_number, set_question_number] = useState<number>(0);
     const [question_type, set_question_type] = useState<number>(0);
     const [comment, set_comment] = useState<string>("");
-    
+    //const [checked, setChecked] = React.useState('first');
+    const [checked, setChecked] = React.useState(false);
+    const [value, setValue] = React.useState('first');
+
     const questions = useSelector(selectQuestions);
     const questionStatus = useSelector(selectStatus);
 
@@ -77,37 +80,96 @@ const OpenQuestion: React.FC<Props> = (props) => {
 
     }
 
+    // the components that are rendered on each type of question
+
     const renderChoice = (question_type: number) : any => {
         if (question_type == 0) {
+            
             // question is a yes/no question
             return (
-            <View style={{width:100, height:100, backgroundColor:'green'}}>
-                <Text>hello</Text>
-            </View>)
+            <View style={{paddingTop:20, width:360}}>
+            <RadioButton.Item
+                value="first"
+                label="Yes"
+                color="#0070AD"
+                status={ checked === 'first' ? 'checked' : 'unchecked' }
+                onPress={() => setChecked('first')}
+            />
+            <RadioButton.Item
+                value="second"
+                label="No"
+                status={ checked === 'second' ? 'checked' : 'unchecked' }
+                onPress={() => setChecked('second')}
+            />
+                </View>
+            )
             
         }
         else if (question_type == 1) {
+            const choices = questions[question_number].choices;
             // question is a multiple choice, single answer (radio buttons) question
+            
             return(
-            <View style={{width:100, height:100, backgroundColor:'red'}}>
-                <Text>hello</Text>
+                <View style={{paddingTop:20, width:360}}> 
+                    <RadioButton.Group onValueChange={newValue => setValue(newValue)} value={value}>
+                    {choices.map((choice: any, index: number) => (
+                        <View key={`${index}_${choice}`}>
+                            <View>
+                            <RadioButton.Item
+                                label={choice.choice_text}
+                                value="first"
+                                color='#0070AD'
+                           />
+                            </View>
+                        </View>
+                        ))}
+                    </RadioButton.Group>
             </View>
             )
         }
         else if (question_type == 2) {
+            const choices = questions[question_number].choices;
+
             // question is a check box question
             return (
-            <View style={{width:100, height:100, backgroundColor:'blue'}}>
-                <Text>hello</Text>
-            </View>
+
+                // font has to be changed still https://callstack.github.io/react-native-paper/fonts.html
+                // uses this https://callstack.github.io/react-native-paper/radio-button.html
+                <View style={{paddingTop:20, width:360}}>
+
+                    {choices.map((choice: any, index: number) => (
+                        <View key={`${index}_${choice}`}>
+                            <View>
+                            <Checkbox.Item
+                                label={choice.choice_text}
+                                color='#0070AD'
+                                status={checked ? 'checked' : 'unchecked'}
+                                onPress={() => {
+                                    setChecked(!checked);
+                                }}
+                            />
+                            </View>
+
+                        </View>
+                        ))}
+                </View>
             )
         }
         else if (question_type == 3) {
             //question is an open answered question
             return (
-            <View style={{width:100, height:100, backgroundColor:'yellow'}}>
-                <Text>hello</Text>
+            <View style={{width:300, alignItems:'center'}}>
+                <View style={{height:240}}></View>
+                <TextInput
+                    multiline={true}
+                    style={styles.inputBoxLarge}
+                    value= {comment}
+                    onChangeText={comment => set_comment(comment)}
+                    placeholder='Answer here'
+                    autoCapitalize='none'
+                />
             </View>
+            
             )
         }
     }
@@ -157,14 +219,7 @@ Your progress will be saved.`
                     <Text style={[styles.defaultText,{fontSize:15, padding:20}]}>{questions[question_number].question_text}</Text>
                     <View>{renderChoice(question_type)}</View>
                 </ScrollView>
-                <TextInput
-                            multiline={true}
-                            style={styles.inputBoxLarge}
-                            value= {comment}
-                            onChangeText={comment => set_comment(comment)}
-                            placeholder='Answer here'
-                            autoCapitalize='none'
-                        />
+
             </View>
             <KeyboardAvoidingView style={{ flex: 2}} behavior='height'>
             <View style={qstyles.QuestionNavContainer}>

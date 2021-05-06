@@ -13,10 +13,7 @@ import { DetailNavigation, DetailRoute } from '../types/navtypes';
 import GetParticipations from './functions/getparticipations'
 import { useDispatch, useSelector } from 'react-redux';
 import {
-    save,
-    remove,
     selectStatus,
-    fetchQuestions, 
     selectQuestions
 } from '../store/reducers/questionslice'
 
