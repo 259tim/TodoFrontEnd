@@ -16,14 +16,14 @@ type Props = {
 const QuestionNavBar: React.FC<Props> = (props) => {
 
     return (
-        <View style={styles.QuestionNavContainer}>
+        <View style={qstyles.QuestionNavContainer}>
             <TouchableOpacity
                         onPress={() =>
                         props.navigation.navigate('Home' 
                         )}
-                        style={styles.QuestionNavButton}
+                        style={qstyles.QuestionNavButton}
                     >    
-                    <View style={styles.QuestionNavIconStyle}>
+                    <View style={qstyles.QuestionNavIconStyle}>
                     <Ionicons name="arrow-back" size={96} color="#2B0A3D" />
                     </View>
             </TouchableOpacity>
@@ -32,9 +32,9 @@ const QuestionNavBar: React.FC<Props> = (props) => {
                         onPress={() =>
                         props.navigation.navigate('Details', {index: 1} 
                         )}
-                        style={styles.QuestionNavButton}
+                        style={qstyles.QuestionNavButton}
                     >    
-                    <View style={styles.QuestionNavIconStyle}>
+                    <View style={qstyles.QuestionNavIconStyle}>
                     <Ionicons name="md-list-circle" size={96} color="#0070AD" />
                     </View>
             </TouchableOpacity>
@@ -43,9 +43,9 @@ const QuestionNavBar: React.FC<Props> = (props) => {
                         onPress={() =>
                         props.navigation.navigate('Details', {index: 1} 
                         )}
-                        style={styles.QuestionNavButton}
+                        style={qstyles.QuestionNavButton}
                     >    
-                    <View style={styles.QuestionNavIconStyle}>
+                    <View style={qstyles.QuestionNavIconStyle}>
                     <Ionicons name="arrow-forward" size={96} color="#2B0A3D" />
                     </View>
             </TouchableOpacity>
@@ -77,3 +77,4 @@ const qstyles = StyleSheet.create(
 )
 
 export default qstyles;
+//export default QuestionNavBar;

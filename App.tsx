@@ -4,7 +4,8 @@ import 'react-native-gesture-handler';
 import { useFonts, Ubuntu_500Medium, Ubuntu_700Bold } from '@expo-google-fonts/ubuntu';
 import { setCustomText, setCustomTextInput } from 'react-native-global-props';
 import AppLoading from 'expo-app-loading';
-
+// react native paper style components imports
+import { Provider as PaperProvider } from 'react-native-paper';
 //react-navigation imports
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -59,6 +60,7 @@ export default function App() {
   return (
     <Provider store={mystore}>
       <PersistGate loading={null} persistor={persistor}>
+        <PaperProvider>
         <NavigationContainer>
           <Stack.Navigator>
                         
@@ -158,6 +160,7 @@ export default function App() {
 
           </Stack.Navigator>
         </NavigationContainer>
+        </PaperProvider>
       </PersistGate>
     </Provider>
   );

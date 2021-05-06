@@ -2,6 +2,8 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { rootState } from '../../store'
 import api from "../../config/apiconfig";
 import Base64 from 'js-base64';
+import { useDispatch, useSelector } from 'react-redux';
+import mystore from '../../store';
 
 // the types for this slice's state: a list of objects, a status, and a possible error
 interface questionState {
@@ -17,6 +19,7 @@ const initialState: questionState = {
     error: undefined
 }
 
+
 // this is a thunk, it comes from the redux-thunk package, it is not default to redux
 // a thunk allows for creating functions that have asynchronous logic, getting from APIs and anything else web.
 // these functions can then interact with the store. In this case we store a list of questions.
@@ -29,7 +32,7 @@ export const fetchQuestions = createAsyncThunk('questions/fetchquestions', async
     const response = await fetch(api + "/api/questions", {
             headers: headers,
             method: 'GET'
-        })
+    })
     const stuff = await response.json();
     // console.log(stuff)
     return stuff;
@@ -48,8 +51,8 @@ export const questionSlice = createSlice({
             console.log(state.questions)
         },
         remove: (state, action) => {
-            state.questions.splice(action.payload)
-            console.log(state.questions)
+            console.log('removing')
+            state.questions.splice(0, 10000)
         }
     },
     // the extrareducers allow you to modify secondary values, in this case we use it to

@@ -11,6 +11,15 @@ import { Ionicons } from '@expo/vector-icons';
 import { DetailNavigation, DetailRoute } from '../types/navtypes';
 // function imports
 import GetParticipations from './functions/getparticipations'
+import { useDispatch, useSelector } from 'react-redux';
+import {
+    save,
+    remove,
+    selectStatus,
+    fetchQuestions, 
+    selectQuestions
+} from '../store/reducers/questionslice'
+
 
 
 type Props = {
@@ -22,6 +31,12 @@ type Props = {
 //this is the page, the style items come from the stylesheet in styles.ts
 const MainPage: React.FC<Props> = (props) => {
 
+    // dispatch: Allows you to send actions to redux 
+    // these depend on what you define in the slice
+    // selector: This is how you select the data from redux
+    const dispatch = useDispatch();
+    const questions = useSelector(selectQuestions);
+    const questionStatus = useSelector(selectStatus);
     
         
     // these are the relevant hooks, this manages setting text and errors
@@ -36,9 +51,7 @@ const MainPage: React.FC<Props> = (props) => {
             setSurveyList(data);
         };
         fetchData();
-        
     });
-
 
     //onPress = {() => console.log(GetParticipations())}
 
