@@ -98,6 +98,7 @@ const OpenQuestion: React.FC<Props> = (props) => {
             <RadioButton.Item
                 value="second"
                 label="No"
+                color="#0070AD"
                 status={ checked === 'second' ? 'checked' : 'unchecked' }
                 onPress={() => setChecked('second')}
             />

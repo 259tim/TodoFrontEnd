@@ -6,8 +6,22 @@ import { useDispatch, useSelector } from 'react-redux';
 import mystore from '../../store';
 
 // the types for this slice's state: a list of objects, a status, and a possible error
+
+interface choice {
+    choice_text: String
+    id: Number
+}
+
+interface question {
+    id: Number
+    question_text: String
+    question_type: Number
+    choices: choice[]
+    answer?: Number[]
+}
+
 interface questionState {
-    questions: object[],
+    questions: question[],
     status: 'idle' | 'loading' | 'succeeded' | 'failed',
     error: string | undefined
 }
@@ -35,9 +49,10 @@ export const fetchQuestions = createAsyncThunk('questions/fetchquestions', async
     })
     const stuff = await response.json();
     // console.log(stuff)
-    return stuff;
 
+    return stuff;
 })
+
 
 export const questionSlice = createSlice({
     name: 'question',

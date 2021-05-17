@@ -121,6 +121,7 @@ login.tsx
 import { LoginRoute, LoginNavigation } from '../types/navtypes';
 // other imports and stuff
 
+// the props for the React component, these can be extended with more variables if needed.
 type Props = {
   route: LoginRoute;
   navigation: LoginNavigation;
@@ -128,7 +129,7 @@ type Props = {
 
 const login: React.FC<Props> = (props) => {
 
-// hooks, functions, other things performed in this page
+// hooks, functions, other things performed in this page go here
 
 return (
                         <View style={{height:40}}>

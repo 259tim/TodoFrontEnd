@@ -31,6 +31,18 @@ const ParticipationCreate: React.FC<Props> = (props) => {
     // selector: This is how you select the data from redux
     const dispatch = useDispatch();
 
+    const checkTextInput = () => {
+        //Check for the Name TextInput
+        if (!reference_key.trim()) {
+          alert('Please enter reference key');
+          return;
+        }
+        //Checked Successfully
+        //Do whatever you want
+        CreateParticipations(reference_key, 1, 1);
+        props.navigation.navigate('Question');
+      };
+
     useEffect(() => {
         console.log('dispatching fetch')
         dispatch(fetchQuestions())
@@ -72,8 +84,8 @@ Your progress will be saved.
                     </View>
                     <View style={styles.container}>
                         <TouchableOpacity onPress={() => {
-                            CreateParticipations(reference_key, 1, 1);
-                            props.navigation.navigate('Question');
+                            checkTextInput()
+                            
                                 }
                             }   
                              
@@ -81,7 +93,8 @@ Your progress will be saved.
                             <Text style={[styles.DefaultButtonText, { width: 240}]}>Start survey</Text>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() =>
-                                props.navigation.navigate('Question')} 
+                                props.navigation.navigate('Home')
+                                } 
                                 style={[styles.SecondaryButtonStyle, {paddingBottom:0}]}>
                             <Text style={styles.SecondaryButtonText}>Cancel</Text>
                         </TouchableOpacity>
