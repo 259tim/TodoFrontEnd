@@ -12,22 +12,22 @@ interface choice {
     id: Number
 }
 
-interface question {
+export interface questionState {
     id: Number
     question_text: String
     question_type: Number
     choices: choice[]
-    answer?: Number[]
+    answer: Number[]
 }
 
-interface questionState {
-    questions: question[],
+export interface questionsState {
+    questions: questionState[],
     status: 'idle' | 'loading' | 'succeeded' | 'failed',
     error: string | undefined
 }
 
 // the initial values in the state: basically just empty
-const initialState: questionState = {
+const initialState: questionsState = {
     questions : [],
     status: 'idle',
     error: undefined
@@ -48,8 +48,12 @@ export const fetchQuestions = createAsyncThunk('questions/fetchquestions', async
             method: 'GET'
     })
     const stuff = await response.json();
-    // console.log(stuff)
 
+
+    stuff.forEach(function (question: questionState){
+        question.answer = [];
+    });
+    console.log(stuff)
     return stuff;
 })
 

@@ -7,12 +7,15 @@ import { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import CreateParticipations from './functions/createparticipation'
 import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import {
     save,
     remove,
     selectStatus,
     fetchQuestions, 
-    selectQuestions
+    selectQuestions,
+    questionState,
+    questionsState
 } from '../store/reducers/questionslice'
 
 type Props = {
@@ -31,6 +34,7 @@ const ParticipationCreate: React.FC<Props> = (props) => {
     // selector: This is how you select the data from redux
     const dispatch = useDispatch();
 
+
     const checkTextInput = () => {
         //Check for the Name TextInput
         if (!reference_key.trim()) {
@@ -46,7 +50,6 @@ const ParticipationCreate: React.FC<Props> = (props) => {
     useEffect(() => {
         console.log('dispatching fetch')
         dispatch(fetchQuestions())
-
     }, []);
 
     const introtext = `

@@ -32,10 +32,14 @@ This backend also does password verification. These actions are done by using `f
 
 Expo is a platform that allows you to develop react-native apps in a relatively easy fashion. It offers a complete CLI that 
 lets you install packages in a compatible manner, and it is easy to run your app to test. 
-To use Expo you have to have `npm` or `yarn` on your computer.  Please refer to their respective tutorials to install these.
+To use Expo you have to have `yarn` on your computer.  Please refer to their tutorial for your operating system to install it.
+Also make sure you have NodeJS on that same device, again, refer to a tutorial for your operating system.
 Yarn is recommended because it is what Expo also uses.
+
+Note: Yes, NPM also allows you to install JavaScript packages, but Expo uses Yarn in its built-in install system. This is why you need to have Yarn on your device.
+
 After having one of these package managers installed to your device you need to install the `expo-cli`:
-`npm install --global expo-cli` or `yarn global add expo-cli`.
+`yarn global add expo-cli`.
 After installing Expo you have the basics set up. This package manages everything for you, and if you need to install more packages in the future please use `expo install`. This uses `yarn`, but checks whether packages are compatible with Expo and your project.
 
 ## Running
