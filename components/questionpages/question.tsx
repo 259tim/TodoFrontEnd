@@ -132,6 +132,8 @@ const OpenQuestion: React.FC<Props> = (props) => {
             const choices = questions[question_number].choices;
 
             // question is a check box question
+            // https://stackoverflow.com/questions/61549475/react-native-checkbox-list-structure 
+            // example of how to store this data
             return (
 
                 // font has to be changed still https://callstack.github.io/react-native-paper/fonts.html
