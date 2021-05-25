@@ -1,4 +1,5 @@
 import React, { useEffect} from 'react'
+import { useDispatch } from 'react-redux';
 import { View, Text, TextInput, SafeAreaView, KeyboardAvoidingView  } from 'react-native'
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import { QuestionNavigation, QuestionRoute } from '../../types/navtypes';
@@ -12,7 +13,12 @@ import { Ionicons } from '@expo/vector-icons';
 import { RadioButton, Checkbox } from 'react-native-paper';
 import {
     selectStatus,
-    selectQuestions
+    selectQuestions,
+    choiceState,
+    questionState,
+    questionsState,
+    remove,
+    checkChoice
 } from '../../store/reducers/questionslice'
 
 
@@ -36,15 +42,17 @@ const OpenQuestion: React.FC<Props> = (props) => {
     const [checked, setChecked] = React.useState(false);
     const [value, setValue] = React.useState('first');
 
-    const questions = useSelector(selectQuestions);
-    const questionStatus = useSelector(selectStatus);
+    const dispatch = useDispatch();
+    var questions = useSelector(selectQuestions);
+    //console.log(questions)
+    var questionStatus = useSelector(selectStatus);
 
     
     //here are all the functions that perform stuff in the page
 
 
     // this cycles the contents of the page to the relevant question, and stores data 
-    const cycleQuestions = (questions: Array<Object>, question_number: number, action: number) : any => {
+    const cycleQuestions = (questions: any, question_number: number, action: number) : any => {
 
 
         // what to do if backward arrow is pressed
@@ -107,7 +115,7 @@ const OpenQuestion: React.FC<Props> = (props) => {
             
         }
         else if (question_type == 1) {
-            const choices = questions[question_number].choices;
+            var choices = questions[question_number].choices;
             // question is a multiple choice, single answer (radio buttons) question
             
             return(
@@ -129,8 +137,8 @@ const OpenQuestion: React.FC<Props> = (props) => {
             )
         }
         else if (question_type == 2) {
-            const choices = questions[question_number].choices;
-
+            var choices = [...questions[question_number].choices];
+            console.log(question_number)
             // question is a check box question
             // https://stackoverflow.com/questions/61549475/react-native-checkbox-list-structure 
             // example of how to store this data
@@ -140,15 +148,35 @@ const OpenQuestion: React.FC<Props> = (props) => {
                 // uses this https://callstack.github.io/react-native-paper/radio-button.html
                 <View style={{paddingTop:20, width:360}}>
 
-                    {choices.map((choice: any, index: number) => (
+                    {choices.map((choice: choiceState, index: number) => (
                         <View key={`${index}_${choice}`}>
                             <View>
                             <Checkbox.Item
                                 label={choice.choice_text}
                                 color='#0070AD'
-                                status={checked ? 'checked' : 'unchecked'}
+                                status={choice.chosen}
                                 onPress={() => {
-                                    setChecked(!checked);
+                                    if(choice.chosen == "unchecked"){
+                                        console.log('hi')
+                                        dispatch(
+                                            checkChoice({
+                                                questionIndex: question_number,
+                                                choiceIndex: (choice.id - questions[question_number].choices[0].id),
+                                                chosen: "checked"
+                                            })
+                                        )
+                                    }
+                                    else{
+                                        console.log('not hi')
+                                        dispatch(
+                                            checkChoice({
+                                                questionIndex: question_number,
+                                                choiceIndex: (choice.id - questions[question_number].choices[0].id),
+                                                chosen: "unchecked"
+                                            })
+                                        )
+                                    }
+                                    
                                 }}
                             />
                             </View>

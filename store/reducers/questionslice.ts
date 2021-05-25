@@ -1,23 +1,25 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk, AnyAction } from '@reduxjs/toolkit'
 import { rootState } from '../../store'
 import api from "../../config/apiconfig";
 import Base64 from 'js-base64';
 import { useDispatch, useSelector } from 'react-redux';
 import mystore from '../../store';
+import { InitialState } from '@react-navigation/routers';
+const dotProp = require('dot-prop-immutable');
 
 // the types for this slice's state: a list of objects, a status, and a possible error
 
-interface choice {
-    choice_text: String
-    id: Number
+export interface choiceState {
+    choice_text: string
+    id: number
+    chosen: "checked" | "unchecked"
 }
 
 export interface questionState {
-    id: Number
-    question_text: String
-    question_type: Number
-    choices: choice[]
-    answer: Number[]
+    id: number
+    question_text: string
+    question_type: number
+    choices: choiceState[]
 }
 
 export interface questionsState {
@@ -49,13 +51,16 @@ export const fetchQuestions = createAsyncThunk('questions/fetchquestions', async
     })
     const stuff = await response.json();
 
-
     stuff.forEach(function (question: questionState){
-        question.answer = [];
+    
+        question.choices.forEach(function (choice: choiceState){
+            choice.chosen = "unchecked";
+        });
+        
     });
     console.log(stuff)
     return stuff;
-})
+});
 
 
 export const questionSlice = createSlice({
@@ -68,6 +73,15 @@ export const questionSlice = createSlice({
         save: (state, action) => {
             state.questions.push(action.payload)
             console.log(state.questions)
+        },
+        checkChoice: (state, action) => {
+            //console.log("checking")
+            
+            //console.log(state.questions[action.payload.questionIndex].choices[action.payload.choiceIndex])
+            // this uses dotProp: https://github.com/debitoor/dot-prop-immutable 
+            // makes it a breeze to modify the state
+            return state = dotProp.set(state, `questions.${action.payload.questionIndex}.choices.${action.payload.choiceIndex}.chosen`, action.payload.chosen)
+
         },
         remove: (state, action) => {
             console.log('removing')
@@ -111,7 +125,7 @@ export const questionSlice = createSlice({
 
 // here we export the defined actions, these can then be called to run them
 
-export const { save, remove } = questionSlice.actions;
+export const { save, checkChoice, remove } = questionSlice.actions;
 
 //these are the selectors, they do what it says: Select things from the store.
 // example: const foo = useSelector(selectQuestions); would get all the questions from the store and put them in 'foo'
@@ -121,3 +135,4 @@ export const selectStatus = (state: rootState) => state.questions.status;
 // here we export the whole thing as reducer, to add it to the rootreducer, found in rootreducer.ts
 // this rootreducer is then used to build the store, and it would also contain all other slices.
 export default questionSlice.reducer;
+
