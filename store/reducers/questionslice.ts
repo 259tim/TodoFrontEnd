@@ -19,6 +19,7 @@ export interface questionState {
     id: number
     question_text: string
     question_type: number
+    bool_choice: string
     choices: choiceState[]
 }
 
@@ -52,7 +53,9 @@ export const fetchQuestions = createAsyncThunk('questions/fetchquestions', async
     const stuff = await response.json();
 
     stuff.forEach(function (question: questionState){
-    
+        
+        question.bool_choice = "unchecked";
+
         question.choices.forEach(function (choice: choiceState){
             choice.chosen = "unchecked";
         });
@@ -82,6 +85,12 @@ export const questionSlice = createSlice({
             // makes it a breeze to modify the state
             return state = dotProp.set(state, `questions.${action.payload.questionIndex}.choices.${action.payload.choiceIndex}.chosen`, action.payload.chosen)
 
+        },
+        checkRadio: (state, action) => {
+
+            // some kind of loop or something has to uncheck the other options
+
+            return state = dotProp.set(state, `questions.${action.payload.questionIndex}.choices.${action.payload.choiceIndex}.chosen`, action.payload.chosen)
         },
         remove: (state, action) => {
             console.log('removing')
@@ -125,7 +134,7 @@ export const questionSlice = createSlice({
 
 // here we export the defined actions, these can then be called to run them
 
-export const { save, checkChoice, remove } = questionSlice.actions;
+export const { save, checkChoice, checkRadio, remove } = questionSlice.actions;
 
 //these are the selectors, they do what it says: Select things from the store.
 // example: const foo = useSelector(selectQuestions); would get all the questions from the store and put them in 'foo'

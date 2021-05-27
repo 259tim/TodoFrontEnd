@@ -1,6 +1,6 @@
-import React, { useEffect} from 'react'
+import React from 'react'
 import { useDispatch } from 'react-redux';
-import { View, Text, TextInput, SafeAreaView, KeyboardAvoidingView  } from 'react-native'
+import { View, Text, TextInput, SafeAreaView, KeyboardAvoidingView } from 'react-native'
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import { QuestionNavigation, QuestionRoute } from '../../types/navtypes';
 import styles from '../styles'
@@ -15,10 +15,8 @@ import {
     selectStatus,
     selectQuestions,
     choiceState,
-    questionState,
-    questionsState,
-    remove,
-    checkChoice
+    checkChoice,
+    checkRadio
 } from '../../store/reducers/questionslice'
 
 
@@ -88,6 +86,7 @@ const OpenQuestion: React.FC<Props> = (props) => {
 
     }
 
+
     // the components that are rendered on each type of question
 
     const renderChoice = (question_type: number) : any => {
@@ -96,21 +95,8 @@ const OpenQuestion: React.FC<Props> = (props) => {
             // question is a yes/no question
             return (
             <View style={{paddingTop:20, width:360}}>
-            <RadioButton.Item
-                value="first"
-                label="Yes"
-                color="#0070AD"
-                status={ checked === 'first' ? 'checked' : 'unchecked' }
-                onPress={() => setChecked('first')}
-            />
-            <RadioButton.Item
-                value="second"
-                label="No"
-                color="#0070AD"
-                status={ checked === 'second' ? 'checked' : 'unchecked' }
-                onPress={() => setChecked('second')}
-            />
-                </View>
+              
+            </View>
             )
             
         }
@@ -120,19 +106,43 @@ const OpenQuestion: React.FC<Props> = (props) => {
             
             return(
                 <View style={{paddingTop:20, width:360}}> 
-                    <RadioButton.Group onValueChange={newValue => setValue(newValue)} value={value}>
-                    {choices.map((choice: any, index: number) => (
+                    {choices.map((choice: choiceState, index: number) => (
                         <View key={`${index}_${choice}`}>
                             <View>
                             <RadioButton.Item
+                                value={choice.choice_text}
                                 label={choice.choice_text}
-                                value="first"
+                                status={choice.chosen}
                                 color='#0070AD'
+                                // uncheck all of them
+                                onPress={() => {
+                                    // we use this loop to uncheck all options
+                                    // take the length of all the options this question has
+                                    // then uncheck everything 
+                                    var l = choices.length;
+                                    var i;
+                                    for (i = 0; i < l; i++ ){
+                                        dispatch(
+                                            checkRadio({
+                                                questionIndex: question_number,
+                                                choiceIndex: i,
+                                                chosen: "unchecked"
+                                            })
+                                        )
+                                    }
+                                    // then we check the right one
+                                    dispatch(
+                                        checkRadio({
+                                            questionIndex: question_number,
+                                            choiceIndex: (choice.id - questions[question_number].choices[0].id),
+                                            chosen: "checked"
+                                        })
+                                    )
+                                }}
                            />
                             </View>
                         </View>
                         ))}
-                    </RadioButton.Group>
             </View>
             )
         }
