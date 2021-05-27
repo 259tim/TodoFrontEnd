@@ -1,10 +1,7 @@
-import { createSlice, createAsyncThunk, AnyAction } from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { rootState } from '../../store'
 import api from "../../config/apiconfig";
 import Base64 from 'js-base64';
-import { useDispatch, useSelector } from 'react-redux';
-import mystore from '../../store';
-import { InitialState } from '@react-navigation/routers';
 const dotProp = require('dot-prop-immutable');
 
 // the types for this slice's state: a list of objects, a status, and a possible error
@@ -20,6 +17,8 @@ export interface questionState {
     question_text: string
     question_type: number
     bool_choice: string
+    text_answer: string
+    comment: string
     choices: choiceState[]
 }
 
@@ -54,6 +53,8 @@ export const fetchQuestions = createAsyncThunk('questions/fetchquestions', async
 
     stuff.forEach(function (question: questionState){
         
+        question.comment = "";
+        question.text_answer = "";
         question.bool_choice = "unchecked";
 
         question.choices.forEach(function (choice: choiceState){
