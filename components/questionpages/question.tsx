@@ -10,14 +10,13 @@ import qstyles from './questionnavbar';
 import HideWithKeyboard from 'react-native-hide-with-keyboard';
 import { useSelector } from 'react-redux';
 import { Ionicons } from '@expo/vector-icons';
-import { RadioButton, Checkbox } from 'react-native-paper';
+import { RadioButton, Checkbox, ToggleButton } from 'react-native-paper';
 import {
     selectQuestions,
     choiceState,
     addChoice,
     addRadio,
-    addTextAnswer,
-    addComment
+    addVarious
 } from '../../store/reducers/questionslice'
 
 
@@ -38,9 +37,6 @@ const OpenQuestion: React.FC<Props> = (props) => {
     const [question_type, set_question_type] = useState<number>(0);
     const [text_answer, set_text_answer] = useState<string>("");
     const [comment, set_comment] = useState<string>("");
-    //const [checked, setChecked] = React.useState('first');
-    const [checked, setChecked] = React.useState(false);
-    const [value, setValue] = React.useState('first');
 
     const dispatch = useDispatch();
     var questions = useSelector(selectQuestions);
@@ -52,9 +48,10 @@ const OpenQuestion: React.FC<Props> = (props) => {
 
     const saveTextAnswer = (text_answer: string, question_number: number) : void => {
         dispatch(
-            addTextAnswer({
+            addVarious({
                 questionIndex: question_number,
-                text_answer: text_answer
+                option_choice: "text_answer",
+                addition: text_answer
             })
         )
         set_text_answer("")
@@ -62,9 +59,21 @@ const OpenQuestion: React.FC<Props> = (props) => {
 
     const saveComment = (comment: string, question_number: number) : void => {
         dispatch(
-            addComment({
+            addVarious({
                 questionIndex: question_number,
-                comment: comment
+                option_choice: "text_answer",
+                addition: comment
+            })
+        )
+        set_comment("")
+    }
+
+    const saveYN = (bool_choice: boolean, question_number: number, option_choice: string) : void => {
+        dispatch(
+            addVarious({
+                questionIndex: question_number,
+                option_choice: "bool_choice",
+                addition: bool_choice
             })
         )
         set_comment("")
@@ -116,6 +125,20 @@ const OpenQuestion: React.FC<Props> = (props) => {
             // question is a yes/no question
             return (
             <View style={{paddingTop:20, width:360}}>
+                
+                <RadioButton.Item
+                    value="true"
+                    label="Yes"
+                    status="unchecked"
+                    color='#0070AD'
+                />
+                <RadioButton.Item
+                    value="false"
+                    label="No"
+                    status="unchecked"
+                    color='#0070AD'
+                />
+                
               <View style={{alignItems:'center'}}>
                         <TextInput
                                 multiline={true}

@@ -16,7 +16,7 @@ export interface questionState {
     id: number
     question_text: string
     question_type: number
-    bool_choice: string
+    bool_choice: boolean
     text_answer: string
     comment: string
     choices: choiceState[]
@@ -93,17 +93,11 @@ export const questionSlice = createSlice({
 
             return state = dotProp.set(state, `questions.${action.payload.questionIndex}.choices.${action.payload.choiceIndex}.chosen`, action.payload.chosen)
         },
-        addTextAnswer: (state, action) => {
+        addVarious: (state, action) => {
 
             // some kind of loop or something has to uncheck the other options
 
-            return state = dotProp.set(state, `questions.${action.payload.questionIndex}.text_answer`, action.payload.text_answer)
-        },
-        addComment: (state, action) => {
-
-            // some kind of loop or something has to uncheck the other options
-
-            return state = dotProp.set(state, `questions.${action.payload.questionIndex}.comment`, action.payload.comment)
+            return state = dotProp.set(state, `questions.${action.payload.questionIndex}.${action.payload.option_choice}`, action.payload.addition)
         },
         remove: (state, action) => {
             console.log('removing')
@@ -147,7 +141,7 @@ export const questionSlice = createSlice({
 
 // here we export the defined actions, these can then be called to run them
 
-export const { save, addChoice, addRadio, addTextAnswer, addComment, remove } = questionSlice.actions;
+export const { save, addChoice, addRadio, addVarious, remove } = questionSlice.actions;
 
 //these are the selectors, they do what it says: Select things from the store.
 // example: const foo = useSelector(selectQuestions); would get all the questions from the store and put them in 'foo'
