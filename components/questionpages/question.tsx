@@ -12,11 +12,11 @@ import { useSelector } from 'react-redux';
 import { Ionicons } from '@expo/vector-icons';
 import { RadioButton, Checkbox } from 'react-native-paper';
 import {
-    selectStatus,
     selectQuestions,
     choiceState,
-    checkChoice,
-    checkRadio
+    addChoice,
+    addRadio,
+    addTextAnswer
 } from '../../store/reducers/questionslice'
 
 
@@ -35,6 +35,7 @@ const OpenQuestion: React.FC<Props> = (props) => {
     // hooks
     const [question_number, set_question_number] = useState<number>(0);
     const [question_type, set_question_type] = useState<number>(0);
+    const [text_answer, set_text_answer] = useState<string>("");
     const [comment, set_comment] = useState<string>("");
     //const [checked, setChecked] = React.useState('first');
     const [checked, setChecked] = React.useState(false);
@@ -42,12 +43,20 @@ const OpenQuestion: React.FC<Props> = (props) => {
 
     const dispatch = useDispatch();
     var questions = useSelector(selectQuestions);
-    //console.log(questions)
-    var questionStatus = useSelector(selectStatus);
 
     
     //here are all the functions that perform stuff in the page
 
+    // this saves a text answer
+
+    const saveTextAnswer = (text_answer: string, question_number: number) : void => {
+        dispatch(
+            addTextAnswer({
+                questionIndex: question_number,
+                text_answer: text_answer
+            })
+        )
+    }
 
     // this cycles the contents of the page to the relevant question, and stores data 
     const cycleQuestions = (questions: any, question_number: number, action: number) : any => {
@@ -123,7 +132,7 @@ const OpenQuestion: React.FC<Props> = (props) => {
                                     var i;
                                     for (i = 0; i < l; i++ ){
                                         dispatch(
-                                            checkRadio({
+                                            addRadio({
                                                 questionIndex: question_number,
                                                 choiceIndex: i,
                                                 chosen: "unchecked"
@@ -132,7 +141,7 @@ const OpenQuestion: React.FC<Props> = (props) => {
                                     }
                                     // then we check the right one
                                     dispatch(
-                                        checkRadio({
+                                        addRadio({
                                             questionIndex: question_number,
                                             choiceIndex: (choice.id - questions[question_number].choices[0].id),
                                             chosen: "checked"
@@ -169,7 +178,7 @@ const OpenQuestion: React.FC<Props> = (props) => {
                                     if(choice.chosen == "unchecked"){
                                         console.log('hi')
                                         dispatch(
-                                            checkChoice({
+                                            addChoice({
                                                 questionIndex: question_number,
                                                 choiceIndex: (choice.id - questions[question_number].choices[0].id),
                                                 chosen: "checked"
@@ -179,7 +188,7 @@ const OpenQuestion: React.FC<Props> = (props) => {
                                     else{
                                         console.log('not hi')
                                         dispatch(
-                                            checkChoice({
+                                            addChoice({
                                                 questionIndex: question_number,
                                                 choiceIndex: (choice.id - questions[question_number].choices[0].id),
                                                 chosen: "unchecked"
@@ -200,12 +209,12 @@ const OpenQuestion: React.FC<Props> = (props) => {
             //question is an open answered question
             return (
             <View style={{width:300, alignItems:'center'}}>
-                <View style={{height:240}}></View>
+                <View style={{height:200}}></View>
                 <TextInput
                     multiline={true}
                     style={styles.inputBoxLarge}
-                    value= {comment}
-                    onChangeText={comment => set_comment(comment)}
+                    value= {text_answer}
+                    onChangeText={text_answer => set_text_answer(text_answer)}
                     placeholder='Answer here'
                     autoCapitalize='none'
                 />
@@ -276,10 +285,9 @@ Your progress will be saved.`
             </TouchableOpacity>
             {/* middle button */}
             <TouchableOpacity
-                        // onPress={() =>
-                          
-                        // // props.navigation.navigate('Details', {index: 1})
-                        //  }
+                        onPress={() => (
+                        console.log(questions))
+                         }
                         style={qstyles.QuestionNavButton}
                     >    
                     <View style={qstyles.QuestionNavIconStyle}>
@@ -289,7 +297,10 @@ Your progress will be saved.`
             {/* forward arrow */}
             <TouchableOpacity
                         onPress={() =>
-                        cycleQuestions(questions, question_number, 1)}
+                        (
+                            saveTextAnswer(text_answer, question_number),
+                            cycleQuestions(questions, question_number, 1)
+                        )}
                         style={qstyles.QuestionNavButton}
                     >    
                     <View style={qstyles.QuestionNavIconStyle}>

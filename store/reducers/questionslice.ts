@@ -78,7 +78,7 @@ export const questionSlice = createSlice({
             state.questions.push(action.payload)
             console.log(state.questions)
         },
-        checkChoice: (state, action) => {
+        addChoice: (state, action) => {
             //console.log("checking")
             
             //console.log(state.questions[action.payload.questionIndex].choices[action.payload.choiceIndex])
@@ -87,11 +87,17 @@ export const questionSlice = createSlice({
             return state = dotProp.set(state, `questions.${action.payload.questionIndex}.choices.${action.payload.choiceIndex}.chosen`, action.payload.chosen)
 
         },
-        checkRadio: (state, action) => {
+        addRadio: (state, action) => {
 
             // some kind of loop or something has to uncheck the other options
 
             return state = dotProp.set(state, `questions.${action.payload.questionIndex}.choices.${action.payload.choiceIndex}.chosen`, action.payload.chosen)
+        },
+        addTextAnswer: (state, action) => {
+
+            // some kind of loop or something has to uncheck the other options
+
+            return state = dotProp.set(state, `questions.${action.payload.questionIndex}.text_answer`, action.payload.text_answer)
         },
         remove: (state, action) => {
             console.log('removing')
@@ -135,7 +141,7 @@ export const questionSlice = createSlice({
 
 // here we export the defined actions, these can then be called to run them
 
-export const { save, checkChoice, checkRadio, remove } = questionSlice.actions;
+export const { save, addChoice, addRadio, addTextAnswer, remove } = questionSlice.actions;
 
 //these are the selectors, they do what it says: Select things from the store.
 // example: const foo = useSelector(selectQuestions); would get all the questions from the store and put them in 'foo'
