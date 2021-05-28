@@ -99,6 +99,12 @@ export const questionSlice = createSlice({
 
             return state = dotProp.set(state, `questions.${action.payload.questionIndex}.text_answer`, action.payload.text_answer)
         },
+        addComment: (state, action) => {
+
+            // some kind of loop or something has to uncheck the other options
+
+            return state = dotProp.set(state, `questions.${action.payload.questionIndex}.comment`, action.payload.comment)
+        },
         remove: (state, action) => {
             console.log('removing')
             state.questions.splice(0, 10000)
@@ -141,7 +147,7 @@ export const questionSlice = createSlice({
 
 // here we export the defined actions, these can then be called to run them
 
-export const { save, addChoice, addRadio, addTextAnswer, remove } = questionSlice.actions;
+export const { save, addChoice, addRadio, addTextAnswer, addComment, remove } = questionSlice.actions;
 
 //these are the selectors, they do what it says: Select things from the store.
 // example: const foo = useSelector(selectQuestions); would get all the questions from the store and put them in 'foo'

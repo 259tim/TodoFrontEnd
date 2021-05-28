@@ -16,7 +16,8 @@ import {
     choiceState,
     addChoice,
     addRadio,
-    addTextAnswer
+    addTextAnswer,
+    addComment
 } from '../../store/reducers/questionslice'
 
 
@@ -56,6 +57,17 @@ const OpenQuestion: React.FC<Props> = (props) => {
                 text_answer: text_answer
             })
         )
+        set_text_answer("")
+    }
+
+    const saveComment = (comment: string, question_number: number) : void => {
+        dispatch(
+            addComment({
+                questionIndex: question_number,
+                comment: comment
+            })
+        )
+        set_comment("")
     }
 
     // this cycles the contents of the page to the relevant question, and stores data 
@@ -104,7 +116,16 @@ const OpenQuestion: React.FC<Props> = (props) => {
             // question is a yes/no question
             return (
             <View style={{paddingTop:20, width:360}}>
-              
+              <View style={{alignItems:'center'}}>
+                        <TextInput
+                                multiline={true}
+                                style={styles.inputBoxLarge}
+                                value= {comment}
+                                onChangeText={comment => set_comment(comment)}
+                                placeholder='Additional comments here'
+                                autoCapitalize='none'
+                            />
+                        </View>
             </View>
             )
             
@@ -149,9 +170,21 @@ const OpenQuestion: React.FC<Props> = (props) => {
                                     )
                                 }}
                            />
+                           
                             </View>
                         </View>
                         ))}
+                        <View style={{alignItems:'center'}}>
+                        <TextInput
+                                multiline={true}
+                                style={styles.inputBoxLarge}
+                                value= {comment}
+                                onChangeText={comment => set_comment(comment)}
+                                placeholder='Additional comments here'
+                                autoCapitalize='none'
+                            />
+                        </View>
+
             </View>
             )
         }
@@ -202,6 +235,16 @@ const OpenQuestion: React.FC<Props> = (props) => {
 
                         </View>
                         ))}
+                        <View style={{alignItems:'center'}}>
+                            <TextInput
+                                    multiline={true}
+                                    style={styles.inputBoxLarge}
+                                    value= {comment}
+                                    onChangeText={comment => set_comment(comment)}
+                                    placeholder='Additional comments here'
+                                    autoCapitalize='none'
+                                />
+                        </View>
                 </View>
             )
         }
@@ -299,6 +342,7 @@ Your progress will be saved.`
                         onPress={() =>
                         (
                             saveTextAnswer(text_answer, question_number),
+                            saveComment(comment, question_number),
                             cycleQuestions(questions, question_number, 1)
                         )}
                         style={qstyles.QuestionNavButton}
