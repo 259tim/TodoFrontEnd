@@ -128,13 +128,13 @@ const OpenQuestion: React.FC<Props> = (props) => {
                 
                 <RadioButton.Item
                     value="true"
-                    label="Yes"
+                    label="Ja."
                     status="unchecked"
                     color='#0070AD'
                 />
                 <RadioButton.Item
                     value="false"
-                    label="No"
+                    label="Nee."
                     status="unchecked"
                     color='#0070AD'
                 />
