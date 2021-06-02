@@ -10,7 +10,7 @@ import qstyles from './questionnavbar';
 import HideWithKeyboard from 'react-native-hide-with-keyboard';
 import { useSelector } from 'react-redux';
 import { Ionicons } from '@expo/vector-icons';
-import { RadioButton, Checkbox, ToggleButton } from 'react-native-paper';
+import { RadioButton, Checkbox, Switch } from 'react-native-paper';
 import {
     selectQuestions,
     choiceState,
@@ -61,7 +61,7 @@ const OpenQuestion: React.FC<Props> = (props) => {
         dispatch(
             addVarious({
                 questionIndex: question_number,
-                option_choice: "text_answer",
+                option_choice: "comment",
                 addition: comment
             })
         )
@@ -116,30 +116,28 @@ const OpenQuestion: React.FC<Props> = (props) => {
 
     }
 
+    const [isSwitchOn, setIsSwitchOn] = React.useState(false);
+
+    const onToggleSwitch = () => setIsSwitchOn(!isSwitchOn);
 
     // the components that are rendered on each type of question
 
     const renderChoice = (question_type: number) : any => {
         if (question_type == 0) {
             
+            const question = questions[question_number]
             // question is a yes/no question
             return (
             <View style={{paddingTop:20, width:360}}>
                 
-                <RadioButton.Item
-                    value="true"
-                    label="Ja."
-                    status="unchecked"
-                    color='#0070AD'
-                />
-                <RadioButton.Item
-                    value="false"
-                    label="Nee."
-                    status="unchecked"
-                    color='#0070AD'
-                />
+              
                 
               <View style={{alignItems:'center'}}>
+              <Switch
+              value={isSwitchOn}
+              onValueChange={onToggleSwitch}
+              color='#0070AD'
+              />    
                         <TextInput
                                 multiline={true}
                                 style={styles.inputBoxLarge}
@@ -325,14 +323,15 @@ Your progress will be saved.`
             flexDirection: "column"
             }}>
             <StatusBar style="light" />
-            <View style={{ flex: 1, justifyContent:'center', alignItems:'center' }}> 
+            <View style={{ flex: 2, justifyContent:'center', alignItems:'center' }}> 
                 <Text style={[styles.title,{color:'#2B0A3D'}]}>Question #{question_number + 1}</Text>
+                <Text style={[styles.defaultText,{fontSize:15, padding:20}]}>{questions[question_number].question_text}</Text>
             </View>
-            <View style={{flex:6, justifyContent:'center', alignItems:'center'}}>
+            <View style={{flex:5, justifyContent:'center', alignItems:'center'}}>
                 <ScrollView 
                 contentContainerStyle={{justifyContent:'center', alignItems:'center' }}
                 >
-                    <Text style={[styles.defaultText,{fontSize:15, padding:20}]}>{questions[question_number].question_text}</Text>
+                    
                     <View>{renderChoice(question_type)}</View>
                 </ScrollView>
 

@@ -89,13 +89,9 @@ export const questionSlice = createSlice({
         },
         addRadio: (state, action) => {
 
-            // some kind of loop or something has to uncheck the other options
-
             return state = dotProp.set(state, `questions.${action.payload.questionIndex}.choices.${action.payload.choiceIndex}.chosen`, action.payload.chosen)
         },
         addVarious: (state, action) => {
-
-            // some kind of loop or something has to uncheck the other options
 
             return state = dotProp.set(state, `questions.${action.payload.questionIndex}.${action.payload.option_choice}`, action.payload.addition)
         },
