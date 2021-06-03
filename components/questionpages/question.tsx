@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDispatch } from 'react-redux';
-import { View, Text, TextInput, SafeAreaView, KeyboardAvoidingView } from 'react-native'
+import { View, Text, TextInput, SafeAreaView, KeyboardAvoidingView, Switch } from 'react-native'
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import { QuestionNavigation, QuestionRoute } from '../../types/navtypes';
 import styles from '../styles'
@@ -10,13 +10,14 @@ import qstyles from './questionnavbar';
 import HideWithKeyboard from 'react-native-hide-with-keyboard';
 import { useSelector } from 'react-redux';
 import { Ionicons } from '@expo/vector-icons';
-import { RadioButton, Checkbox, Switch } from 'react-native-paper';
+import { RadioButton, Checkbox } from 'react-native-paper';
 import {
     selectQuestions,
     choiceState,
     addChoice,
     addRadio,
-    addVarious
+    addVarious,
+    toggleBool
 } from '../../store/reducers/questionslice'
 
 
@@ -118,7 +119,10 @@ const OpenQuestion: React.FC<Props> = (props) => {
 
     const [isSwitchOn, setIsSwitchOn] = React.useState(false);
 
-    const onToggleSwitch = () => setIsSwitchOn(!isSwitchOn);
+    const onToggleSwitch = (question_number: number) => dispatch(
+        toggleBool({
+            questionIndex: question_number})
+    )
 
     // the components that are rendered on each type of question
 
@@ -133,11 +137,16 @@ const OpenQuestion: React.FC<Props> = (props) => {
               
                 
               <View style={{alignItems:'center'}}>
-              <Switch
-              value={isSwitchOn}
-              onValueChange={onToggleSwitch}
-              color='#0070AD'
-              />    
+              <View>
+                  <TouchableOpacity
+                  onPress={() => onToggleSwitch(question_number)}>
+                      <Text style={{fontSize:36, color:"#0070AD", paddingBottom:40}}>
+                          {question.bool_choice ? 'Ja.': 'Nee.'}
+                      </Text>
+                  </TouchableOpacity>
+
+                  
+                  </View> 
                         <TextInput
                                 multiline={true}
                                 style={styles.inputBoxLarge}
