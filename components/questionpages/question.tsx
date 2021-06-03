@@ -29,10 +29,6 @@ type Props = {
 
 const OpenQuestion: React.FC<Props> = (props) => {
 
-
-
-    // const question = questions[0]
-    // console.log(question.question_text)
     // hooks
     const [question_number, set_question_number] = useState<number>(0);
     const [question_type, set_question_type] = useState<number>(0);
@@ -41,8 +37,10 @@ const OpenQuestion: React.FC<Props> = (props) => {
 
     const dispatch = useDispatch();
     var questions = useSelector(selectQuestions);
+    const questions_length = questions.length
+    const lastQuestionNumber = questions[questions_length - 1].id
+    console.log(lastQuestionNumber)
 
-    
     //here are all the functions that perform stuff in the page
 
     // this saves a text answer
@@ -69,17 +67,6 @@ const OpenQuestion: React.FC<Props> = (props) => {
         set_comment("")
     }
 
-    const saveYN = (bool_choice: boolean, question_number: number, option_choice: string) : void => {
-        dispatch(
-            addVarious({
-                questionIndex: question_number,
-                option_choice: "bool_choice",
-                addition: bool_choice
-            })
-        )
-        set_comment("")
-    }
-
     // this cycles the contents of the page to the relevant question, and stores data 
     const cycleQuestions = (questions: any, question_number: number, action: number) : any => {
 
@@ -96,7 +83,7 @@ const OpenQuestion: React.FC<Props> = (props) => {
 
         // what to do if forward arrow is pressed
         else if (action == 1){
-            if ((question_number + 1) >= questions.length ) {
+            if ((question_number + 1) > questions.length ) {
                 return;
             }
     
@@ -117,8 +104,6 @@ const OpenQuestion: React.FC<Props> = (props) => {
 
     }
 
-    const [isSwitchOn, setIsSwitchOn] = React.useState(false);
-
     const onToggleSwitch = (question_number: number) => dispatch(
         toggleBool({
             questionIndex: question_number})
@@ -126,8 +111,13 @@ const OpenQuestion: React.FC<Props> = (props) => {
 
     // the components that are rendered on each type of question
 
-    const renderChoice = (question_type: number) : any => {
-        if (question_type == 0) {
+    const renderChoice = (question_type: number, lastQuestionNumber: number, question_number: number) : any => {
+        if (question_number ==  17) {
+            console.log("last question reached")
+            props.navigation.navigate('Home')
+        }
+
+        else if (question_type == 0) {
             
             const question = questions[question_number]
             // question is a yes/no question
@@ -341,7 +331,7 @@ Your progress will be saved.`
                 contentContainerStyle={{justifyContent:'center', alignItems:'center' }}
                 >
                     
-                    <View>{renderChoice(question_type)}</View>
+                    <View>{renderChoice(question_type, lastQuestionNumber, question_number)}</View>
                 </ScrollView>
 
             </View>

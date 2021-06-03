@@ -96,8 +96,7 @@ export const questionSlice = createSlice({
             return state = dotProp.set(state, `questions.${action.payload.questionIndex}.${action.payload.option_choice}`, action.payload.addition)
         },
         toggleBool: (state, action) => {
-            console.log('toggling')
-            console.log((dotProp.get(state, `questions.${action.payload.questionIndex}`)))
+
             const currentBool = dotProp.get(state, `questions.${action.payload.questionIndex}.bool_choice`)
             return state = dotProp.set(state, `questions.${action.payload.questionIndex}.bool_choice`, !currentBool)
 
