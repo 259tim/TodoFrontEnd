@@ -17,7 +17,7 @@ type Props = {
 };
 
 
-const ParticipationCreate: React.FC<Props> = (props) => {
+const EndScreen: React.FC<Props> = (props) => {
 
     const [reference_key, set_reference_key] = useState<string>("");
 
@@ -47,12 +47,11 @@ const ParticipationCreate: React.FC<Props> = (props) => {
 
     const introtext = `
 
-Please enter the survey reference key you were given.
-This survey is never supposed to store any personal or client information.
-Please do not enter such information anywhere in this survey.
-You can return to the survey at any time from the home screen.
+You have reached the end of the quick scan survey.
+Thank you for filling in this survey for us.
+You can still go back and adjust your answers if you wish. 
 
-Your progress will be saved
+If you want to finish the quickscan please tap the button below.
     `
 
     const shape1 = require('../assets/greenblue1.png');
@@ -64,18 +63,11 @@ Your progress will be saved
             <ImageBackground source={shape2} style={{width:"100%", height:'100%', top:-290, position:'absolute'}} resizeMode='contain'/>
             <SafeAreaView style={styles.container}>
                     <StatusBar style="light" />
-                    <Text style={[styles.title,{color:'#0070AD'}]}>New survey</Text>
+                    <Text style={[styles.title,{color:'#2B0A3D'}]}>Thank you!</Text>
                     <View style={[styles.container, {paddingBottom:10, paddingTop:0}]}>
                         <Text style={[styles.defaultText,{fontSize:15}]}>{introtext}</Text>
                     </View>
                     <View style={[styles.container, {paddingBottom:15}]}>
-                        <TextInput
-                            style={styles.inputBox}
-                            value= {reference_key}
-                            onChangeText={reference_key => set_reference_key(reference_key)}
-                            placeholder='Survey reference key'
-                            autoCapitalize='none'
-                        />
                     </View>
                     <View style={styles.container}>
                         <TouchableOpacity onPress={() => {
@@ -85,13 +77,13 @@ Your progress will be saved
                             }   
                              
                             style={[styles.DefaultButtonStyle, {width: '90%'}]}>
-                            <Text style={[styles.DefaultButtonText, { width: 240}]}>Start survey</Text>
+                            <Text style={[styles.DefaultButtonText, { width: 240}]}>Finalize survey</Text>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() =>
-                                props.navigation.navigate('Home')
+                                props.navigation.goBack()
                                 } 
                                 style={[styles.SecondaryButtonStyle, {paddingBottom:0}]}>
-                            <Text style={styles.SecondaryButtonText}>Cancel</Text>
+                            <Text style={styles.SecondaryButtonText}>Adjust answers</Text>
                         </TouchableOpacity>
                     </View>
                 
@@ -103,4 +95,4 @@ Your progress will be saved
     )
 }
  
-export default ParticipationCreate;
+export default EndScreen;

@@ -18,7 +18,7 @@ import { persistStore } from "redux-persist"
 import MainPage from './components/mainpage';
 import Login from './components/login';
 import Signup from './components/signup';
-import Pwreset from './components/resetpw';
+import EndScreen from './components/endscreen';
 import ParticipationCreate from './components/createsurvey';
 import OpenQuestion from './components/questionpages/question';
 //type imports
@@ -146,6 +146,23 @@ export default function App() {
             component={OpenQuestion} 
             options={{
               title: 'question',
+              gestureEnabled: false,
+              headerLeft: ()=> null,
+              headerStyle: {
+                backgroundColor: '#0070AD'
+              },
+              headerTitleStyle: {
+              fontFamily: 'Ubuntu_500Medium'
+              },
+              headerTintColor: '#FFFFFF' 
+            }} 
+            />
+
+          <Stack.Screen
+            name="Endscreen" 
+            component={EndScreen} 
+            options={{
+              title: 'Survey finished',
               gestureEnabled: false,
               headerLeft: ()=> null,
               headerStyle: {

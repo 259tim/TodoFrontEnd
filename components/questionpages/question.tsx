@@ -17,7 +17,8 @@ import {
     addChoice,
     addRadio,
     addVarious,
-    toggleBool
+    toggleBool,
+    questionsState
 } from '../../store/reducers/questionslice'
 
 
@@ -38,8 +39,8 @@ const OpenQuestion: React.FC<Props> = (props) => {
     const dispatch = useDispatch();
     var questions = useSelector(selectQuestions);
     const questions_length = questions.length
-    const lastQuestionNumber = questions[questions_length - 1].id
-    console.log(lastQuestionNumber)
+    const lastQuestionNumber = questions[questions_length - 2].id
+    //console.log(lastQuestionNumber)
 
     //here are all the functions that perform stuff in the page
 
@@ -83,7 +84,10 @@ const OpenQuestion: React.FC<Props> = (props) => {
 
         // what to do if forward arrow is pressed
         else if (action == 1){
-            if ((question_number + 1) > questions.length ) {
+            if ((question_number + 1) >= questions.length ) {
+                console.log('hi')
+                console.log(question_number)
+                console.log(questions.length)
                 return;
             }
     
@@ -111,20 +115,24 @@ const OpenQuestion: React.FC<Props> = (props) => {
 
     // the components that are rendered on each type of question
 
-    const renderChoice = (question_type: number, lastQuestionNumber: number, question_number: number) : any => {
-        if (question_number ==  17) {
-            console.log("last question reached")
-            props.navigation.navigate('Home')
+    const checkNumber = (question_number: number, lastQuestionNumber: number, questions: any) : any => {
+        if (question_number == lastQuestionNumber){
+            props.navigation.navigate('Endscreen')
         }
+        else {
+            cycleQuestions(questions, question_number, 1)
+        }
+    }
 
-        else if (question_type == 0) {
+    const renderChoice = (question_type: number, question_number: number) : any => {
+
+        if (question_type == 0) {
             
             const question = questions[question_number]
             // question is a yes/no question
             return (
             <View style={{paddingTop:20, width:360}}>
-                
-              
+
                 
               <View style={{alignItems:'center'}}>
               <View>
@@ -331,7 +339,7 @@ Your progress will be saved.`
                 contentContainerStyle={{justifyContent:'center', alignItems:'center' }}
                 >
                     
-                    <View>{renderChoice(question_type, lastQuestionNumber, question_number)}</View>
+                    <View>{renderChoice(question_type, question_number)}</View>
                 </ScrollView>
 
             </View>
@@ -364,7 +372,7 @@ Your progress will be saved.`
                         (
                             saveTextAnswer(text_answer, question_number),
                             saveComment(comment, question_number),
-                            cycleQuestions(questions, question_number, 1)
+                            checkNumber(question_number, lastQuestionNumber, questions)
                         )}
                         style={qstyles.QuestionNavButton}
                     >    

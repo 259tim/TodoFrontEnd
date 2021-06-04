@@ -10,6 +10,7 @@ export type RootStackParamList = {
     Pwreset: undefined;
     Participationcreate: undefined;
     Question: undefined;
+    Endscreen: undefined;
 };
 
 
