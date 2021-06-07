@@ -36,14 +36,21 @@ const ParticipationCreate: React.FC<Props> = (props) => {
         }
         //Checked Successfully
         //Do whatever you want
-        CreateParticipations(reference_key, 1, 1);
+        const fetchData = async () => {
+            var new_id = await CreateParticipations(reference_key, 1, 1);
+            new_id = new_id.new_participation_id
+            console.log(new_id)
+            dispatch(fetchQuestions(new_id))
+        }
+        fetchData();
+
         props.navigation.navigate('Question');
       };
 
-    useEffect(() => {
-        console.log('dispatching fetch')
-        dispatch(fetchQuestions())
-    }, []);
+    // useEffect(() => {
+    //     console.log('dispatching fetch')
+    //     dispatch(fetchQuestions(reference_key))
+    // }, []);
 
     const introtext = `
 

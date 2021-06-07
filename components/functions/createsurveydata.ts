@@ -1,11 +1,11 @@
 import api from "../../config/apiconfig";
 import Base64 from 'js-base64';
 
-const CreateParticipations = async (reference_key:string, user_id: number, survey_id: number): any => {
+const CreateSurveyData = (reference_key:string, user_id: number, survey_id: number): any => {
     let headers = new Headers();
 
     headers.append('Authorization', 'Basic ' + Base64.btoa("tim.seip@capgemini.com" + ":" + "adminpw"))
-    return await fetch(api + "/api/participation", {
+    fetch(api + "/api/participation", {
         headers: headers,
         method: 'POST',
         body: JSON.stringify({
@@ -16,11 +16,11 @@ const CreateParticipations = async (reference_key:string, user_id: number, surve
     })
     .then((response) => response.json())
     .then((responseJson) => {
-         return responseJson;        
+         console.log(responseJson);        
         })
     .catch(error => {
         console.error(error);
     });
 }
 
-export default CreateParticipations;
+export default CreateSurveyData;

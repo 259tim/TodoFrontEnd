@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { View, Text, TextInput, SafeAreaView, ImageBackground  } from 'react-native'
+import { View, Text, SafeAreaView, ImageBackground  } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { ParticipationCreateNavigation, ParticipationCreateRoute } from '../types/navtypes';
 import styles from './styles'

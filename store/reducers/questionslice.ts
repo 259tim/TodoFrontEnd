@@ -24,6 +24,7 @@ export interface questionState {
 
 export interface questionsState {
     questions: questionState[],
+    participation_id: string,
     status: 'idle' | 'loading' | 'succeeded' | 'failed',
     error: string | undefined
 }
@@ -31,6 +32,7 @@ export interface questionsState {
 // the initial values in the state: basically just empty
 const initialState: questionsState = {
     questions : [],
+    participation_id: "",
     status: 'idle',
     error: undefined
 }
@@ -41,7 +43,7 @@ const initialState: questionsState = {
 // these functions can then interact with the store. In this case we store a list of questions.
 // see https://redux.js.org/tutorials/fundamentals/part-6-async-logic for the documentation used to make this.
 
-export const fetchQuestions = createAsyncThunk('questions/fetchquestions', async () =>{
+export const fetchQuestions = createAsyncThunk('questions/fetchquestions', async (participation_id: string) =>{
     let headers = new Headers();
     headers.append('Authorization', 'Basic ' + Base64.btoa("tim.seip@capgemini.com" + ":" + "adminpw"))
     
@@ -51,7 +53,13 @@ export const fetchQuestions = createAsyncThunk('questions/fetchquestions', async
     })
     const stuff = await response.json();
 
-    stuff.forEach(function (question: questionState){
+    const questionSet = {
+        participation_id: "",
+        questions: stuff
+    }
+    questionSet.participation_id = participation_id
+
+    questionSet.questions.forEach(function (question: questionState){
         
         question.comment = "";
         question.text_answer = "";
@@ -62,8 +70,8 @@ export const fetchQuestions = createAsyncThunk('questions/fetchquestions', async
         });
         
     });
-    console.log(stuff)
-    return stuff;
+    console.log(questionSet)
+    return questionSet;
 });
 
 
@@ -126,7 +134,8 @@ export const questionSlice = createSlice({
             return state = {
                 ...state,
                 status: 'succeeded',
-                questions: action.payload
+                participation_id: action.payload.participation_id,
+                questions: action.payload.questions
             }
         })
         builder.addCase(fetchQuestions.rejected, (state, action) => {
