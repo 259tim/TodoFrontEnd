@@ -158,6 +158,7 @@ export const { save, addChoice, addRadio, addVarious, remove, toggleBool } = que
 // example: const foo = useSelector(selectQuestions); would get all the questions from the store and put them in 'foo'
 export const selectQuestions = (state: rootState) => state.questions.questions;
 export const selectStatus = (state: rootState) => state.questions.status;
+export const selectSet = (state: rootState) => state.questions;
 
 // here we export the whole thing as reducer, to add it to the rootreducer, found in rootreducer.ts
 // this rootreducer is then used to build the store, and it would also contain all other slices.

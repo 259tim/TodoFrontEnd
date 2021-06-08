@@ -1,20 +1,19 @@
 import api from "../../config/apiconfig";
 import Base64 from 'js-base64';
+import { questionsState } from "../../store/reducers/questionslice";
 
-const CreateSurveyData = (reference_key:string, user_id: number, survey_id: number): any => {
+const CreateSurveyData = (questions: string): any => {
     let headers = new Headers();
-
+    
     headers.append('Authorization', 'Basic ' + Base64.btoa("tim.seip@capgemini.com" + ":" + "adminpw"))
-    fetch(api + "/api/participation", {
+    fetch(api + "/api/question_post", {
         headers: headers,
         method: 'POST',
         body: JSON.stringify({
-            "reference_key":reference_key,
-            "user_id":"1",
-            "survey_id":"1"
+            "questions":questions
         })
     })
-    .then((response) => response.json())
+    .then((response) => response.json())    
     .then((responseJson) => {
          console.log(responseJson);        
         })

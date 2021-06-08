@@ -11,12 +11,6 @@ import { Ionicons } from '@expo/vector-icons';
 import { DetailNavigation, DetailRoute } from '../types/navtypes';
 // function imports
 import GetParticipations from './functions/getparticipations'
-import { useDispatch, useSelector } from 'react-redux';
-import {
-    selectStatus,
-    selectQuestions
-} from '../store/reducers/questionslice'
-
 
 
 type Props = {
@@ -30,11 +24,7 @@ const MainPage: React.FC<Props> = (props) => {
 
     // dispatch: Allows you to send actions to redux 
     // these depend on what you define in the slice
-    // selector: This is how you select the data from redux
-    const dispatch = useDispatch();
-    const questions = useSelector(selectQuestions);
-    const questionStatus = useSelector(selectStatus);
-    
+    // selector: This is how you select the data from redux    
         
     // these are the relevant hooks, this manages setting text and errors
 

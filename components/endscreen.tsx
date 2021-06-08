@@ -1,15 +1,14 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { View, Text, SafeAreaView, ImageBackground  } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { ParticipationCreateNavigation, ParticipationCreateRoute } from '../types/navtypes';
 import styles from './styles'
-import { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import CreateParticipations from './functions/createparticipation'
-import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import {
-    fetchQuestions
+questionsState, selectSet
 } from '../store/reducers/questionslice'
+import CreateSurveyData from './functions/createsurveydata';
 
 type Props = {
   route: ParticipationCreateRoute;
@@ -19,31 +18,18 @@ type Props = {
 
 const EndScreen: React.FC<Props> = (props) => {
 
-    const [reference_key, set_reference_key] = useState<string>("");
-
     // dispatch: Allows you to send actions to redux 
     // these depend on what you define in the slice
 
     // selector: This is how you select the data from redux
-    const dispatch = useDispatch();
+    const questions = useSelector(selectSet);
 
+    const sendFinalResult = (questions: questionsState): any => {
+        console.log("posting final question results")
+        const json_questions = JSON.stringify(questions)
+        CreateSurveyData(json_questions)
+    }
 
-    const checkTextInput = () => {
-        //Check for the Name TextInput
-        if (!reference_key.trim()) {
-          alert('Please enter reference key');
-          return;
-        }
-        //Checked Successfully
-        //Do whatever you want
-        CreateParticipations(reference_key, 1, 1);
-        props.navigation.navigate('Question');
-      };
-
-    useEffect(() => {
-        console.log('dispatching fetch')
-        dispatch(fetchQuestions())
-    }, []);
 
     const introtext = `
 
@@ -71,7 +57,7 @@ If you want to finish the quickscan please tap the button below.
                     </View>
                     <View style={styles.container}>
                         <TouchableOpacity onPress={() => {
-                            checkTextInput()
+                            sendFinalResult(questions)
                             
                                 }
                             }   
