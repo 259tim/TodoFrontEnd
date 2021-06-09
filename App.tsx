@@ -4,7 +4,8 @@ import 'react-native-gesture-handler';
 import { useFonts, Ubuntu_500Medium, Ubuntu_700Bold } from '@expo-google-fonts/ubuntu';
 import { setCustomText, setCustomTextInput } from 'react-native-global-props';
 import AppLoading from 'expo-app-loading';
-
+// react native paper style components imports
+import { Provider as PaperProvider } from 'react-native-paper';
 //react-navigation imports
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -15,10 +16,11 @@ import { PersistGate } from 'redux-persist/integration/react'
 import { persistStore } from "redux-persist"
 // my own component imports
 import MainPage from './components/mainpage';
-import DetailPage from './components/detailpage';
 import Login from './components/login';
 import Signup from './components/signup';
-import Pwreset from './components/resetpw';
+import EndScreen from './components/endscreen';
+import ParticipationCreate from './components/createsurvey';
+import OpenQuestion from './components/questionpages/question';
 //type imports
 import { RootStackParameters } from './types/navtypes'
 
@@ -58,6 +60,7 @@ export default function App() {
   return (
     <Provider store={mystore}>
       <PersistGate loading={null} persistor={persistor}>
+        <PaperProvider>
         <NavigationContainer>
           <Stack.Navigator>
                         
@@ -91,7 +94,7 @@ export default function App() {
                 }}
             />
 
-            <Stack.Screen
+            {/* <Stack.Screen
               name="Pwreset"
               component={Pwreset}
               options={{
@@ -104,13 +107,13 @@ export default function App() {
                 },
                 headerTintColor: '#FFFFFF' 
                 }}
-            />
+            /> */}
 
             <Stack.Screen
               name="Home"
               component={MainPage}
               options={{
-                title: 'Home',
+                title: 'Quick Scan',
                 headerLeft: () => null,
                 headerStyle: {
                   backgroundColor: '#0070AD'
@@ -122,13 +125,48 @@ export default function App() {
                 }}
             />
 
-            <Stack.Screen
-            name="Details" 
-            component={DetailPage} 
+          <Stack.Screen
+            name="Participationcreate" 
+            component={ParticipationCreate} 
             options={{
-              title: 'Details',
+              title: 'New survey',
+              headerLeft: ()=> null,
               headerStyle: {
-                backgroundColor: '##0070AD'
+                backgroundColor: '#0070AD'
+              },
+              headerTitleStyle: {
+              fontFamily: 'Ubuntu_500Medium'
+              },
+              headerTintColor: '#FFFFFF' 
+            }} 
+            />
+
+          <Stack.Screen
+            name="Question" 
+            component={OpenQuestion} 
+            options={{
+              title: 'question',
+              gestureEnabled: false,
+              headerLeft: ()=> null,
+              headerStyle: {
+                backgroundColor: '#0070AD'
+              },
+              headerTitleStyle: {
+              fontFamily: 'Ubuntu_500Medium'
+              },
+              headerTintColor: '#FFFFFF' 
+            }} 
+            />
+
+          <Stack.Screen
+            name="Endscreen" 
+            component={EndScreen} 
+            options={{
+              title: 'Survey finished',
+              gestureEnabled: false,
+              headerLeft: ()=> null,
+              headerStyle: {
+                backgroundColor: '#0070AD'
               },
               headerTitleStyle: {
               fontFamily: 'Ubuntu_500Medium'
@@ -139,6 +177,7 @@ export default function App() {
 
           </Stack.Navigator>
         </NavigationContainer>
+        </PaperProvider>
       </PersistGate>
     </Provider>
   );

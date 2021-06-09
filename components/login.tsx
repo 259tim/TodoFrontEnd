@@ -3,8 +3,10 @@ import { SafeAreaView, View, Text, TextInput, TouchableOpacity, Image, ImageBack
 import { LoginRoute, LoginNavigation } from '../types/navtypes';
 import styles from './styles'
 import { useState } from 'react';
-import Firebase from '../config/firebaseconf';
 import { StatusBar } from 'expo-status-bar';
+import api from "../config/apiconfig";
+import Base64 from 'js-base64';
+
 
 // the login screen has email, pw, and the react navigation entities
 type Props = {
@@ -18,15 +20,42 @@ const login: React.FC<Props> = (props) => {
     const [email, set_email] = useState<string>("");
     const [password, set_password] = useState<string>("");
     const [error, showError] = useState<Boolean>(false);
+    
+    // this function handles logging in
+   
 
-    const handleLogin = (email: string, password: string): void => {
-        Firebase.auth()
-        .signInWithEmailAndPassword(email, password)
-        .then(() => props.navigation.navigate('Home'))
-        .catch(error => error && console.log(error) && showError(true))
+    const handleLogin = (email: string, password: string): any => {
+        
+        let headers = new Headers();
+        headers.append('Authorization', 'Basic ' + Base64.btoa(email + ":" + password))
+
+        fetch(api + "/api/token", {
+            headers: headers,
+        })
+        .then((response) => response.json())
+        .then((responseJson) => {
+            console.log(responseJson);
+
+            if (responseJson.token)
+            {   
+                showError(false)
+                console.log(responseJson.token);
+                props.navigation.navigate('Home');
+            } 
+            else 
+            {
+                console.log("cannot log in")
+                showError(true)
+            }
+
+             //props.navigation.navigate('Home');
+        })
+        .catch(error => {
+            console.error(error);
+        });
     }
 
-
+    
     const logo = require('../assets/cap_logo.png');
     const shape = require('../assets/fixed_shape_1_blue.png');
 
@@ -61,16 +90,19 @@ const login: React.FC<Props> = (props) => {
                             <Text style={[styles.DefaultButtonText, { width: 200}]}>Login</Text>
                         </TouchableOpacity>
                         
-                        {error && (<TouchableOpacity onPress={() =>
-                                props.navigation.navigate('Pwreset')} 
-                                style={[styles.SecondaryButtonStyle, {paddingBottom:0}]}>
-                            <Text style={[styles.SecondaryButtonText, {color: 'red'}]}>Error: Reset password?</Text>
-                        </TouchableOpacity>)}
-                        
+                        <View style={{height:40}}>
+                            {error && (<TouchableOpacity onPress={() =>{
+                                    showError(false);
+                                    props.navigation.navigate('Pwreset');
+                                    }} 
+                                    style={[styles.SecondaryButtonStyle, {paddingBottom:0}]}>
+                                <Text style={[styles.SecondaryButtonText, {color: 'red'}]}>Error: Reset password?</Text>
+                            </TouchableOpacity>)}
+                        </View>
                         <TouchableOpacity onPress={() =>
                                 props.navigation.navigate('Signup')} 
                                 style={[styles.SecondaryButtonStyle, {paddingBottom:0}]}>
-                            <Text style={styles.SecondaryButtonText}>Don't have an account yet? Sign up.</Text>
+                            <Text style={[styles.SecondaryButtonText,{fontSize:16}]}>Don't have an account yet? Sign up.</Text>
                         </TouchableOpacity>
                     </View>
                 

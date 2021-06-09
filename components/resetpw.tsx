@@ -4,7 +4,6 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { PwresetNavigation, PwresetRoute } from '../types/navtypes';
 import styles from './styles'
 import { useState } from 'react';
-import Firebase from '../config/firebaseconf'
 import { StatusBar } from 'expo-status-bar';
 
 type Props = {
@@ -18,12 +17,18 @@ const pwreset: React.FC<Props> = (props) => {
     const [message, showMessage] = useState<Boolean>(false);
     const [email, set_email] = useState<string>("");
 
-    const PasswordReset = (email: string): void => {
-        console.log("here")
-        Firebase.auth().sendPasswordResetEmail(email)
-        .then(() => showMessage(true))
-        .catch(error => error && console.log(error + "here") && showError(true) && showMessage(false) )
-    }
+    // const PasswordReset = (email: string): void => {
+    //     Firebase.auth().sendPasswordResetEmail(email)
+    //     .then(() => {
+    //         showMessage(true)
+    //         showError(false)
+    //     })
+    //     .catch((error) => {
+    //         console.log(error);
+    //         showError(true);
+    //         showMessage(false);
+    //     })
+    // }
 
     const logo = require('../assets/cap_logo.png');
     const shape = require('../assets/fixed_shape_1_blue.png');
@@ -47,17 +52,18 @@ const pwreset: React.FC<Props> = (props) => {
                     </View>
                    
                     <View style={styles.container}>
-                        <TouchableOpacity onPress={() => PasswordReset(email)} style={[styles.DefaultButtonStyle, {width: '90%'}]}>
+                        {/* <TouchableOpacity onPress={() => PasswordReset(email)} style={[styles.DefaultButtonStyle, {width: '90%'}]}>
                             <Text style={[styles.DefaultButtonText, { width: 200}]}>Submit</Text>
-                        </TouchableOpacity>
+                        </TouchableOpacity> */}
                         <TouchableOpacity onPress={() =>
                                 props.navigation.navigate('Login')} 
                                 style={[styles.SecondaryButtonStyle, {paddingBottom:0}]}>
                             <Text style={styles.SecondaryButtonText}>Cancel</Text>
                         </TouchableOpacity>
-                        {error && (<Text style={[styles.SecondaryButtonText, {color: 'red'}]}>Error: Wrong email</Text>)}
-                        {message && (<Text style={[styles.title]}>Email has been sent</Text>)}
-
+                        <View style={{height:40, paddingTop:20}}>
+                            {error && (<Text style={[styles.defaultText, {color: 'red', fontSize:20}]}>Error: Wrong email</Text>)}
+                            {message && (<Text style={[styles.defaultText, {fontSize:20}]}>Email has been sent</Text>)}
+                        </View>
                     </View>
                 
                     

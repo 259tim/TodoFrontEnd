@@ -7,9 +7,9 @@ import { useFonts, Ubuntu_500Medium, Ubuntu_700Bold } from '@expo-google-fonts/u
 const styles = StyleSheet.create(
   {
     ScrollContainer: {
-      height:'85%',
+      height:'90%',
       width: "100%",
-      alignSelf: 'center'
+      justifyContent:'flex-start'
     },
     container: {
       width:'100%',
@@ -24,6 +24,17 @@ const styles = StyleSheet.create(
       borderColor: "#2B0A3D",
       borderBottomWidth: 2,
       paddingLeft: 8
+    },
+    inputBoxLarge: {
+      textDecorationColor:"#2B0A3D",
+      width: '80%',
+      textAlignVertical:'top',
+      height: 120,
+      borderColor: "#2B0A3D",
+      borderWidth: 2,
+      paddingLeft: 8,
+      paddingTop:8,
+      bottom:0
     },
     title: {
       fontSize: 30,
@@ -44,13 +55,47 @@ const styles = StyleSheet.create(
     },
     listItem: {
       flexDirection: "row",
-      justifyContent: "space-around",
-      alignItems: "center",
-      width: "100%",
-      marginBottom: 10,
-      paddingLeft: 20,
-      paddingRight: 20
+      alignItems: "center"
     },
+    bottomContainer: {
+      flexDirection: "row",
+      backgroundColor:'#0070AD',
+      justifyContent:'space-between',
+      height:"10%",
+      width:"100%",
+      bottom:0,
+      position:"absolute"
+    },
+    BottomButtonViewStyle: {
+      width:"25%"
+    },
+    BottomButtonStyle: {
+      width:"100%",
+      backgroundColor:'#0070AD',
+      borderRadius:0,
+      padding:10
+    },
+    bottomIconStyle: {
+      alignItems: "center",
+      paddingBottom:5
+    },
+    BottomButtonText: {
+      alignSelf: 'center',
+      fontSize: 14,
+      textAlign: 'center',
+      color: '#FFFFFF'
+    },
+    FloatingButtonStyle: {
+      alignSelf:'center',
+      width: 140,
+      padding:15,
+      height:60,
+      backgroundColor:'#2B0A3D',
+      borderRadius:30,
+      bottom:90,
+      right:20,
+      position:"absolute"
+   },
     DefaultButtonStyle: {
       alignSelf: 'center',
       minWidth: 140,
@@ -59,7 +104,7 @@ const styles = StyleSheet.create(
       paddingRight:10,
       paddingBottom:10,
       backgroundColor:'#0070AD',
-      borderRadius:20,
+      borderRadius:20
     },
     DefaultButtonText: {
       alignSelf: 'center',
@@ -69,20 +114,26 @@ const styles = StyleSheet.create(
     },
     SecondaryButtonStyle: {
       alignSelf: 'center',
-      minWidth: 120,
+      width: 230,
       padding: 20
     },
     SecondaryButtonText: {
       alignSelf: 'center',
-      fontSize: 16,
+      fontSize: 18,
       textAlign: 'center',
       color: '#0070AD'
     },
-    task: {
-      width: 200
-    },
     error: {
       color: "red"
+    },
+    InvisibleButtonStyle: {
+      width: "100%",
+      height: 80,
+      paddingTop:10,
+      paddingBottom:10,
+      paddingRight:20,
+      paddingLeft:20,
+      flexDirection: "row"
     }
   });
 
