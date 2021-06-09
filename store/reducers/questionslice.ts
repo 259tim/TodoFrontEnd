@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { rootState } from '../../store'
 import api from "../../config/apiconfig";
+import { PURGE } from 'redux-persist';
 import Base64 from 'js-base64';
 const dotProp = require('dot-prop-immutable');
 
@@ -86,6 +87,10 @@ export const questionSlice = createSlice({
             state.questions.push(action.payload)
             console.log(state.questions)
         },
+        RESETstate: (state, action) => {
+            console.log('resetting store')
+            return state = initialState;
+        },
         addChoice: (state, action) => {
             //console.log("checking")
             
@@ -108,10 +113,6 @@ export const questionSlice = createSlice({
             const currentBool = dotProp.get(state, `questions.${action.payload.questionIndex}.bool_choice`)
             return state = dotProp.set(state, `questions.${action.payload.questionIndex}.bool_choice`, !currentBool)
 
-        },
-        remove: (state, action) => {
-            console.log('removing')
-            state.questions.splice(0, 10000)
         }
     },
     // the extrareducers allow you to modify secondary values, in this case we use it to
@@ -152,7 +153,7 @@ export const questionSlice = createSlice({
 
 // here we export the defined actions, these can then be called to run them
 
-export const { save, addChoice, addRadio, addVarious, remove, toggleBool } = questionSlice.actions;
+export const { save, addChoice, addRadio, addVarious, remove, toggleBool, RESETstate } = questionSlice.actions;
 
 //these are the selectors, they do what it says: Select things from the store.
 // example: const foo = useSelector(selectQuestions); would get all the questions from the store and put them in 'foo'

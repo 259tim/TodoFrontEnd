@@ -23,10 +23,13 @@ const EndScreen: React.FC<Props> = (props) => {
 
     // selector: This is how you select the data from redux
     const questions = useSelector(selectSet);
+    console.log("the questions:")
+    console.log(questions)
 
     const sendFinalResult = (questions: questionsState): any => {
         console.log("posting final question results")
         const json_questions = JSON.stringify(questions)
+        console.log(json_questions)
         CreateSurveyData(json_questions)
     }
 

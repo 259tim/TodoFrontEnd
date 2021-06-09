@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { View, Text, TextInput, SafeAreaView, ImageBackground  } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { ParticipationCreateNavigation, ParticipationCreateRoute } from '../types/navtypes';
@@ -8,7 +8,7 @@ import { StatusBar } from 'expo-status-bar';
 import CreateParticipations from './functions/createparticipation'
 import { useDispatch } from 'react-redux';
 import {
-    fetchQuestions
+    fetchQuestions, RESETstate
 } from '../store/reducers/questionslice'
 
 type Props = {

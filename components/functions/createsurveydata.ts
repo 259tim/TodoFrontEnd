@@ -10,7 +10,7 @@ const CreateSurveyData = (questions: string): any => {
         headers: headers,
         method: 'POST',
         body: JSON.stringify({
-            "questions":questions
+            questions
         })
     })
     .then((response) => response.json())    
