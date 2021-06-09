@@ -60,8 +60,10 @@ If you want to finish the quickscan please tap the button below.
                     </View>
                     <View style={styles.container}>
                         <TouchableOpacity onPress={() => {
-                            sendFinalResult(questions)
-                            
+                                    (
+                                        sendFinalResult(questions),
+                                        props.navigation.navigate('Home')
+                                    )
                                 }
                             }   
                              
