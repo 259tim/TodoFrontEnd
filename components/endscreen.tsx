@@ -38,23 +38,23 @@ const EndScreen: React.FC<Props> = (props) => {
 
 You have reached the end of the quick scan survey.
 Thank you for filling in this survey for us.
-You can still go back and adjust your answers if you wish. 
-
 If you want to finish the quickscan please tap the button below.
+
+You can still go back and adjust your answers if you wish. 
     `
 
-    const shape1 = require('../assets/greenblue1.png');
-    const shape2 = require('../assets/zestshape.png');
+    const shape1 = require('../assets/pinkblue.png');
+    const shape2 = require('../assets/purpleblue.png');
 
     return (
         <View>
-            <ImageBackground source={shape1} style={{width:"100%", height:'60%', top:550, position:'absolute'}} resizeMode='contain'/>
-            <ImageBackground source={shape2} style={{width:"100%", height:'100%', top:-290, position:'absolute'}} resizeMode='contain'/>
+            <ImageBackground source={shape1} style={{width:"100%", height:'100%', top:350, position:'absolute'}} resizeMode='contain'/>
+            <ImageBackground source={shape2} style={{width:"100%", height:'80%', top:-100, position:'absolute'}} resizeMode='contain'/>
             <SafeAreaView style={styles.container}>
                     <StatusBar style="light" />
-                    <Text style={[styles.title,{color:'#2B0A3D'}]}>Thank you!</Text>
+                    <Text style={[styles.title,{color:'#2B0A3D', paddingTop:20}]}>Thank you!</Text>
                     <View style={[styles.container, {paddingBottom:10, paddingTop:0}]}>
-                        <Text style={[styles.defaultText,{fontSize:15}]}>{introtext}</Text>
+                        <Text style={[styles.defaultText,{fontSize:15, paddingTop:150}]}>{introtext}</Text>
                     </View>
                     <View style={[styles.container, {paddingBottom:15}]}>
                     </View>
