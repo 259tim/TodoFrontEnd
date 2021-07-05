@@ -67,7 +67,7 @@ Your progress will be saved
 
     return (
         <View>
-            <ImageBackground source={shape1} style={{width:"100%", height:'60%', top:550, position:'absolute'}} resizeMode='contain'/>
+            <ImageBackground source={shape1} style={{width:"100%", height:'70%', top:550, position:'absolute'}} resizeMode='contain'/>
             <ImageBackground source={shape2} style={{width:"100%", height:'100%', top:-290, position:'absolute'}} resizeMode='contain'/>
             <SafeAreaView style={styles.container}>
                     <StatusBar style="light" />
